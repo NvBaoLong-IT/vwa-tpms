@@ -1,0 +1,5 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="csrf-token" content="{{ csrf_token() }}"><title>{{ config('app.name', 'VWA-TPMS') }}</title><link rel="preconnect" href="https://fonts.bunny.net"><link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />@vite(['resources/css/app.css', 'resources/js/app.js'])</head>
+    <body class="auth-page font-sans antialiased"><main class="auth-shell"><div class="auth-layout"><aside class="auth-visual"><img src="{{ asset('images/official/campus-a1.png') }}" alt="Cơ sở Học viện Phụ nữ Việt Nam" class="auth-visual-image"><div class="auth-visual-overlay"></div><div class="auth-visual-content"><img src="{{ asset('images/hvpnvn-logo.png') }}" alt="Học viện Phụ nữ Việt Nam" class="auth-visual-logo"><p>VWA-TPMS</p><span>Cổng quản trị đào tạo</span></div></aside><section class="auth-card">{{ $slot }}</section></div><p class="auth-footer">VWA-TPMS · Cổng quản trị đào tạo</p></main></body>
+</html>

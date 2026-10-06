@@ -1,0 +1,111 @@
+
+  GET|HEAD  / ...................................................................................... routes/web.php:23
+  GET|HEAD  academic ................................................ academic.index › AcademicWarningController@index
+  GET|HEAD  academic/export.doc .......................... academic.export.word › AcademicWarningController@exportWord
+  GET|HEAD  academic/export.pdf ............................ academic.export.pdf › AcademicWarningController@exportPdf
+  GET|HEAD  academic/export.xlsx ....................... academic.export.excel › AcademicWarningController@exportExcel
+  GET|HEAD  academic/import .............................. academic.import.form › AcademicWarningController@importForm
+  POST      academic/import ....................................... academic.import › AcademicWarningController@import
+  GET|HEAD  academic/imports/{import} ................ academic.import.report › AcademicWarningController@importReport
+  GET|HEAD  academic/imports/{import}/errors.csv academic.import.errors › AcademicWarningController@downloadImportErr…
+  GET|HEAD  academic/notifications ..................... academic.notifications › AcademicNotificationController@index
+  POST      academic/notifications/read-all . academic.notifications.read-all › AcademicNotificationController@readAll
+  POST      academic/notifications/{notification}/read academic.notifications.read › AcademicNotificationController@r…
+  POST      academic/scan ............................................. academic.scan › AcademicWarningController@scan
+  GET|HEAD  academic/settings ................................. academic.settings › AcademicWarningController@settings
+  PUT       academic/settings .................... academic.settings.update › AcademicWarningController@updateSettings
+  GET|HEAD  academic/students ................................. academic.students › AcademicWarningController@students
+  GET|HEAD  academic/students/{student} ......................... academic.student › AcademicWarningController@student
+  PUT       academic/students/{student}/assignment academic.assignment.update › AcademicWarningController@updateAssig…
+  GET|HEAD  academic/students/{student}/edit ........... academic.student.edit › AcademicWarningController@editStudent
+  PUT       academic/students/{student}/milestones academic.milestones.update › AcademicWarningController@updateMiles…
+  PUT       academic/students/{student}/progress . academic.progress.update › AcademicWarningController@updateProgress
+  PATCH     academic/warnings/{warning} .................. academic.warnings.update › AcademicWarningController@update
+  GET|HEAD  confirm-password .............................. password.confirm › Auth\ConfirmablePasswordController@show
+  POST      confirm-password ................................................ Auth\ConfirmablePasswordController@store
+  GET|HEAD  courses ........................................................... courses.index › CourseController@index
+  POST      courses ........................................................... courses.store › CourseController@store
+  GET|HEAD  courses/create .................................................. courses.create › CourseController@create
+  GET|HEAD  courses/{course} .................................................... courses.show › CourseController@show
+  PUT       courses/{course} ................................................ courses.update › CourseController@update
+  DELETE    courses/{course} .............................................. courses.destroy › CourseController@destroy
+  GET|HEAD  courses/{course}/edit ............................................... courses.edit › CourseController@edit
+  POST      courses/{course}/materials ...................... courses.materials.store › CourseMaterialController@store
+  PUT       courses/{course}/materials/{material} ......... courses.materials.update › CourseMaterialController@update
+  DELETE    courses/{course}/materials/{material} ....... courses.materials.destroy › CourseMaterialController@destroy
+  GET|HEAD  dashboard ................................................................ dashboard › DashboardController
+  POST      diploma-requests/{diplomaRequest}/approve .......... diplomas.requests.approve › DiplomaController@approve
+  POST      diploma-requests/{diplomaRequest}/reject ............. diplomas.requests.reject › DiplomaController@reject
+  GET|HEAD  diplomas ........................................................ diplomas.index › DiplomaController@index
+  POST      diplomas ........................................................ diplomas.store › DiplomaController@store
+  GET|HEAD  diplomas-audit .................................................. diplomas.audit › DiplomaController@audit
+  GET|HEAD  diplomas-audit/blanks/{audit}/minutes ... diplomas.blanks.minutes › DiplomaController@downloadBlankMinutes
+  GET|HEAD  diplomas-import ...................................... diplomas.import.form › DiplomaController@importForm
+  POST      diplomas-import ............................................... diplomas.import › DiplomaController@import
+  POST      diplomas/blanks ..................................... diplomas.blanks.store › DiplomaController@storeBlank
+  PATCH     diplomas/blanks/{blank} ........................... diplomas.blanks.update › DiplomaController@updateBlank
+  PUT       diplomas/{ledger} ............................................. diplomas.update › DiplomaController@update
+  POST      diplomas/{ledger}/cancel ...................................... diplomas.cancel › DiplomaController@cancel
+  GET|HEAD  diplomas/{ledger}/{type} .................................. diplomas.document › DiplomaController@document
+  GET|HEAD  first-password ........................................ password.first.edit › FirstPasswordController@edit
+  PUT       first-password .................................... password.first.update › FirstPasswordController@update
+  GET|HEAD  forgot-password ............................... password.request › Auth\PasswordResetLinkController@create
+  POST      forgot-password .................................. password.email › Auth\PasswordResetLinkController@store
+  GET|HEAD  iso .............................................................. iso.index › IsoWorkflowController@index
+  POST      iso .............................................................. iso.store › IsoWorkflowController@store
+  GET|HEAD  iso/create ..................................................... iso.create › IsoWorkflowController@create
+  GET|HEAD  iso/kanban ..................................................... iso.kanban › IsoWorkflowController@kanban
+  GET|HEAD  iso/{iso} .......................................................... iso.show › IsoWorkflowController@show
+  POST      iso/{iso}/approve ............................................ iso.approve › IsoWorkflowController@approve
+  POST      iso/{iso}/close .................................................. iso.close › IsoWorkflowController@close
+  POST      iso/{iso}/files .......................................... iso.files.upload › IsoWorkflowController@upload
+  GET|HEAD  iso/{iso}/files/{file} ............................... iso.files.download › IsoWorkflowController@download
+  PATCH     iso/{iso}/steps/{step} ............................... iso.steps.update › IsoWorkflowController@updateStep
+  PATCH     iso/{iso}/steps/{step}/assignment ........................ iso.steps.assign › IsoWorkflowController@assign
+  GET|HEAD  login ................................................. login › Auth\AuthenticatedSessionController@create
+  POST      login .......................................................... Auth\AuthenticatedSessionController@store
+  POST      logout .............................................. logout › Auth\AuthenticatedSessionController@destroy
+  GET|HEAD  modules/academic .................................................... modules.academic › routes/web.php:96
+  GET|HEAD  modules/curriculum ................................................ modules.curriculum › routes/web.php:43
+  GET|HEAD  modules/diploma ..................................................... modules.diploma › routes/web.php:127
+  PUT       password ................................................ password.update › Auth\PasswordController@update
+  GET|HEAD  profile ............................................................ profile.edit › ProfileController@edit
+  PATCH     profile ........................................................ profile.update › ProfileController@update
+  DELETE    profile ...................................................... profile.destroy › ProfileController@destroy
+  GET|HEAD  programs ........................................................ programs.index › ProgramController@index
+  POST      programs ........................................................ programs.store › ProgramController@store
+  GET|HEAD  programs/audit .......................................... programs.audit › CurriculumAuditController@index
+  GET|HEAD  programs/create ............................................... programs.create › ProgramController@create
+  GET|HEAD  programs/export.csv .................................... programs.export.csv › ProgramController@exportCsv
+  GET|HEAD  programs/import .................................... programs.import.form › ProgramImportController@create
+  POST      programs/import .......................................... programs.import › ProgramImportController@store
+  GET|HEAD  programs/import/template ..................... programs.import.template › ProgramImportController@template
+  GET|HEAD  programs/{program} ................................................ programs.show › ProgramController@show
+  PUT       programs/{program} ............................................ programs.update › ProgramController@update
+  DELETE    programs/{program} .......................................... programs.destroy › ProgramController@destroy
+  POST      programs/{program}/courses ...................... programs.courses.attach › ProgramController@attachCourse
+  PUT       programs/{program}/courses/{course} ............. programs.courses.update › ProgramController@updateCourse
+  DELETE    programs/{program}/courses/{course} ............. programs.courses.detach › ProgramController@detachCourse
+  GET|HEAD  programs/{program}/edit ........................................... programs.edit › ProgramController@edit
+  GET|HEAD  programs/{program}/matrix .................................... programs.matrix › PloMatrixController@index
+  PUT       programs/{program}/matrix ............................ programs.matrix.update › PloMatrixController@update
+  GET|HEAD  programs/{program}/plos .............................................. programs.plos › PloController@index
+  POST      programs/{program}/plos ........................................ programs.plos.store › PloController@store
+  PUT       programs/{program}/plos/{plo} ................................ programs.plos.update › PloController@update
+  DELETE    programs/{program}/plos/{plo} .............................. programs.plos.destroy › PloController@destroy
+  POST      programs/{program}/versions ..................... programs.versions.store › ProgramVersionController@store
+  GET|HEAD  programs/{program}/versions/{version} ............. programs.versions.show › ProgramVersionController@show
+  GET|HEAD  programs/{program}/versions/{version}/export.docx programs.versions.word › ProgramVersionController@expor…
+  POST      programs/{program}/versions/{version}/publish programs.versions.publish › ProgramVersionController@publish
+  GET|HEAD  reports ........................................................... reports.index › ReportController@index
+  GET|HEAD  reports/history/{history}/reload ................................ reports.reload › ReportController@reload
+  GET|HEAD  reports/{type}/{format} ......................................... reports.export › ReportController@export
+  POST      reset-password ......................................... password.store › Auth\NewPasswordController@store
+  GET|HEAD  reset-password/{token} ................................ password.reset › Auth\NewPasswordController@create
+  GET|HEAD  users ............................................................ users.index › UserAdminController@index
+  POST      users ............................................................ users.store › UserAdminController@store
+  GET|HEAD  users/login-logs ............................................. users.login-logs › LoginLogController@index
+  PUT       users/{user} ................................................... users.update › UserAdminController@update
+
+                                                                                                  Showing [107] routes
+
