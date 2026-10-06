@@ -42,4 +42,9 @@ class Program extends Model
     {
         return $this->hasMany(ProgramVersion::class);
     }
+
+    public function documentImports(): HasMany
+    {
+        return $this->hasMany(DocumentImport::class);
+    }
 }

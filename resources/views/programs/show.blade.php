@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="academic-heading">
             <div><p class="academic-eyebrow">Chi tiết chương trình · Bản đang soạn</p><h1>{{ $program->name_vi }}</h1><p>{{ $program->code }} @if($program->name_en) · <span lang="en">{{ $program->name_en }}</span>@endif</p></div>
-            <div class="academic-tools"><a class="academic-button academic-button-secondary" href="{{ route('programs.index') }}">Danh sách chương trình</a>@can('programs.update')<a class="academic-button academic-button-primary" href="{{ route('programs.edit', $program) }}">Chỉnh sửa thông tin</a>@endcan</div>
+            <div class="academic-tools"><a class="academic-button academic-button-secondary" href="{{ route('programs.index') }}">Danh sách chương trình</a>@can('programs.import')<a class="academic-button academic-button-secondary" href="{{ route('programs.document-imports.create', $program) }}">Nhập từ PDF/Word bằng AI</a>@endcan @can('programs.update')<a class="academic-button academic-button-primary" href="{{ route('programs.edit', $program) }}">Chỉnh sửa thông tin</a>@endcan</div>
         </div>
     </x-slot>
 
