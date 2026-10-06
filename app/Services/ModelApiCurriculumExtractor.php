@@ -9,57 +9,54 @@ use Illuminate\Support\Str;
 use RuntimeException;
 use ZipArchive;
 
-class GeminiCurriculumExtractor
+class ModelApiCurriculumExtractor
 {
     /**
      * @return array<string, mixed>
      */
     public function extract(UploadedFile $file): array
     {
-        $apiKey = config('services.gemini.api_key');
+        $apiKey = config('services.modelapi.api_key');
         if (! is_string($apiKey) || trim($apiKey) === '') {
-            throw new RuntimeException('Chưa cấu hình GEMINI_API_KEY.');
+            throw new RuntimeException('Chưa cấu hình MODELAPI_API_KEY.');
         }
 
         $mimeType = $file->getMimeType() ?: 'application/octet-stream';
-        $parts = [['text' => $this->prompt()]];
+        $content = [['type' => 'text', 'text' => $this->prompt()]];
         if ($mimeType === 'application/pdf') {
             $contents = file_get_contents($file->getRealPath());
             if ($contents === false) {
                 throw new RuntimeException('Không đọc được tệp PDF.');
             }
-            $parts[] = ['inline_data' => ['mime_type' => $mimeType, 'data' => base64_encode($contents)]];
+            $content[] = ['type' => 'file', 'file' => ['filename' => $file->getClientOriginalName(), 'file_data' => 'data:'.$mimeType.';base64,'.base64_encode($contents)]];
         } else {
             $text = $this->docxText($file->getRealPath());
             if ($text === '') {
                 throw new RuntimeException('Không trích xuất được nội dung Word.');
             }
-            $parts[] = ['text' => "NỘI DUNG TÀI LIỆU:\n\n".$text];
+            $content[] = ['type' => 'text', 'text' => "NỘI DUNG TÀI LIỆU:\n\n".$text];
         }
 
-        $url = rtrim((string) config('services.gemini.base_url'), '/').'/models/'.config('services.gemini.model').':generateContent';
+        $url = rtrim((string) config('services.modelapi.base_url'), '/').'/chat/completions';
         try {
             $response = Http::connectTimeout(10)
                 ->timeout(120)
-                ->withQueryParameters(['key' => $apiKey])
+                ->withToken($apiKey)
                 ->acceptJson()
-                ->post($url, ['contents' => [['parts' => $parts]], 'generationConfig' => ['responseMimeType' => 'application/json']]);
+                ->post($url, ['model' => config('services.modelapi.model'), 'messages' => [['role' => 'user', 'content' => $content]], 'response_format' => ['type' => 'json_object']]);
         } catch (RequestException $exception) {
-            throw new RuntimeException('Gemini không phản hồi: '.$exception->getMessage(), previous: $exception);
+            throw new RuntimeException('API trung gian không phản hồi: '.$exception->getMessage(), previous: $exception);
         }
 
         if (! $response->successful()) {
-            throw new RuntimeException('Gemini trả về lỗi HTTP '.$response->status().'.');
+            throw new RuntimeException('API trung gian trả về lỗi HTTP '.$response->status().'.');
         }
 
-        $text = collect($response->json('candidates.0.content.parts', []))
-            ->pluck('text')
-            ->filter()
-            ->implode("\n");
+        $text = (string) $response->json('choices.0.message.content', '');
         $text = trim(Str::of($text)->replaceStart('```json', '')->replaceEnd('```', '')->trim()->toString());
         $payload = json_decode($text, true);
         if (! is_array($payload) || ! isset($payload['program'])) {
-            throw new RuntimeException('Gemini không trả về đúng cấu trúc dữ liệu CTĐT.');
+            throw new RuntimeException('API trung gian không trả về đúng cấu trúc dữ liệu CTĐT.');
         }
 
         return $payload;

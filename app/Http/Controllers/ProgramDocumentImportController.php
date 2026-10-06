@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DocumentImport;
 use App\Models\Program;
 use App\Services\CurriculumDraftImporter;
-use App\Services\GeminiCurriculumExtractor;
+use App\Services\ModelApiCurriculumExtractor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -23,7 +23,7 @@ class ProgramDocumentImportController extends Controller
         ]);
     }
 
-    public function store(Request $request, Program $program, GeminiCurriculumExtractor $extractor): RedirectResponse
+    public function store(Request $request, Program $program, ModelApiCurriculumExtractor $extractor): RedirectResponse
     {
         $file = $request->validate([
             'file' => ['required', 'file', 'mimes:pdf,docx', 'max:20480'],
@@ -45,7 +45,7 @@ class ProgramDocumentImportController extends Controller
             return redirect()->route('programs.document-imports.show', [$program, $documentImport])->with('success', 'Đã trích xuất bản nháp. Hãy kiểm tra trước khi nhập.');
         } catch (Throwable $exception) {
             Log::error('AI curriculum extraction failed.', ['document_import_id' => $documentImport->id, 'exception' => $exception]);
-            $documentImport->update(['status' => 'failed', 'error_message' => 'Không thể trích xuất tài liệu. Kiểm tra cấu hình Gemini hoặc nội dung file.']);
+            $documentImport->update(['status' => 'failed', 'error_message' => 'Không thể trích xuất tài liệu. Kiểm tra cấu hình API trung gian hoặc nội dung file.']);
 
             return redirect()->route('programs.document-imports.create', $program)->withErrors(['file' => $documentImport->error_message]);
         }

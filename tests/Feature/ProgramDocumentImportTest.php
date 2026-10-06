@@ -26,16 +26,17 @@ class ProgramDocumentImportTest extends TestCase
             Permission::findOrCreate('programs.update', 'web'),
         ]);
         $program = Program::create(['code' => 'AI-01', 'name_vi' => 'Bản cũ', 'degree_level' => 'dai_hoc', 'total_credits' => 120]);
-        Config::set('services.gemini.api_key', 'test-key');
-        Http::fake(['*generativelanguage.googleapis.com/*' => Http::response([
-            'candidates' => [['content' => ['parts' => [['text' => json_encode([
-                'program' => ['code' => 'AI-01', 'name_vi' => 'Kinh tế số', 'degree_level' => 'dai_hoc', 'total_credits' => 121],
-                'knowledge_blocks' => ['Đại cương'],
-                'plos' => [['code' => 'PLO1', 'description_vi' => 'Vận dụng kiến thức']],
-                'courses' => [['course_code' => 'AI101', 'name_vi' => 'Nhập môn', 'credits' => 3, 'knowledge_block' => 'Đại cương', 'is_mandatory' => true, 'suggested_semester' => 1]],
-                'matrix' => [['course_code' => 'AI101', 'plo_code' => 'PLO1', 'contribution_level' => 2]],
-                'warnings' => [], 'source_notes' => [],
-            ], JSON_UNESCAPED_UNICODE)]]]]],
+        Config::set('services.modelapi.api_key', 'test-key');
+        $payload = [
+            'program' => ['code' => 'AI-01', 'name_vi' => 'Kinh tế số', 'degree_level' => 'dai_hoc', 'total_credits' => 121],
+            'knowledge_blocks' => ['Đại cương'],
+            'plos' => [['code' => 'PLO1', 'description_vi' => 'Vận dụng kiến thức']],
+            'courses' => [['course_code' => 'AI101', 'name_vi' => 'Nhập môn', 'credits' => 3, 'knowledge_block' => 'Đại cương', 'is_mandatory' => true, 'suggested_semester' => 1]],
+            'matrix' => [['course_code' => 'AI101', 'plo_code' => 'PLO1', 'contribution_level' => 2]],
+            'warnings' => [], 'source_notes' => [],
+        ];
+        Http::fake(['*modelapi.vn/*' => Http::response([
+            'choices' => [['message' => ['content' => json_encode($payload, JSON_UNESCAPED_UNICODE)]]],
         ])]);
 
         $response = $this->actingAs($user)->post(route('programs.document-imports.store', $program), [
@@ -52,10 +53,10 @@ class ProgramDocumentImportTest extends TestCase
         $this->assertDatabaseHas('courses', ['course_code' => 'AI101']);
         $this->assertDatabaseHas('plos', ['program_id' => $program->id, 'code' => 'PLO1']);
         $this->assertDatabaseHas('document_imports', ['id' => $import->id, 'status' => 'imported']);
-        Http::assertSent(fn (Request $request): bool => str_contains($request->url(), 'generateContent'));
+        Http::assertSent(fn (Request $request): bool => str_contains($request->url(), 'modelapi.vn/v1/chat/completions') && $request->hasHeader('Authorization'));
     }
 
-    public function test_missing_gemini_key_keeps_a_failed_import_without_writing_program_data(): void
+    public function test_missing_modelapi_key_keeps_a_failed_import_without_writing_program_data(): void
     {
         $user = User::factory()->create();
         $user->givePermissionTo([
@@ -63,7 +64,7 @@ class ProgramDocumentImportTest extends TestCase
             Permission::findOrCreate('programs.import', 'web'),
         ]);
         $program = Program::create(['code' => 'AI-02', 'name_vi' => 'Bản cũ', 'degree_level' => 'dai_hoc', 'total_credits' => 120]);
-        Config::set('services.gemini.api_key', null);
+        Config::set('services.modelapi.api_key', null);
 
         $this->actingAs($user)->post(route('programs.document-imports.store', $program), [
             'file' => UploadedFile::fake()->create('quyet-dinh.docx', 10, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'),
