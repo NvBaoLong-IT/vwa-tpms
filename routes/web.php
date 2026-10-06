@@ -46,6 +46,11 @@ Route::middleware(['auth', 'permission:programs.view'])->get('/modules/curriculu
 })->name('modules.curriculum');
 
 Route::middleware(['auth', 'permission:programs.view'])->group(function () {
+    Route::get('programs/document-imports/create', [ProgramDocumentImportController::class, 'createNew'])->middleware('permission:programs.import')->name('programs.document-imports.new');
+    Route::post('programs/document-imports', [ProgramDocumentImportController::class, 'storeNew'])->middleware('permission:programs.import')->name('programs.document-imports.new.store');
+    Route::get('programs/document-imports/{documentImport}/download', [ProgramDocumentImportController::class, 'downloadNew'])->middleware('permission:programs.view')->name('programs.document-imports.new.download');
+    Route::get('programs/document-imports/{documentImport}', [ProgramDocumentImportController::class, 'showNew'])->middleware('permission:programs.view')->name('programs.document-imports.new.show');
+    Route::post('programs/document-imports/{documentImport}/import', [ProgramDocumentImportController::class, 'importNew'])->middleware('permission:programs.create')->name('programs.document-imports.new.import');
     Route::get('programs', [ProgramController::class, 'index'])->middleware('permission:programs.view')->name('programs.index');
     Route::get('programs/export.csv', [ProgramController::class, 'exportCsv'])->name('programs.export.csv');
     Route::get('programs/audit', [CurriculumAuditController::class, 'index'])->middleware('permission:programs.view')->name('programs.audit');

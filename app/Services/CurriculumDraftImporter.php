@@ -17,8 +17,39 @@ class CurriculumDraftImporter
         $payload = $documentImport->payload ?? [];
         $this->validatePayload($payload);
         $program = $documentImport->program;
+        abort_unless($program !== null, 422, 'Bản nháp này chưa gắn với chương trình.');
 
-        return DB::transaction(function () use ($payload, $program, $documentImport, $userId): Program {
+        return $this->apply($payload, $program, $documentImport, $userId);
+    }
+
+    public function importNew(DocumentImport $documentImport, int $userId): Program
+    {
+        $payload = $documentImport->payload ?? [];
+        $this->validatePayload($payload);
+        $programData = collect($payload['program'])->only([
+            'code', 'name_vi', 'name_en', 'degree_level', 'delivery_mode', 'total_credits',
+            'elective_credits_required', 'decision_number', 'decision_date',
+        ])->all();
+        if (blank($programData['code'] ?? null) || blank($programData['name_vi'] ?? null) || blank($programData['degree_level'] ?? null) || blank($programData['total_credits'] ?? null)) {
+            throw ValidationException::withMessages(['payload' => 'Bản nháp thiếu mã, tên, trình độ hoặc tổng tín chỉ để tạo chương trình mới.']);
+        }
+        if (Program::where('code', $programData['code'])->exists()) {
+            throw ValidationException::withMessages(['payload' => 'Mã chương trình đã tồn tại. Hãy dùng luồng cập nhật chương trình hiện có.']);
+        }
+
+        return DB::transaction(function () use ($payload, $programData, $documentImport, $userId): Program {
+            $programData['review_cycle_years'] = 3;
+            $programData['is_active'] = true;
+            $programData['elective_credits_required'] ??= 0;
+            $program = Program::create($programData);
+
+            return $this->apply($payload, $program, $documentImport, $userId, true);
+        });
+    }
+
+    private function apply(array $payload, Program $program, DocumentImport $documentImport, int $userId, bool $newProgram = false): Program
+    {
+        return DB::transaction(function () use ($payload, $program, $documentImport, $userId, $newProgram): Program {
             $before = app(ProgramVersionService::class)->snapshot($program);
             $data = collect($payload['program'])->only([
                 'name_vi', 'name_en', 'degree_level', 'delivery_mode', 'total_credits',
@@ -64,7 +95,7 @@ class CurriculumDraftImporter
             }
 
             app(CurriculumAuditService::class)->record(
-                'program', $program->id, 'ai_document_imported', $before,
+                'program', $program->id, $newProgram ? 'ai_document_created' : 'ai_document_imported', $before,
                 app(ProgramVersionService::class)->snapshot($program->fresh()), $program->id,
                 ['document_import_id' => $documentImport->id, 'imported_by' => $userId],
             );

@@ -45,7 +45,7 @@
 
         <div class="academic-toolbar">
             <div class="academic-tools">
-                @can('programs.create')<a href="{{ route('programs.create') }}" class="academic-button academic-button-primary">Thêm chương trình</a>@endcan
+                @can('programs.create')<a href="{{ route('programs.create') }}" class="academic-button academic-button-primary">Thêm chương trình</a><a href="{{ route('programs.document-imports.new') }}" class="academic-button academic-button-secondary">Tạo mới từ PDF/Word bằng AI</a>@endcan
                 @can('programs.import')<a href="{{ route('programs.import.form') }}" class="academic-button academic-button-secondary">Nhập từ Excel</a><a href="{{ route('programs.import.template') }}" class="program-tool-link">Tải mẫu nhập Excel</a>@endcan
             </div>
             <a href="{{ route('programs.export.csv', $exportFilters) }}" class="academic-button academic-button-secondary">Xuất danh sách CSV</a>

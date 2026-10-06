@@ -73,4 +73,29 @@ class ProgramDocumentImportTest extends TestCase
         $this->assertDatabaseHas('document_imports', ['program_id' => $program->id, 'status' => 'failed']);
         $this->assertDatabaseHas('programs', ['id' => $program->id, 'name_vi' => 'Bản cũ']);
     }
+
+    public function test_user_can_create_a_new_program_from_a_reviewed_document(): void
+    {
+        $user = User::factory()->create();
+        $user->givePermissionTo([
+            Permission::findOrCreate('programs.view', 'web'),
+            Permission::findOrCreate('programs.import', 'web'),
+            Permission::findOrCreate('programs.create', 'web'),
+        ]);
+        Config::set('services.modelapi.api_key', 'test-key');
+        Http::fake(['*modelapi.vn/*' => Http::response(['choices' => [['message' => ['content' => json_encode([
+            'program' => ['code' => 'NEW-AI-01', 'name_vi' => 'Chương trình mới', 'degree_level' => 'dai_hoc', 'total_credits' => 120],
+            'knowledge_blocks' => [], 'plos' => [], 'courses' => [], 'matrix' => [], 'warnings' => [], 'source_notes' => [],
+        ], JSON_UNESCAPED_UNICODE)]]]])]);
+
+        $response = $this->actingAs($user)->post(route('programs.document-imports.new.store'), [
+            'file' => UploadedFile::fake()->create('new-program.pdf', 10, 'application/pdf'),
+        ]);
+        $import = DocumentImport::firstOrFail();
+        $response->assertRedirect(route('programs.document-imports.new.show', $import));
+        $this->actingAs($user)->post(route('programs.document-imports.new.import', $import), ['confirm' => '1'])->assertRedirect();
+
+        $this->assertDatabaseHas('programs', ['code' => 'NEW-AI-01', 'name_vi' => 'Chương trình mới']);
+        $this->assertDatabaseHas('document_imports', ['id' => $import->id, 'status' => 'imported']);
+    }
 }
