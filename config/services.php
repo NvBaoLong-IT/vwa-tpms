@@ -37,8 +37,10 @@ return [
 
     'modelapi' => [
         'api_key' => env('MODELAPI_API_KEY'),
-        'model' => env('MODELAPI_MODEL', 'gpt-4o-mini'),
+        'model' => env('MODELAPI_MODEL', 'gpt-6-luna'),
         'base_url' => env('MODELAPI_BASE_URL', 'https://modelapi.vn/v1'),
+        'timeout' => env('MODELAPI_TIMEOUT', 180),
+        'pdf_python' => env('MODELAPI_PDF_PYTHON'),
     ],
 
 ];
