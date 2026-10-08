@@ -24,6 +24,7 @@ class ProgramDocumentImportTest extends TestCase
     {
         parent::setUp();
         Config::set('services.modelapi.pdf_python', null);
+        Config::set('services.modelapi.pdf_batch_pages', 1);
     }
 
     public function test_user_can_extract_review_and_confirm_a_curriculum_document(): void
@@ -234,5 +235,69 @@ class ProgramDocumentImportTest extends TestCase
             ->assertSee('Nhận xét AI theo từng trang')
             ->assertSee('Học phần chưa xác định số tín chỉ: 1 mã.');
         Http::assertNothingSent();
+    }
+
+    public function test_seven_uncached_scan_pages_need_only_two_api_requests(): void
+    {
+        Config::set('services.modelapi.api_key', 'test-key');
+        Config::set('services.modelapi.pdf_batch_pages', 6);
+        $pages = [];
+        for ($number = 1; $number <= 7; $number++) {
+            $pages[] = ['number' => $number, 'data' => base64_encode('batch-test-'.$number)];
+        }
+        $this->mock(ScannedPdfPreparer::class, function ($mock) use ($pages): void {
+            $mock->shouldReceive('pages')->once()->andReturn($pages);
+        });
+        Http::fake(['*' => Http::response(['choices' => [['message' => ['content' => json_encode(['program' => ['name_vi' => 'Thử nhóm trang'], 'courses' => []])]]]])]);
+        $payload = app(ModelApiCurriculumExtractor::class)->extract(UploadedFile::fake()->create('grouped.pdf', 10, 'application/pdf'));
+        $this->assertSame('Thử nhóm trang', $payload['program']['name_vi']);
+        Http::assertSentCount(2);
+        Http::assertSent(function (Request $request): bool {
+            $images = array_filter($request['messages'][0]['content'], fn ($part) => $part['type'] === 'image_url');
+
+            return count($images) === 6;
+        });
+        $this->assertStringContainsString('7 trang scan', end($payload['source_notes']));
+    }
+
+    public function test_only_a_timed_out_group_is_split_and_successful_pages_are_reused(): void
+    {
+        Config::set('services.modelapi.api_key', 'test-key');
+        Config::set('services.modelapi.pdf_batch_pages', 3);
+        $pages = [
+            ['number' => 1, 'data' => 'cmVjb3ZlcjE='],
+            ['number' => 2, 'data' => 'cmVjb3ZlcjI='],
+            ['number' => 3, 'data' => 'cmVjb3ZlcjM='],
+        ];
+        $this->mock(ScannedPdfPreparer::class, function ($mock) use ($pages): void {
+            $mock->shouldReceive('pages')->twice()->andReturn($pages);
+        });
+        $body = ['choices' => [['message' => ['content' => json_encode(['program' => ['code' => 'RECOVER'], 'courses' => []])]]]];
+        Http::fakeSequence()->push('timeout', 524)->push($body)->push($body)->push($body);
+        $file = UploadedFile::fake()->create('recover.pdf', 10, 'application/pdf');
+        $payload = app(ModelApiCurriculumExtractor::class)->extract($file);
+        $this->assertSame('RECOVER', $payload['program']['code']);
+        Http::assertSentCount(4);
+        $again = app(ModelApiCurriculumExtractor::class)->extract($file);
+        $this->assertSame('RECOVER', $again['program']['code']);
+        Http::assertSentCount(4);
+    }
+
+    public function test_a_group_with_a_broken_stream_falls_back_to_individual_pages(): void
+    {
+        Config::set('services.modelapi.api_key', 'test-key');
+        Config::set('services.modelapi.pdf_batch_pages', 2);
+        $this->mock(ScannedPdfPreparer::class, function ($mock): void {
+            $mock->shouldReceive('pages')->once()->andReturn([
+                ['number' => 1, 'data' => 'c3NlcmVjb3ZlcjE='],
+                ['number' => 2, 'data' => 'c3NlcmVjb3ZlcjI='],
+            ]);
+        });
+        $body = ['choices' => [['message' => ['content' => json_encode(['program' => ['code' => 'STREAM-RECOVER'], 'courses' => []])]]]];
+        Http::fakeSequence()->push("data: {\"error\":{\"message\":\"upstream failed\"}}\n\n", 200)
+            ->push($body)->push($body);
+        $payload = app(ModelApiCurriculumExtractor::class)->extract(UploadedFile::fake()->create('broken-group.pdf', 10, 'application/pdf'));
+        $this->assertSame('STREAM-RECOVER', $payload['program']['code']);
+        Http::assertSentCount(3);
     }
 }

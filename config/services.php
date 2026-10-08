@@ -41,6 +41,7 @@ return [
         'base_url' => env('MODELAPI_BASE_URL', 'https://modelapi.vn/v1'),
         'timeout' => env('MODELAPI_TIMEOUT', 180),
         'pdf_python' => env('MODELAPI_PDF_PYTHON'),
+        'pdf_batch_pages' => env('MODELAPI_PDF_BATCH_PAGES', 1),
     ],
 
 ];
