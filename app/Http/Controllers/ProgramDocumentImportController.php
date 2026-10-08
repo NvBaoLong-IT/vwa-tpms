@@ -6,6 +6,7 @@ use App\Exceptions\CurriculumExtractionException;
 use App\Models\DocumentImport;
 use App\Models\Program;
 use App\Services\CurriculumDraftImporter;
+use App\Services\CurriculumReviewSummary;
 use App\Services\ModelApiCurriculumExtractor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -62,18 +63,18 @@ class ProgramDocumentImportController extends Controller
         return $this->storeDocument($request, null, $extractor, 'programs.document-imports.new');
     }
 
-    public function show(Program $program, DocumentImport $documentImport): View
+    public function show(Program $program, DocumentImport $documentImport, CurriculumReviewSummary $summary): View
     {
         abort_unless($documentImport->program_id === $program->id, 404);
 
-        return view('programs.document-import-preview', compact('program', 'documentImport'));
+        return view('programs.document-import-preview', compact('program', 'documentImport') + ['reviewSummary' => $summary->build($documentImport->payload ?? [])]);
     }
 
-    public function showNew(DocumentImport $documentImport): View
+    public function showNew(DocumentImport $documentImport, CurriculumReviewSummary $summary): View
     {
         abort_unless($documentImport->program_id === null, 404);
 
-        return view('programs.document-import-preview', ['program' => null, 'documentImport' => $documentImport]);
+        return view('programs.document-import-preview', ['program' => null, 'documentImport' => $documentImport, 'reviewSummary' => $summary->build($documentImport->payload ?? [])]);
     }
 
     public function import(Request $request, Program $program, DocumentImport $documentImport, CurriculumDraftImporter $importer): RedirectResponse

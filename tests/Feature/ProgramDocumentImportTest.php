@@ -200,4 +200,39 @@ class ProgramDocumentImportTest extends TestCase
         $this->expectExceptionMessage('Luồng phản hồi AI chưa hoàn tất');
         app(ModelApiCurriculumExtractor::class)->extract(UploadedFile::fake()->create('small.pdf', 10, 'application/pdf'));
     }
+
+    public function test_saved_preview_groups_conflicts_and_evaluates_missing_data_after_merging(): void
+    {
+        $user = User::factory()->create();
+        $user->givePermissionTo(Permission::findOrCreate('programs.view', 'web'));
+        Http::preventStrayRequests();
+        $draft = DocumentImport::create([
+            'uploaded_by' => $user->id, 'original_name' => 'saved.pdf', 'path' => 'test/saved.pdf', 'mime_type' => 'application/pdf', 'status' => 'review',
+            'payload' => [
+                'program' => ['code' => 'LAW', 'name_vi' => 'Luật', 'degree_level' => 'dai_hoc', 'total_credits' => 121],
+                'courses' => [['course_code' => 'LAW101', 'name_vi' => 'Luật', 'credits' => null, 'is_mandatory' => false, 'suggested_semester' => 1]],
+                'plos' => [], 'matrix' => [],
+                'warnings' => [
+                    ['severity' => 'high', 'message' => 'Trang này không thấy tổng tín chỉ.', 'source' => 'Trang 2'],
+                    ['severity' => 'high', 'message' => 'Trang này không thấy tổng tín chỉ.', 'source' => 'Trang 3'],
+                    ['severity' => 'high', 'message' => 'Dữ liệu courses mã LAW101 khác nhau ở trường name_vi. Giữ lần xuất hiện đầu; cần đối chiếu.'],
+                    ['severity' => 'high', 'message' => 'Dữ liệu courses mã LAW101 khác nhau ở trường knowledge_block. Giữ lần xuất hiện đầu; cần đối chiếu.'],
+                ],
+            ],
+        ]);
+        $this->actingAs($user)->get(route('programs.document-imports.new.show', $draft))
+            ->assertOk()
+            ->assertViewHas('reviewSummary', function ($summary): bool {
+                $messages = implode(' ', array_column($summary['issues'], 'message'));
+
+                return count($summary['issues']) === 4
+                    && count($summary['details']) === 1
+                    && count($summary['details'][0]['sources']) === 2
+                    && ! str_contains($messages, 'Thông tin chương trình còn thiếu')
+                    && str_contains($messages, '1 mã cần đối chiếu');
+            })
+            ->assertSee('Nhận xét AI theo từng trang')
+            ->assertSee('Học phần chưa xác định số tín chỉ: 1 mã.');
+        Http::assertNothingSent();
+    }
 }
