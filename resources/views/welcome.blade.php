@@ -1,51 +1,110 @@
 <!doctype html>
 <html lang="vi">
-<head>
+<head><link rel="icon" type="image/png" href="{{ asset('images/hvpnvn-mark.png') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Cổng quản trị đào tạo VWA-TPMS của Học viện Phụ nữ Việt Nam.">
-    <title>VWA-TPMS | Quản trị đào tạo</title>
+    <meta name="description" content="VWA-TPMS — Cổng quản trị đào tạo của Học viện Phụ nữ Việt Nam. Chương trình, học vụ, rà soát và văn bằng trong một không gian làm việc.">
+    <title>VWA-TPMS | Cổng quản trị đào tạo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        .home-hero { background-image: linear-gradient(90deg, rgba(7, 42, 55, .92) 0%, rgba(7, 42, 55, .76) 42%, rgba(7, 42, 55, .18) 100%), url('{{ asset('images/official/tuyen-sinh.jpg') }}'); background-position: center; background-size: cover; }
-    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 antialiased">
-    <a href="#main-content" class="skip-link">Bỏ qua đến nội dung chính</a>
-    <header class="absolute inset-x-0 top-0 z-10 border-b border-white/20 bg-slate-950/20 text-white backdrop-blur-sm">
-        <div class="app-shell flex min-h-20 items-center justify-between gap-6">
-            <a href="{{ url('/') }}" class="flex items-center gap-3 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-white" aria-label="Trang chủ VWA-TPMS">
-                <span class="flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg bg-white p-1"><img src="{{ asset('images/hvpnvn-mark.png') }}" alt="" class="h-full w-full object-contain"></span>
-                <span class="hidden sm:block"><strong class="block text-lg tracking-tight">VWA-TPMS</strong><span class="block text-xs text-cyan-100">Quản trị đào tạo số</span></span>
+<body class="vwa-welcome">
+    <a class="skip-link" href="#main-content">Bỏ qua đến nội dung chính</a>
+    <header class="welcome-header">
+        <div class="welcome-shell welcome-header-inner">
+            <a class="welcome-brand" href="{{ url('/') }}" aria-label="Trang chủ VWA-TPMS">
+                <img src="{{ asset('images/hvpnvn-mark.png') }}" alt="" width="44" height="44">
+                <span><strong>VWA-TPMS</strong><small>Học viện Phụ nữ Việt Nam</small></span>
             </a>
-            <nav aria-label="Điều hướng trang chủ" class="flex items-center gap-2 sm:gap-5">
-                <a href="#modules" class="hidden text-sm font-medium text-white/85 hover:text-white sm:inline">Phân hệ</a>
-                <a href="#about" class="hidden text-sm font-medium text-white/85 hover:text-white sm:inline">Về Học viện</a>
-                @if (Route::has('login'))<a href="{{ route('login') }}" class="btn border border-white/50 bg-white/10 text-white hover:bg-white hover:text-slate-900">Đăng nhập</a>@endif
+            <nav aria-label="Điều hướng trang chủ">
+                <a class="welcome-nav-link" href="#modules">Phân hệ nghiệp vụ</a>
+                <a class="welcome-nav-link" href="#about">Về hệ thống</a>
+                <a class="welcome-nav-link" href="{{ route('diplomas.public-lookup') }}">Tra cứu văn bằng</a>
+                @auth
+                    <a class="welcome-button welcome-button-small" href="{{ route('dashboard') }}">Vào hệ thống <span aria-hidden="true">↗</span></a>
+                @else
+                    <a class="welcome-button welcome-button-small" href="{{ route('login') }}">Đăng nhập <span aria-hidden="true">↗</span></a>
+                @endauth
             </nav>
         </div>
     </header>
-
-    <main id="main-content">
-        <section class="home-hero flex min-h-[680px] items-end pt-28 text-white">
-            <div class="app-shell w-full pb-20 sm:pb-28">
-                <div class="max-w-3xl">
-                    <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-200/40 bg-cyan-900/30 px-3 py-1 text-xs font-semibold uppercase tracking-[.18em] text-cyan-100">Học viện Phụ nữ Việt Nam</p>
-                    <h1 class="max-w-3xl text-4xl font-bold leading-tight tracking-tight sm:text-6xl">Kết nối dữ liệu, nâng chất lượng đào tạo</h1>
-                    <p class="mt-6 max-w-2xl text-base leading-7 text-slate-100 sm:text-lg">VWA-TPMS giúp Phòng Đào tạo quản lý chương trình, học vụ, quy trình rà soát và văn bằng chứng chỉ trên một nền tảng thống nhất.</p>
-                    <div class="mt-8 flex flex-wrap gap-3"><a href="{{ route('login') }}" class="btn btn-primary bg-cyan-600 hover:bg-cyan-500">Vào hệ thống <span aria-hidden="true">→</span></a><a href="#modules" class="btn border border-white/45 bg-white/10 text-white hover:bg-white hover:text-slate-900">Xem các phân hệ</a></div>
+    <main id="main-content" tabindex="-1">
+        <section class="welcome-hero">
+            <div class="welcome-shell welcome-hero-grid">
+                <div class="welcome-hero-copy">
+                    <p class="welcome-eyebrow"><span></span> CỔNG QUẢN TRỊ ĐÀO TẠO</p>
+                    <h1>Kết nối dữ liệu.<br><em>Chủ động</em><br>quản trị đào tạo.</h1>
+                    <p class="welcome-lead">Một không gian làm việc cho chương trình đào tạo, tiến độ sinh viên, rà soát chất lượng và hồ sơ văn bằng.</p>
+                    <div class="welcome-actions">
+                        <a class="welcome-button" href="{{ auth()->check() ? route('dashboard') : route('login') }}">Vào không gian làm việc <span aria-hidden="true">↗</span></a>
+                        <a class="welcome-text-link" href="#modules">Khám phá các phân hệ <span aria-hidden="true">↓</span></a>
+                    </div>
+                    <div class="welcome-hero-notes"><span>Phân quyền theo vai trò</span><span>Theo dõi lịch sử thay đổi</span></div>
+                </div>
+                <div class="welcome-visual">
+                    <figure class="welcome-campus">
+                        <img src="{{ asset('images/official/campus-a1.png') }}" alt="Tòa nhà Học viện Phụ nữ Việt Nam" width="720" height="720" fetchpriority="high">
+                        <figcaption><span>HỌC VIỆN PHỤ NỮ VIỆT NAM</span><strong>Tri thức kết nối.<br>Giá trị lan tỏa.</strong></figcaption>
+                    </figure>
+                    <div class="welcome-workspace-card">
+                        <span class="welcome-card-icon" aria-hidden="true">✓</span>
+                        <div><strong>Thông tin có liên kết</strong><p>Từ chương trình đến hồ sơ sinh viên</p></div>
+                    </div>
+                    <div class="welcome-visual-label"><span aria-hidden="true">✦</span> VWA · KHÔNG GIAN ĐÀO TẠO SỐ</div>
                 </div>
             </div>
         </section>
-
-        <section id="modules" class="border-b border-slate-200 bg-white py-16 sm:py-20">
-            <div class="app-shell"><div class="max-w-2xl"><p class="text-sm font-bold uppercase tracking-[.16em] text-cyan-700">Không gian làm việc</p><h2 class="mt-3 text-3xl font-bold tracking-tight text-slate-900">Một cổng vào cho các nghiệp vụ đào tạo</h2><p class="mt-4 leading-7 text-slate-600">Các phân hệ được tổ chức theo vai trò, giúp cán bộ tìm đúng công việc và dữ liệu cần xử lý.</p></div><div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><a href="{{ route('login') }}" class="group border-l-4 border-cyan-600 bg-slate-50 p-5 hover:bg-cyan-50"><span class="text-sm font-semibold text-cyan-700">01</span><h3 class="mt-8 text-xl font-bold">Chương trình đào tạo</h3><p class="mt-2 text-sm leading-6 text-slate-600">Chương trình, học phần, chuẩn đầu ra, mức đáp ứng và học liệu.</p><span class="mt-5 block text-sm font-semibold text-cyan-700">Mở phân hệ →</span></a><a href="{{ route('login') }}" class="group border-l-4 border-amber-500 bg-slate-50 p-5 hover:bg-amber-50"><span class="text-sm font-semibold text-amber-700">02</span><h3 class="mt-8 text-xl font-bold">Học vụ</h3><p class="mt-2 text-sm leading-6 text-slate-600">Tiến độ sinh viên, cảnh báo, cố vấn và báo cáo học vụ.</p><span class="mt-5 block text-sm font-semibold text-amber-700">Mở phân hệ →</span></a><a href="{{ route('login') }}" class="group border-l-4 border-indigo-600 bg-slate-50 p-5 hover:bg-indigo-50"><span class="text-sm font-semibold text-indigo-700">03</span><h3 class="mt-8 text-xl font-bold">Rà soát chương trình</h3><p class="mt-2 text-sm leading-6 text-slate-600">Các bước công việc, bảng tiến độ, hồ sơ và người phụ trách.</p><span class="mt-5 block text-sm font-semibold text-indigo-700">Mở phân hệ →</span></a><a href="{{ route('login') }}" class="group border-l-4 border-rose-600 bg-slate-50 p-5 hover:bg-rose-50"><span class="text-sm font-semibold text-rose-700">04</span><h3 class="mt-8 text-xl font-bold">Văn bằng, chứng chỉ</h3><p class="mt-2 text-sm leading-6 text-slate-600">Kho phôi, sổ gốc, lịch sử thay đổi và tra cứu văn bằng.</p><span class="mt-5 block text-sm font-semibold text-rose-700">Mở phân hệ →</span></a></div></div>
+        <section id="modules" class="welcome-modules welcome-shell">
+            <div class="welcome-section-heading"><div><p class="welcome-eyebrow">NGHIỆP VỤ ĐÀO TẠO</p><h2>Đúng công việc.<br>Trong cùng một hệ thống.</h2></div><p>Bốn phân hệ kết nối dữ liệu, giúp cán bộ theo dõi và xử lý công việc theo quyền được cấp.</p></div>
+            @php
+                $modules = [
+                    ['01', 'Chương trình đào tạo', 'Quản lý chương trình, học phần, chuẩn đầu ra và phiên bản theo khóa.', 'Chương trình · Học phần · PLO', 'programs.index', 'programs.view'],
+                    ['02', 'Học vụ & sinh viên', 'Theo dõi tiến độ học tập, cảnh báo học vụ và phân công cố vấn.', 'Tiến độ · Cảnh báo · Báo cáo', 'academic.index', 'academic.view'],
+                    ['03', 'Rà soát chất lượng', 'Theo dõi các bước rà soát, người phụ trách, thời hạn và hồ sơ phê duyệt.', 'Quy trình · Thời hạn · Hồ sơ', 'iso.index', 'iso.view'],
+                    ['04', 'Văn bằng, chứng chỉ', 'Quản lý kho phôi, đề nghị cấp văn bằng, sổ gốc và lịch sử thay đổi.', 'Kho phôi · Cấp bằng · Sổ gốc', 'diplomas.index', 'diploma.view'],
+                ];
+            @endphp
+            <div class="welcome-module-grid">
+                @foreach($modules as [$number, $title, $description, $tags, $destination, $permission])
+                    <a class="welcome-module-card" href="{{ auth()->check() ? (auth()->user()->can($permission) ? route($destination) : route('dashboard')) : route('login') }}">
+                        <div class="welcome-module-top"><span class="welcome-module-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                @switch($number)
+                                    @case('01')<path d="M12 5v15M3 5c3-1 6-1 9 1 3-2 6-2 9-1v14c-3-1-6-1-9 1-3-2-6-2-9-1Z"/>@break
+                                    @case('02')<path d="m2 8 10-5 10 5-10 5Zm4 3v6c4 3 8 3 12 0v-6M22 8v8"/>@break
+                                    @case('03')<rect x="4" y="4" width="16" height="17" rx="3"/><path d="M9 3h6v3H9zm-1 9 2 2 5-5m-7 9h8"/>@break
+                                    @case('04')<circle cx="12" cy="9" r="6"/><path d="m8 14-2 7 6-3 6 3-2-7m-7-5 2 2 3-3"/>@break
+                                @endswitch
+                            </svg>
+                        </span><small>PHÂN HỆ {{ $number }}</small><span aria-hidden="true">↗</span></div>
+                        <h3>{{ $title }}</h3><p>{{ $description }}</p><small>{{ $tags }}</small>
+                    </a>
+                @endforeach
+            </div>
         </section>
-
-        <section class="bg-slate-50 py-16 sm:py-20"><div class="app-shell"><div class="flex flex-wrap items-end justify-between gap-5"><div><p class="text-sm font-bold uppercase tracking-[.16em] text-cyan-700">Hình ảnh từ Học viện</p><h2 class="mt-3 text-3xl font-bold tracking-tight text-slate-900">Không gian học tập và cộng đồng VWA</h2></div><p class="max-w-md text-sm leading-6 text-slate-600">Các banner được lấy từ website chính thức của Học viện và lưu tại local để trang chủ tải ổn định.</p></div><div class="mt-8 grid gap-5 lg:grid-cols-[1.35fr_1fr]"><figure class="overflow-hidden rounded-xl bg-white shadow-sm"><img src="{{ asset('images/official/cong-thong-tin.jpg') }}" alt="Banner hoạt động và hình ảnh Học viện Phụ nữ Việt Nam" class="h-full min-h-64 w-full object-cover"><figcaption class="border-t border-slate-200 px-5 py-4 text-sm font-medium text-slate-700">Cộng đồng, hoạt động và hình ảnh Học viện</figcaption></figure><figure class="overflow-hidden rounded-xl bg-white shadow-sm"><img src="{{ asset('images/official/tuyen-dung.jpg') }}" alt="Banner thông báo tuyển dụng của Học viện Phụ nữ Việt Nam" class="h-full min-h-64 w-full object-cover"><figcaption class="border-t border-slate-200 px-5 py-4 text-sm font-medium text-slate-700">Thông tin tuyển dụng và cơ hội phát triển</figcaption></figure></div></div></section>
-
-        <section id="about" class="bg-slate-900 py-16 text-white sm:py-20"><div class="app-shell grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center"><div class="max-w-3xl"><p class="text-sm font-bold uppercase tracking-[.16em] text-cyan-300">Học viện Phụ nữ Việt Nam</p><h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Dữ liệu đào tạo phục vụ quyết định đúng lúc</h2><p class="mt-5 max-w-2xl leading-7 text-slate-300">VWA-TPMS tập trung hóa các mốc rà soát, tiến độ, cảnh báo và hồ sơ để công việc đào tạo minh bạch, có người phụ trách và có lịch sử.</p></div><div class="grid grid-cols-2 gap-3 sm:grid-cols-3"><div class="border border-white/15 p-4"><strong class="text-3xl text-cyan-300">4</strong><span class="mt-2 block text-xs uppercase tracking-wide text-slate-400">Phân hệ chính</span></div><div class="border border-white/15 p-4"><strong class="text-3xl text-cyan-300">1</strong><span class="mt-2 block text-xs uppercase tracking-wide text-slate-400">Nguồn dữ liệu</span></div><div class="border border-white/15 p-4"><strong class="text-3xl text-cyan-300">24/7</strong><span class="mt-2 block text-xs uppercase tracking-wide text-slate-400">Tra cứu</span></div></div></div></section>
+        <section id="academy" class="welcome-gallery welcome-shell" aria-labelledby="welcome-gallery-title">
+            <div class="welcome-section-heading"><div><p class="welcome-eyebrow">MÔI TRƯỜNG & CỘNG ĐỒNG</p><h2 id="welcome-gallery-title">Sắc màu Học viện.<br>Kết nối và phát triển.</h2></div><p>Không gian học tập, hoạt động và thông tin từ Học viện Phụ nữ Việt Nam.</p></div>
+            <div class="welcome-gallery-grid">
+                <figure class="welcome-gallery-main"><img src="{{ asset('images/official/cong-thong-tin.jpg') }}" alt="Hình ảnh cộng đồng và hoạt động Học viện Phụ nữ Việt Nam" loading="lazy"><figcaption><span class="welcome-photo-tag">CỘNG ĐỒNG VWA</span><h3>Tri thức, con người<br>và những kết nối mới.</h3><p>Không gian học tập và hoạt động của Học viện.</p></figcaption></figure>
+                <figure class="welcome-gallery-secondary"><img src="{{ asset('images/official/tuyen-sinh.jpg') }}" alt="Banner tuyển sinh của Học viện Phụ nữ Việt Nam" loading="lazy"><figcaption><span class="welcome-photo-tag">ĐÀO TẠO & HỌC TẬP</span><h3>Khởi đầu hành trình tri thức.</h3></figcaption></figure>
+                <figure class="welcome-gallery-secondary welcome-gallery-career"><img src="{{ asset('images/official/tuyen-dung.jpg') }}" alt="Banner tuyển dụng của Học viện Phụ nữ Việt Nam" loading="lazy"><figcaption><span class="welcome-photo-tag">CƠ HỘI PHÁT TRIỂN</span><h3>Đồng hành cùng Học viện.</h3></figcaption></figure>
+            </div>
+            <a class="welcome-text-link welcome-gallery-link" href="https://hvpnvn.edu.vn" target="_blank" rel="noopener noreferrer">Xem thông tin trên Cổng Học viện <span aria-hidden="true">↗</span></a>
+        </section>
+        <section id="about" class="welcome-about">
+            <div class="welcome-shell welcome-about-grid">
+                <div><p class="welcome-eyebrow">THÔNG TIN PHỤC VỤ ĐIỀU HÀNH</p><h2>Từ dữ liệu tập trung<br>đến công việc rõ ràng.</h2><p class="welcome-about-lead">VWA-TPMS hỗ trợ Phòng Đào tạo quản lý hồ sơ và phối hợp công việc trên một nền tảng thống nhất.</p><a class="welcome-text-link" href="https://hvpnvn.edu.vn" target="_blank" rel="noopener noreferrer">Cổng thông tin Học viện <span aria-hidden="true">↗</span></a></div>
+                <div class="welcome-principles">
+                    <article><span>01</span><div><h3>Nhìn rõ việc cần theo dõi</h3><p>Tổng quan cảnh báo, tiến độ và các mốc công việc theo phạm vi đang xem.</p></div></article>
+                    <article><span>02</span><div><h3>Thao tác đúng vai trò</h3><p>Quyền xem, xử lý và phê duyệt phù hợp với nhiệm vụ của từng tài khoản.</p></div></article>
+                    <article><span>03</span><div><h3>Giữ lại dấu vết nghiệp vụ</h3><p>Lịch sử tiến độ, phiên bản chương trình và hồ sơ rà soát phục vụ đối chiếu.</p></div></article>
+                </div>
+            </div>
+        </section>
+        <section class="welcome-shell welcome-closing"><div><p class="welcome-eyebrow">KHÔNG GIAN LÀM VIỆC CỦA BẠN</p><h2>Sẵn sàng bắt đầu công việc?</h2><p>Đăng nhập bằng tài khoản được cấp để truy cập các phân hệ.</p></div><a class="welcome-button" href="{{ auth()->check() ? route('dashboard') : route('login') }}">{{ auth()->check() ? 'Vào hệ thống' : 'Đăng nhập hệ thống' }} <span aria-hidden="true">↗</span></a></section>
     </main>
-    <footer class="bg-slate-950 py-6 text-sm text-slate-400"><div class="app-shell flex flex-wrap justify-between gap-3"><span>VWA-TPMS · Học viện Phụ nữ Việt Nam</span><a href="https://hvpnvn.edu.vn" target="_blank" rel="noreferrer" class="text-cyan-300 hover:text-white">Website Học viện</a></div></footer>
-</body>
+    <footer class="welcome-footer"><div class="welcome-shell"><span><strong>VWA-TPMS</strong> · Học viện Phụ nữ Việt Nam</span><small>© {{ date('Y') }} · Cổng quản trị đào tạo</small><a href="#main-content">Về đầu trang ↑</a></div></footer>
+<x-flash-notifications /></body>
 </html>

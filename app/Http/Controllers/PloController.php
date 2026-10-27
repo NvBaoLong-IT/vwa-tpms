@@ -19,7 +19,10 @@ class PloController extends Controller
     public function store(Request $request, Program $program): RedirectResponse
     {
         $data = $request->validate(['code' => ['required', 'string', 'max:30', 'unique:plos,code,NULL,id,program_id,'.$program->id], 'description_vi' => 'required|string', 'description_en' => 'nullable|string']);
-        DB::transaction(fn () => $program->plos()->create($data));
+        DB::transaction(function () use ($program, $data): void {
+            $program = Program::whereKey($program->id)->lockForUpdate()->firstOrFail();
+            $program->plos()->create($data);
+        });
 
         return back()->with('success', 'Đã thêm chuẩn đầu ra.');
     }
@@ -32,7 +35,10 @@ class PloController extends Controller
             'description_vi' => ['required', 'string'],
             'description_en' => ['nullable', 'string'],
         ]);
-        DB::transaction(fn () => $plo->update($data));
+        DB::transaction(function () use ($program, $plo, $data): void {
+            Program::whereKey($program->id)->lockForUpdate()->firstOrFail();
+            $plo->update($data);
+        });
 
         return back()->with('success', 'Đã cập nhật chuẩn đầu ra.');
     }
@@ -40,7 +46,10 @@ class PloController extends Controller
     public function destroy(Program $program, Plo $plo): RedirectResponse
     {
         abort_unless($plo->program_id === $program->id, 404);
-        DB::transaction(fn () => $plo->delete());
+        DB::transaction(function () use ($program, $plo): void {
+            Program::whereKey($program->id)->lockForUpdate()->firstOrFail();
+            $plo->delete();
+        });
 
         return back()->with('success', 'Đã xóa chuẩn đầu ra.');
     }

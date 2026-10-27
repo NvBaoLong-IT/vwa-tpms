@@ -14,6 +14,8 @@ class GraduationImport implements ToCollection, WithHeadingRow
 
     public array $errors = [];
 
+    public function __construct(private ?int $userId = null) {}
+
     public function collection(Collection $rows): void
     {
         foreach ($rows as $index => $row) {
@@ -40,7 +42,7 @@ class GraduationImport implements ToCollection, WithHeadingRow
                 if (! preg_match('/^[A-Za-z0-9-]+$/', $cohort) || ($decision !== '' && ! preg_match('/^[A-Za-z0-9-]+$/', $decision))) {
                     throw new \InvalidArgumentException('Mã khóa hoặc số quyết định không hợp lệ');
                 }
-                app(DiplomaIssuanceService::class)->request(['student_id' => $student->id, 'diploma_type' => $type, 'serial_number' => trim((string) $row['SoPhoi']), 'cohort_code' => $cohort, 'decision_code' => $decision ?: null, 'issue_date' => $row['NgayCap']], auth()->id());
+                app(DiplomaIssuanceService::class)->request(['student_id' => $student->id, 'diploma_type' => $type, 'serial_number' => trim((string) $row['SoPhoi']), 'cohort_code' => $cohort, 'decision_code' => $decision ?: null, 'issue_date' => $row['NgayCap']], $this->userId ?? auth()->id());
                 $this->imported++;
             } catch (\Throwable $exception) {
                 $this->errors[] = 'Dòng '.$line.': '.$exception->getMessage();

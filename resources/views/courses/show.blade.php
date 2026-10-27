@@ -6,7 +6,6 @@
         </div>
     </x-slot>
     <div class="academic-page course-detail-page app-shell">
-        @if(session('success'))<p class="academic-success" role="status">{{ session('success') }}</p>@endif
         <x-input-error :messages="$errors->all()" />
         <section aria-labelledby="course-information-title" class="course-detail-overview">
             <div class="academic-section-heading"><h2 id="course-information-title">Thông tin học phần</h2><span class="academic-status {{ $course->is_active ? 'academic-status-resolved' : '' }}">{{ $course->is_active ? 'Đang hoạt động' : 'Ngừng hoạt động' }}</span></div>

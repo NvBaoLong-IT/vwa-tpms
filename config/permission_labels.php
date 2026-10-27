@@ -22,6 +22,7 @@ return [
     'iso.close' => 'Hoàn tất đợt rà soát',
     'iso.upload' => 'Tải hồ sơ rà soát lên',
     'students.view' => 'Xem danh sách sinh viên',
+    'students.manage' => 'Quản lý hồ sơ sinh viên',
     'academic.view' => 'Xem cảnh báo học vụ',
     'academic.import' => 'Nhập dữ liệu học vụ',
     'academic.process' => 'Xử lý cảnh báo học vụ',

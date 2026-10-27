@@ -15,9 +15,14 @@ class IsoWorkflow extends Model
         return ['start_date' => 'date', 'expected_end_date' => 'date', 'approved_at' => 'datetime', 'closed_at' => 'datetime'];
     }
 
+    public function isEditable(): bool
+    {
+        return $this->closed_at === null && in_array($this->status, ['draft', 'in_progress'], true);
+    }
+
     public function program(): BelongsTo
     {
-        return $this->belongsTo(Program::class);
+        return $this->belongsTo(Program::class)->withTrashed();
     }
 
     public function steps(): HasMany

@@ -19,7 +19,7 @@ class ModelApiCurriculumExtractor
     /**
      * @return array<string, mixed>
      */
-    public function extract(UploadedFile $file): array
+    public function extract(UploadedFile $file, ?string $validatedMimeType = null): array
     {
         $apiKey = config('services.modelapi.api_key');
         if (! is_string($apiKey) || trim($apiKey) === '') {
@@ -35,7 +35,7 @@ class ModelApiCurriculumExtractor
                 $timeout = max(1, $executionLimit - 5);
             }
         }
-        $mimeType = $file->getMimeType() ?: 'application/octet-stream';
+        $mimeType = $validatedMimeType ?? ($file->getMimeType() ?: 'application/octet-stream');
         $content = [['type' => 'text', 'text' => $this->prompt()]];
         if ($mimeType === 'application/pdf') {
             $pages = $this->pdfPreparer->pages($file->getRealPath());
@@ -113,7 +113,7 @@ class ModelApiCurriculumExtractor
         if ((int) ini_get('max_execution_time') > 0) {
             set_time_limit(max((int) ini_get('max_execution_time'), (int) ceil(count($batches) / 3) * ($timeout + 15) + 60));
         }
-        $result = ['program' => [], 'knowledge_blocks' => [], 'courses' => [], 'plos' => [], 'matrix' => [], 'warnings' => [], 'source_notes' => []];
+        $result = ['program' => [], 'knowledge_blocks' => [], 'elective_groups' => [], 'courses' => [], 'plos' => [], 'matrix' => [], 'warnings' => [], 'source_notes' => []];
         $url = rtrim((string) config('services.modelapi.base_url'), '/').'/chat/completions';
         foreach (array_chunk($batches, 3) as $wave) {
             $cached = [];
@@ -185,7 +185,7 @@ class ModelApiCurriculumExtractor
                         $result['program'][$key] = $value;
                     }
                 }
-                foreach (['courses', 'plos', 'matrix', 'warnings', 'knowledge_blocks', 'source_notes'] as $key) {
+                foreach (['courses', 'plos', 'matrix', 'warnings', 'knowledge_blocks', 'elective_groups', 'source_notes'] as $key) {
                     if (! is_array($partial[$key] ?? [])) {
                         throw new CurriculumExtractionException('Danh sách '.$key.' không hợp lệ tại trang '.$range.'.');
                     }
@@ -197,7 +197,7 @@ class ModelApiCurriculumExtractor
                 throw new CurriculumExtractionException(implode(' ', $failures));
             }
         }
-        foreach (['courses' => ['course_code'], 'plos' => ['code'], 'matrix' => ['course_code', 'plo_code']] as $key => $fields) {
+        foreach (['courses' => ['course_code'], 'elective_groups' => ['code'], 'plos' => ['code'], 'matrix' => ['course_code', 'plo_code']] as $key => $fields) {
             $unique = [];
             foreach ($result[$key] as $row) {
                 if (! is_array($row)) {
@@ -275,8 +275,8 @@ class ModelApiCurriculumExtractor
     {
         return <<<'PROMPT'
 Bạn là trợ lý nhập chương trình đào tạo của Phòng Đào tạo. Đọc tài liệu được cung cấp và trả về DUY NHẤT JSON hợp lệ, không markdown, theo cấu trúc:
-{"program":{"code":null,"name_vi":null,"name_en":null,"degree_level":null,"delivery_mode":null,"total_credits":null,"elective_credits_required":null,"decision_number":null,"decision_date":null},"knowledge_blocks":[],"plos":[{"code":"PLO1","description_vi":""}],"courses":[{"course_code":"","name_vi":"","credits":null,"knowledge_block":"","is_mandatory":null,"suggested_semester":null}],"matrix":[{"course_code":"","plo_code":"","contribution_level":null}],"warnings":[{"severity":"high|medium|low","message":"","source":""}],"source_notes":[]}
-Quy tắc: không đoán dữ liệu bị thiếu; dùng null và thêm cảnh báo. degree_level chỉ được là dai_hoc, thac_si hoặc tien_si khi xác định rõ. is_mandatory là true/false khi xác định rõ, nếu không dùng null. contribution_level là số nguyên từ 1 đến 3 khi tài liệu có ma trận. Giữ nguyên mã, tên và số liệu gốc; không tự sửa chính tả. Nếu tổng tín chỉ không khớp tổng học phần, thêm cảnh báo mức high. source phải ghi trang hoặc mô tả vị trí nếu xác định được.
+{"program":{"code":null,"name_vi":null,"name_en":null,"degree_level":null,"delivery_mode":null,"total_credits":null,"elective_credits_required":null,"decision_number":null,"decision_date":null},"knowledge_blocks":[],"elective_groups":[{"code":"TC_A","name":"","knowledge_block":"","credits_required":null}],"plos":[{"code":"PLO1","description_vi":""}],"courses":[{"course_code":"","name_vi":"","credits":null,"knowledge_block":"","is_mandatory":null,"counts_toward_total":true,"suggested_semester":null,"prerequisite_course_code":null,"corequisite_course_code":null,"elective_group_code":null}],"matrix":[{"course_code":"","plo_code":"","contribution_level":null}],"warnings":[{"severity":"high|medium|low","message":"","source":""}],"source_notes":[]}
+counts_toward_total=false chỉ khi tài liệu nêu rõ học phần không tính vào tổng tín chỉ tích lũy (ví dụ ngoại ngữ cơ bản, giáo dục thể chất, quốc phòng); vẫn trích đầy đủ học phần và ma trận. Không có căn cứ loại trừ thì dùng true và giữ cảnh báo nếu chưa rõ. knowledge_blocks chỉ gồm các khối bắt buộc nêu rõ trong tài liệu; elective_groups chỉ gồm nhóm có chỉ tiêu tự chọn rõ ràng; code nhóm dùng chữ hoa A-Z, số, dấu gạch dưới hoặc gạch nối. Gắn elective_group_code cho từng học phần tự chọn khi có căn cứ, không gắn cho học phần bắt buộc. Nếu không xác định được nhóm, trả elective_groups=[] và cảnh báo, không tạo nhóm giả. Quy tắc: không đoán dữ liệu bị thiếu; dùng null và thêm cảnh báo. degree_level chỉ được là dai_hoc, thac_si hoặc tien_si khi xác định rõ. is_mandatory là true/false khi xác định rõ, nếu không dùng null. contribution_level là số nguyên từ 1 đến 3 khi tài liệu có ma trận. Giữ nguyên mã, tên và số liệu gốc; không tự sửa chính tả. Nếu tổng tín chỉ không khớp tổng học phần, thêm cảnh báo mức high. prerequisite_course_code và corequisite_course_code chỉ ghi mã học phần học trước và học song hành có nêu rõ; không suy đoán. source phải ghi trang hoặc mô tả vị trí nếu xác định được.
 PROMPT;
     }
 

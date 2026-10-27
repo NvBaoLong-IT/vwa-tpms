@@ -24,9 +24,6 @@
 
         <div class="profile-form-actions">
             <button type="submit" class="profile-button profile-button-primary">Lưu thông tin</button>
-            @if (session('status') === 'profile-updated')
-                <p class="profile-save-status" role="status">Đã lưu thông tin cá nhân.</p>
-            @endif
         </div>
     </form>
 </section>

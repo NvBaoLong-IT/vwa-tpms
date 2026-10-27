@@ -4,7 +4,7 @@
             <div><p class="academic-eyebrow">Quản lý đào tạo</p><h1>Chương trình đào tạo</h1><p>Danh mục chương trình, học phần và phiên bản theo khóa.</p></div>
             <div class="academic-heading-links">
                 <a href="{{ route('programs.audit') }}">Nhật ký thay đổi <span aria-hidden="true">&rarr;</span></a>
-                @can('courses.view')<a href="{{ route('courses.index') }}">Danh mục học phần <span aria-hidden="true">&rarr;</span></a>@endcan
+                @can('programs.import')<a href="{{ route('programs.document-imports.index', ['status' => 'submitted']) }}">Bản nhập AI chờ duyệt &rarr;</a><a href="{{ route('programs.imports.index', ['status' => 'submitted']) }}">Bản nhập Excel chờ duyệt &rarr;</a>@endcan @can('courses.view')<a href="{{ route('courses.index') }}">Danh mục học phần <span aria-hidden="true">&rarr;</span></a>@endcan
             </div>
         </div>
     </x-slot>
@@ -15,7 +15,6 @@
             $hasFilters = request()->filled('q') || request()->filled('degree_level') || request()->filled('is_active') || request()->filled('completeness');
             $exportFilters = request()->except('page');
         @endphp
-        @if(session('success'))<div class="academic-success" role="status">{{ session('success') }}</div>@endif
 
         <section aria-labelledby="program-summary-title">
             <div class="academic-section-heading"><h2 id="program-summary-title">Tổng quan danh mục</h2><span>Toàn hệ thống</span></div>
@@ -27,7 +26,9 @@
             </dl>
         </section>
 
+        <p><a class="program-summary-link" href="{{ route('programs.index', ['version_status' => 'submitted']) }}">Chương trình có phiên bản chờ phê duyệt: {{ $summary['pending_review'] }} →</a></p>
         <form method="GET" action="{{ route('programs.index') }}" class="academic-filters" aria-label="Bộ lọc chương trình đào tạo">
+            <label class="academic-filter">Trạng thái phiên bản<select name="version_status"><option value="">Tất cả</option>@foreach(['draft'=>'Bản nháp','submitted'=>'Chờ phê duyệt','returned'=>'Trả về bổ sung','approved'=>'Đã phê duyệt','published'=>'Đã công bố','archived'=>'Đã thay thế'] as $value => $label)<option value="{{ $value }}" @selected(request('version_status') === $value)>{{ $label }}</option>@endforeach</select></label>
             <div class="academic-filter-grid">
                 <div class="academic-filter"><label for="program-search">Tìm chương trình</label><input id="program-search" type="search" name="q" value="{{ request('q') }}" maxlength="120" placeholder="Mã, tên tiếng Việt hoặc tiếng Anh"></div>
                 <div class="academic-filter"><label for="program-degree">Trình độ</label><select id="program-degree" name="degree_level"><option value="">Tất cả trình độ</option>@foreach($degreeLabels as $value => $label)<option value="{{ $value }}" @selected(request('degree_level') === $value)>{{ $label }}</option>@endforeach</select></div>
@@ -46,9 +47,9 @@
         <div class="academic-toolbar">
             <div class="academic-tools">
                 @can('programs.create')<a href="{{ route('programs.create') }}" class="academic-button academic-button-primary">Thêm chương trình</a><a href="{{ route('programs.document-imports.new') }}" class="academic-button academic-button-secondary">Tạo mới từ PDF/Word bằng AI</a>@endcan
-                @can('programs.import')<a href="{{ route('programs.import.form') }}" class="academic-button academic-button-secondary">Nhập từ Excel</a><a href="{{ route('programs.import.template') }}" class="program-tool-link">Tải mẫu nhập Excel</a>@endcan
+                @can('programs.import')<a href="{{ route('programs.document-imports.index', ['status' => 'submitted']) }}">Bản nhập AI chờ duyệt &rarr;</a><a href="{{ route('programs.import.form') }}" class="academic-button academic-button-secondary">Nhập từ Excel</a><a href="{{ route('programs.import.template') }}" class="program-tool-link">Tải mẫu nhập Excel</a>@endcan
             </div>
-            <a href="{{ route('programs.export.csv', $exportFilters) }}" class="academic-button academic-button-secondary">Xuất danh sách CSV</a>
+            @can('reports.export')<a href="{{ route('programs.export.csv', $exportFilters) }}" class="academic-button academic-button-secondary">Xuất danh sách CSV</a>@endcan
         </div>
 
         <section aria-labelledby="program-list-title">
@@ -73,6 +74,7 @@
                                     <strong>{{ number_format($program->total_credits) }} tín chỉ</strong>
                                     <a class="program-structure-link" href="{{ route('programs.show', $program) }}#program-courses">{{ $program->courses_count }} học phần <span aria-hidden="true">&rarr;</span></a>
                                     <a class="program-structure-link" href="{{ route('programs.show', $program) }}#program-versions">{{ $program->versions_count }} phiên bản <span aria-hidden="true">&rarr;</span></a>
+                                    @if($program->pending_versions_count)<small class="program-attention">{{ $program->pending_versions_count }} phiên bản chờ phê duyệt</small>@endif
                                     @if(!$program->courses_count || !$program->versions_count)<small class="program-attention">{{ !$program->courses_count ? 'Chưa có học phần' : 'Chưa có phiên bản theo khóa' }}</small>@endif
                                 </td>
                                 <td data-label="Quyết định / trạng thái">

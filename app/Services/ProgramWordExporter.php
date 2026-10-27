@@ -26,7 +26,7 @@ class ProgramWordExporter
         $this->table([], [
             ["HỘI LIÊN HIỆP PHỤ NỮ VIỆT NAM\nHỌC VIỆN PHỤ NỮ VIỆT NAM", "CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nĐộc lập - Tự do - Hạnh phúc"],
         ], [4680, 4680], false);
-        $this->paragraph('DỰ THẢO TRÌNH KÝ', 'Subtitle', 'center');
+        $this->paragraph(in_array($version->status, ['published', 'archived'], true) ? 'BẢN LƯU CHƯƠNG TRÌNH ĐÀO TẠO' : 'DỰ THẢO TRÌNH KÝ', 'Subtitle', 'center');
         $this->paragraph('CHƯƠNG TRÌNH ĐÀO TẠO', 'Title', 'center');
         $this->paragraph('NGÀNH '.mb_strtoupper($program['name_vi']).' TRÌNH ĐỘ '.$degree, 'Title', 'center');
         $this->paragraph('Khóa tuyển sinh '.$version->cohort_year.' - Quyết định số '.$version->decision_number.' ngày '.$version->decision_date->format('d/m/Y'), 'Normal', 'center');
@@ -40,6 +40,9 @@ class ProgramWordExporter
             ['Hình thức đào tạo', $program['delivery_mode'] ?: ''],
             ['Khóa tuyển sinh', (string) $version->cohort_year],
             ['Quyết định', $version->decision_number.' ngày '.$version->decision_date->format('d/m/Y')],
+            ['Trạng thái', $version->statusLabel()],
+            ['Hiệu lực từ', $version->effective_from?->format('d/m/Y') ?? 'Chưa xác định'],
+            ['Hiệu lực đến hết', $version->effective_until?->format('d/m/Y') ?? 'Chưa xác định'],
         ], [2700, 6660], false);
 
         $this->paragraph('2. Cấu trúc và khối lượng kiến thức', 'Heading1');
@@ -49,11 +52,16 @@ class ProgramWordExporter
         foreach ($blocks as $name => $courses) {
             $blockRows[] = [
                 $name,
-                (string) $courses->where('is_mandatory', true)->sum('credits'),
-                (string) $courses->where('is_mandatory', false)->sum('credits'),
+                (string) $courses->filter(fn ($course) => $course['counts_toward_total'] ?? true)->where('is_mandatory', true)->sum('credits'),
+                (string) $courses->filter(fn ($course) => $course['counts_toward_total'] ?? true)->where('is_mandatory', false)->sum('credits'),
+                (string) $courses->filter(fn ($course) => ! ($course['counts_toward_total'] ?? true))->sum('credits'),
             ];
         }
-        $this->table(['Khối kiến thức', 'Bắt buộc', 'Tự chọn đang mở'], $blockRows, [5700, 1700, 1960]);
+        $this->table(['Khối kiến thức', 'Bắt buộc trong tổng', 'Tự chọn đang mở trong tổng', 'Ngoài tổng'], $blockRows, [3660, 1900, 1900, 1900]);
+        if (! empty($snapshot['elective_groups'])) {
+            $this->paragraph('Chỉ tiêu tự chọn theo nhóm', 'Heading2');
+            $this->table(['Mã nhóm', 'Tên nhóm', 'Khối kiến thức', 'Tín chỉ cần tích lũy'], collect($snapshot['elective_groups'])->map(fn ($group) => [$group['code'], $group['name'], $group['knowledge_block'], (string) $group['credits_required']])->all(), [1400, 2700, 3500, 1760]);
+        }
 
         $this->paragraph('3. Khung chương trình đào tạo', 'Heading1');
         $number = 1;
@@ -61,7 +69,7 @@ class ProgramWordExporter
             $this->paragraph($name, 'Heading2');
             $rows = [];
             foreach ($courses as $course) {
-                $rows[] = [(string) $number++, $course['course_code'], $course['name_vi'].($course['is_mandatory'] ? '' : ' (Tự chọn)'), (string) $course['credits']];
+                $rows[] = [(string) $number++, $course['course_code'], $course['name_vi'].(($course['counts_toward_total'] ?? true) ? '' : ' (Ngoài tổng tín chỉ)').($course['is_mandatory'] ? '' : ' (Tự chọn'.(! empty($course['elective_group_code']) ? ' - '.$course['elective_group_code'] : '').')'), (string) $course['credits']];
             }
             $this->table(['TT', 'Mã học phần', 'Tên học phần', 'Số tín chỉ'], $rows, [560, 1600, 5900, 1300]);
         }
@@ -87,6 +95,11 @@ class ProgramWordExporter
         $this->table(['Mã', 'Mô tả'], collect($snapshot['plos'])->map(fn ($plo) => [$plo['code'], $plo['description_vi']])->all(), [1500, 7860]);
         $this->paragraph('6. Mức đáp ứng chuẩn đầu ra', 'Heading1');
         $this->table(['Học phần', 'Chuẩn đầu ra', 'Mức đóng góp'], collect($snapshot['matrix'])->map(fn ($entry) => [$entry['course_code'], $entry['plo_code'], (string) $entry['contribution_level']])->all(), [3120, 3120, 3120]);
+        if (! empty($snapshot['substitutions'])) {
+            $this->paragraph('7. Quy tắc thay thế học phần', 'Heading1');
+            $this->paragraph('Tín chỉ công nhận đáp ứng học phần đích, không cộng thêm vào tổng tín chỉ CTĐT.');
+            $this->table(['Nguồn', 'Học phần được thay', 'Học phần đích', 'TC công nhận', 'Căn cứ và điều kiện'], collect($snapshot['substitutions'])->map(fn ($rule) => [$rule['source_program_code'].' K'.$rule['source_cohort_year'].' lần '.$rule['source_revision'], $rule['source_course_code'], $rule['target_course_code'], (string) $rule['recognized_credits'], $rule['decision_number'].' - '.$rule['note']])->all(), [1800, 1500, 1500, 1060, 3500]);
+        }
 
         $this->paragraph(' ', 'Normal');
         $this->table([], [['TRƯỞNG PHÒNG ĐÀO TẠO', 'GIÁM ĐỐC'], ['(Ký, ghi rõ họ tên)', '(Ký, ghi rõ họ tên)'], [' ', ' '], [' ', ' ']], [4680, 4680], false);

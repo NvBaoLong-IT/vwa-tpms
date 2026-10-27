@@ -14,7 +14,6 @@
             $statusLabels = ['open'=>'Chưa xử lý','processing'=>'Đang xử lý','resolved'=>'Đã xử lý','dismissed'=>'Đã bỏ qua'];
             $hasAdvancedFilters = request()->filled('enrollment_year') || request()->filled('student_status') || request()->filled('class_code') || request()->filled('semester') || request()->filled('priority') || request()->filled('faculty_name');
         @endphp
-        @if(session('success'))<div class="academic-success" role="status">{{ session('success') }}</div>@endif
 
         <section class="academic-overview" aria-labelledby="academic-overview-title">
             <div class="academic-section-heading"><h2 id="academic-overview-title">Tình hình xử lý</h2><span>Toàn hệ thống</span></div>
@@ -55,14 +54,16 @@
                 @can('academic.process')<form method="POST" action="{{ route('academic.scan') }}">@csrf<button type="submit" class="academic-button academic-button-secondary">Quét cảnh báo</button></form>@endcan
                 @if(auth()->user()->hasRole('Lãnh đạo phòng'))<a href="{{ route('academic.settings') }}" class="academic-button academic-button-secondary">Ngưỡng GPA</a>@endif
             </div>
+            @can('reports.export')
             <details class="academic-export">
                 <summary>Xuất danh sách</summary>
                 <div class="academic-export-options">
-                    <a href="{{ route('academic.export.excel', request()->query()) }}">Excel</a>
-                    <a href="{{ route('academic.export.word', request()->query()) }}">Word</a>
-                    <a href="{{ route('academic.export.pdf', request()->query()) }}">PDF</a>
+                        <a href="{{ route('academic.export.excel', request()->query()) }}">Excel</a>
+                        <a href="{{ route('academic.export.word', request()->query()) }}">Word</a>
+                        <a href="{{ route('academic.export.pdf', request()->query()) }}">PDF</a>
                 </div>
             </details>
+            @endcan
         </div>
 
         <section aria-labelledby="academic-list-title">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Program;
+use App\Models\ProgramVersion;
 use App\Services\CurriculumAuditService;
 use App\Services\ProgramCreditReconciler;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,6 +28,7 @@ class ProgramController extends Controller
                 'active' => Program::where('is_active', true)->count(),
                 'missing_courses' => Program::doesntHave('courses')->count(),
                 'missing_versions' => Program::doesntHave('versions')->count(),
+                'pending_review' => Program::whereHas('versions', fn ($query) => $query->where('status', 'submitted'))->count(),
             ],
         ]);
     }
@@ -65,10 +67,14 @@ class ProgramController extends Controller
             'degree_level' => ['nullable', 'in:dai_hoc,thac_si,tien_si'],
             'is_active' => ['nullable', 'in:0,1'],
             'completeness' => ['nullable', 'in:missing_courses,missing_versions'],
+            'version_status' => ['nullable', 'in:draft,submitted,returned,approved,published,archived'],
             'sort' => ['nullable', 'in:name,code,newest,updated'],
             'per_page' => ['nullable', 'in:15,30,50'],
         ]);
-        $query = Program::withCount(['courses', 'versions']);
+        $query = Program::withCount(['courses', 'versions', 'versions as pending_versions_count' => fn ($query) => $query->where('status', 'submitted')]);
+        if (! empty($filters['version_status'])) {
+            $query->whereHas('versions', fn ($query) => $query->where('status', $filters['version_status']));
+        }
         $term = trim($filters['q'] ?? '');
         if ($term !== '') {
             $query->where(fn ($query) => $query->where('code', 'like', '%'.$term.'%')
@@ -119,8 +125,9 @@ class ProgramController extends Controller
         $program->load(['courses' => fn ($query) => $query->orderByPivot('sort_order')->orderBy('course_code'), 'versions' => fn ($query) => $query->orderByDesc('cohort_year')->orderByDesc('revision')]);
         $reconciliation = $reconciler->forProgram($program);
         $availableCourses = Course::orderBy('course_code')->get();
+        $sourceVersions = ProgramVersion::with('program')->where('program_id', $program->id)->whereIn('status', ['published', 'archived'])->orderByDesc('cohort_year')->orderByDesc('id')->get();
 
-        return view('programs.show', compact('program', 'reconciliation', 'availableCourses'));
+        return view('programs.show', compact('program', 'reconciliation', 'availableCourses', 'sourceVersions'));
     }
 
     public function edit(Program $program): View
@@ -153,11 +160,13 @@ class ProgramController extends Controller
 
     public function attachCourse(Request $request, Program $program, CurriculumAuditService $audit): RedirectResponse
     {
-        $data = $request->validate(['course_id' => ['required', 'exists:courses,id'], 'knowledge_block' => ['required', 'string', 'max:100'], 'is_mandatory' => ['sometimes', 'boolean'], 'suggested_semester' => ['nullable', 'integer', 'min:1', 'max:20']]);
+        $data = $request->validate(['course_id' => ['required', 'exists:courses,id,deleted_at,NULL'], 'knowledge_block' => ['required', 'string', 'max:100'], 'is_mandatory' => ['sometimes', 'boolean'], 'counts_toward_total' => ['sometimes', 'boolean'], 'suggested_semester' => ['nullable', 'integer', 'min:1', 'max:20'], 'elective_group_code' => ['nullable', 'string', 'max:30']]);
         DB::transaction(function () use ($program, $data, $request, $audit): void {
+            $program = Program::whereKey($program->id)->lockForUpdate()->firstOrFail();
             $course = $program->courses()->whereKey($data['course_id'])->first();
-            $before = $course?->pivot->only(['knowledge_block', 'is_mandatory', 'suggested_semester']);
-            $after = ['knowledge_block' => $data['knowledge_block'], 'is_mandatory' => $request->boolean('is_mandatory'), 'suggested_semester' => $data['suggested_semester'] ?? null];
+            $before = $course?->pivot->only(['knowledge_block', 'is_mandatory', 'suggested_semester', 'elective_group_code', 'counts_toward_total']);
+            $after = ['knowledge_block' => $data['knowledge_block'], 'is_mandatory' => $request->boolean('is_mandatory'), 'counts_toward_total' => $request->boolean('counts_toward_total', (bool) ($before['counts_toward_total'] ?? true)), 'suggested_semester' => $data['suggested_semester'] ?? null, 'elective_group_code' => $data['elective_group_code'] ?? null];
+            $this->validateElectiveAssignment($program, $after);
             $program->courses()->syncWithoutDetaching([$data['course_id'] => $after]);
             $audit->record('program_course', $program->id, $course ? 'updated' : 'attached', $before, $after, $program->id, ['course_id' => (int) $data['course_id']]);
         });
@@ -168,10 +177,11 @@ class ProgramController extends Controller
     public function detachCourse(Program $program, Course $course, CurriculumAuditService $audit): RedirectResponse
     {
         DB::transaction(function () use ($program, $course, $audit): void {
+            $program = Program::whereKey($program->id)->lockForUpdate()->firstOrFail();
             $attached = $program->courses()->whereKey($course->id)->first();
             if ($attached) {
                 $program->courses()->detach($course);
-                $audit->record('program_course', $program->id, 'detached', $attached->pivot->only(['knowledge_block', 'is_mandatory', 'suggested_semester']), null, $program->id, ['course_id' => $course->id]);
+                $audit->record('program_course', $program->id, 'detached', $attached->pivot->only(['knowledge_block', 'is_mandatory', 'suggested_semester', 'elective_group_code', 'counts_toward_total']), null, $program->id, ['course_id' => $course->id]);
             }
         });
 
@@ -181,15 +191,29 @@ class ProgramController extends Controller
     public function updateCourse(Request $request, Program $program, Course $course, CurriculumAuditService $audit): RedirectResponse
     {
         abort_unless($program->courses()->whereKey($course->id)->exists(), 404);
-        $data = $request->validate(['knowledge_block' => ['required', 'string', 'max:100'], 'is_mandatory' => ['sometimes', 'boolean'], 'suggested_semester' => ['nullable', 'integer', 'min:1', 'max:20']]);
+        $data = $request->validate(['knowledge_block' => ['required', 'string', 'max:100'], 'is_mandatory' => ['sometimes', 'boolean'], 'counts_toward_total' => ['sometimes', 'boolean'], 'suggested_semester' => ['nullable', 'integer', 'min:1', 'max:20'], 'elective_group_code' => ['nullable', 'string', 'max:30']]);
         DB::transaction(function () use ($program, $course, $data, $request, $audit): void {
-            $before = $program->courses()->whereKey($course->id)->firstOrFail()->pivot->only(['knowledge_block', 'is_mandatory', 'suggested_semester']);
-            $after = ['knowledge_block' => $data['knowledge_block'], 'is_mandatory' => $request->boolean('is_mandatory'), 'suggested_semester' => $data['suggested_semester'] ?? null];
+            $program = Program::whereKey($program->id)->lockForUpdate()->firstOrFail();
+            $before = $program->courses()->whereKey($course->id)->firstOrFail()->pivot->only(['knowledge_block', 'is_mandatory', 'suggested_semester', 'elective_group_code', 'counts_toward_total']);
+            $after = ['knowledge_block' => $data['knowledge_block'], 'is_mandatory' => $request->boolean('is_mandatory'), 'counts_toward_total' => $request->boolean('counts_toward_total', (bool) ($before['counts_toward_total'] ?? true)), 'suggested_semester' => $data['suggested_semester'] ?? null, 'elective_group_code' => $data['elective_group_code'] ?? null];
+            $this->validateElectiveAssignment($program, $after);
             $program->courses()->updateExistingPivot($course->id, $after);
             $audit->record('program_course', $program->id, 'updated', $before, $after, $program->id, ['course_id' => $course->id]);
         });
 
         return back()->with('success', 'Đã cập nhật học phần trong chương trình.');
+    }
+
+    private function validateElectiveAssignment(Program $program, array $data): void
+    {
+        $code = $data['elective_group_code'];
+        if (! $code) {
+            return;
+        }
+        $group = collect($program->elective_groups ?? [])->firstWhere('code', $code);
+        if (! ($data['counts_toward_total'] ?? true) || $data['is_mandatory'] || ! $group || mb_strtolower(trim($group['knowledge_block'])) !== mb_strtolower(trim($data['knowledge_block']))) {
+            throw ValidationException::withMessages(['elective_group_code' => 'Nhóm tự chọn phải tồn tại, cùng khối kiến thức và chỉ gắn với học phần tự chọn.']);
+        }
     }
 
     private function parseRequiredBlocks(string $value): array

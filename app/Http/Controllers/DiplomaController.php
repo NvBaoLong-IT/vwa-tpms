@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\GraduationImport;
+use App\Jobs\ImportGraduationJob;
+use App\Models\AcademicImport;
 use App\Models\DiplomaAuditLog;
 use App\Models\DiplomaBlank;
 use App\Models\DiplomaBlankAudit;
@@ -16,8 +17,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
-use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DiplomaController extends Controller
@@ -50,7 +49,7 @@ class DiplomaController extends Controller
 
     public function store(Request $request, DiplomaIssuanceService $service): RedirectResponse
     {
-        $data = $request->validate(['student_id' => ['required', 'exists:students,id'], 'diploma_type' => ['required', 'in:dai_hoc,thac_si,tien_si,chung_chi'], 'serial_number' => ['required', 'exists:diploma_blanks,serial_number'], 'cohort_code' => ['required', 'regex:/^[A-Za-z0-9-]+$/', 'max:30'], 'decision_code' => ['required_unless:diploma_type,chung_chi', 'nullable', 'regex:/^[A-Za-z0-9-]+$/', 'max:50'], 'issue_date' => ['required', 'date']]);
+        $data = $request->validate(['student_id' => ['required', 'exists:students,id,deleted_at,NULL'], 'diploma_type' => ['required', 'in:dai_hoc,thac_si,tien_si,chung_chi'], 'serial_number' => ['required', 'exists:diploma_blanks,serial_number,deleted_at,NULL'], 'cohort_code' => ['required', 'regex:/^[A-Za-z0-9-]+$/', 'max:30'], 'decision_code' => ['required_unless:diploma_type,chung_chi', 'nullable', 'regex:/^[A-Za-z0-9-]+$/', 'max:50'], 'issue_date' => ['required', 'date']]);
         $service->request($data, $request->user()->id);
 
         return back()->with('success', 'Đã gửi yêu cầu cấp văn bằng để lãnh đạo phê duyệt.');
@@ -117,17 +116,19 @@ class DiplomaController extends Controller
 
     public function importForm(): View
     {
-        return view('diploma.import');
+        return view('diploma.import', ['imports' => AcademicImport::where('kind', 'graduation')->latest()->limit(10)->get()]);
     }
 
     public function import(Request $request): RedirectResponse
     {
         $file = $request->validate(['file' => ['required', 'file', 'mimes:xlsx,xls,csv', 'max:20480']])['file'];
-        $import = new GraduationImport;
-        HeadingRowFormatter::default('none');
-        Excel::import($import, $file);
+        $path = $file->store('graduation-imports', 'local');
+        $batch = AcademicImport::create(['user_id' => $request->user()->id, 'original_name' => $file->getClientOriginalName(), 'kind' => 'graduation', 'status' => 'queued']);
+        ImportGraduationJob::dispatch($path, $request->user()->id, $batch->id);
+        $batch->refresh();
 
-        return back()->with('success', "Đã nhập {$import->imported} dòng tốt nghiệp.")->with('import_errors', $import->errors);
+        return back()->with('success', $batch->status === 'completed' ? "Đã nhập {$batch->rows_imported} dòng tốt nghiệp." : 'Đã nhận danh sách tốt nghiệp. Hãy tải lại trang để xem kết quả.')
+            ->with('import_errors', $batch->errors ?? []);
     }
 
     public function document(DiplomaLedger $ledger, string $type)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Program;
+use App\Services\CoursePrerequisiteValidator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ class CourseController extends Controller
     {
         $filters = $request->validate([
             'q' => ['nullable', 'string', 'max:120'],
-            'program_id' => ['nullable', 'integer', 'exists:programs,id'],
+            'program_id' => ['nullable', 'integer', 'exists:programs,id,deleted_at,NULL'],
             'is_active' => ['nullable', 'in:0,1'],
             'credits' => ['nullable', 'integer', 'min:1', 'max:99'],
             'prerequisite' => ['nullable', 'in:has,none'],
@@ -78,9 +79,12 @@ class CourseController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $data = $request->validate(['course_code' => ['required', 'string', 'max:30', 'unique:courses,course_code'], 'name_vi' => ['required', 'string', 'max:255'], 'name_en' => ['nullable', 'string', 'max:255'], 'credits' => ['required', 'integer', 'min:1', 'max:99'], 'theory_hours' => ['required', 'integer', 'min:0'], 'practice_hours' => ['required', 'integer', 'min:0'], 'prerequisite_course_id' => ['nullable', 'exists:courses,id'], 'is_active' => ['sometimes', 'boolean']]);
+        $data = $request->validate(['course_code' => ['required', 'string', 'max:30', 'unique:courses,course_code'], 'name_vi' => ['required', 'string', 'max:255'], 'name_en' => ['nullable', 'string', 'max:255'], 'credits' => ['required', 'integer', 'min:1', 'max:99'], 'theory_hours' => ['required', 'integer', 'min:0'], 'practice_hours' => ['required', 'integer', 'min:0'], 'prerequisite_course_id' => ['nullable', 'exists:courses,id,deleted_at,NULL'], 'is_active' => ['sometimes', 'boolean']]);
         $data['is_active'] = $request->boolean('is_active');
-        DB::transaction(fn () => Course::create($data));
+        DB::transaction(function () use ($data): void {
+            $this->validatePrerequisiteChain($data['prerequisite_course_id'] ?? null);
+            Course::create($data);
+        });
 
         return redirect()->route('courses.index')->with('success', 'Đã tạo học phần.');
     }
@@ -99,9 +103,12 @@ class CourseController extends Controller
 
     public function update(Request $request, Course $course): RedirectResponse
     {
-        $data = $request->validate(['course_code' => ['required', 'string', 'max:30', 'unique:courses,course_code,'.$course->id], 'name_vi' => ['required', 'string', 'max:255'], 'name_en' => ['nullable', 'string', 'max:255'], 'credits' => ['required', 'integer', 'min:1', 'max:99'], 'theory_hours' => ['required', 'integer', 'min:0'], 'practice_hours' => ['required', 'integer', 'min:0'], 'prerequisite_course_id' => ['nullable', 'exists:courses,id', 'not_in:'.$course->id], 'is_active' => ['sometimes', 'boolean']]);
+        $data = $request->validate(['course_code' => ['required', 'string', 'max:30', 'unique:courses,course_code,'.$course->id], 'name_vi' => ['required', 'string', 'max:255'], 'name_en' => ['nullable', 'string', 'max:255'], 'credits' => ['required', 'integer', 'min:1', 'max:99'], 'theory_hours' => ['required', 'integer', 'min:0'], 'practice_hours' => ['required', 'integer', 'min:0'], 'prerequisite_course_id' => ['nullable', 'exists:courses,id,deleted_at,NULL', 'not_in:'.$course->id], 'is_active' => ['sometimes', 'boolean']]);
         $data['is_active'] = $request->boolean('is_active');
-        DB::transaction(fn () => $course->update($data));
+        DB::transaction(function () use ($course, $data): void {
+            $this->validatePrerequisiteChain($data['prerequisite_course_id'] ?? null, $course->id);
+            $course->update($data);
+        });
 
         return redirect()->route('courses.show', $course)->with('success', 'Đã cập nhật học phần.');
     }
@@ -114,5 +121,10 @@ class CourseController extends Controller
         DB::transaction(fn () => $course->delete());
 
         return redirect()->route('courses.index')->with('success', 'Đã xóa học phần.');
+    }
+
+    private function validatePrerequisiteChain(?int $prerequisiteId, ?int $courseId = null): void
+    {
+        app(CoursePrerequisiteValidator::class)->validatePrerequisiteChain($prerequisiteId, $courseId);
     }
 }

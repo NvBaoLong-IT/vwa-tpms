@@ -3,12 +3,15 @@
 namespace Tests\Feature;
 
 use App\Models\ReportHistory;
+use App\Models\User;
 use App\Models\WebScheduledRun;
 use App\Services\AcademicWarningService;
 use App\Services\WebScheduleService;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Permission;
 use Tests\TestCase;
 
 class WebScheduleTest extends TestCase
@@ -17,7 +20,7 @@ class WebScheduleTest extends TestCase
 
     public function test_console_tick_runs_daily_tasks_once(): void
     {
-        $this->get('/schedule/tick')->assertNotFound();
+        $this->get('/schedule/tick')->assertStatus(405);
         $this->travelTo(Carbon::parse('2026-10-09 09:00:00', 'Asia/Bangkok'));
 
         $this->assertSame(['academic' => 'completed', 'iso' => 'completed'], app(WebScheduleService::class)->tick());
@@ -80,5 +83,49 @@ class WebScheduleTest extends TestCase
         app()->instance(AcademicWarningService::class, $replacement);
 
         $this->assertSame('completed', app(WebScheduleService::class)->tick()['academic']);
+    }
+
+    public function test_authenticated_web_tick_runs_tasks_once_for_multiple_users(): void
+    {
+        $this->travelTo(Carbon::parse('2026-10-09 09:00:00', 'Asia/Bangkok'));
+        $user = User::factory()->create();
+        $other = User::factory()->create();
+        $permission = Permission::findOrCreate('dashboard.view', 'web');
+        $user->givePermissionTo($permission);
+        $other->givePermissionTo($permission);
+
+        $this->actingAs($user)->get(route('dashboard'))->assertOk()->assertSee('name="web-schedule-url"', false);
+        $this->post(route('schedule.tick'))->assertOk()->assertJson(['status' => 'checked']);
+        $this->actingAs($other)->post(route('schedule.tick'))->assertOk()->assertJson(['status' => 'skipped']);
+        $this->travel(61)->seconds();
+        $this->post(route('schedule.tick'))->assertOk()->assertJson(['status' => 'checked']);
+        $this->assertSame(1, WebScheduledRun::where('task', 'academic')->count());
+        $this->assertSame(1, WebScheduledRun::where('task', 'iso')->count());
+    }
+
+    public function test_web_tick_requires_an_active_authorized_session(): void
+    {
+        $this->postJson(route('schedule.tick'))->assertUnauthorized();
+        $user = User::factory()->create();
+        $this->actingAs($user)->postJson(route('schedule.tick'))->assertForbidden();
+        $user->givePermissionTo(Permission::findOrCreate('dashboard.view', 'web'));
+        $user->update(['is_active' => false]);
+        $this->postJson(route('schedule.tick'))->assertUnauthorized();
+        $this->assertGuest();
+        $this->assertDatabaseCount('web_scheduled_runs', 1);
+    }
+
+    public function test_web_tick_skips_work_while_another_request_holds_the_lock(): void
+    {
+        $user = User::factory()->create();
+        $user->givePermissionTo(Permission::findOrCreate('dashboard.view', 'web'));
+        $lock = Cache::lock('web-schedule:tick', 7200);
+        $this->assertTrue($lock->get());
+        try {
+            $this->actingAs($user)->postJson(route('schedule.tick'))->assertOk()->assertJson(['status' => 'skipped']);
+            $this->assertDatabaseCount('web_scheduled_runs', 1);
+        } finally {
+            $lock->release();
+        }
     }
 }

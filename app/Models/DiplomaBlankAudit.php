@@ -16,7 +16,7 @@ class DiplomaBlankAudit extends Model
 
     public function blank(): BelongsTo
     {
-        return $this->belongsTo(DiplomaBlank::class, 'diploma_blank_id');
+        return $this->belongsTo(DiplomaBlank::class, 'diploma_blank_id')->withTrashed();
     }
 
     public function user(): BelongsTo

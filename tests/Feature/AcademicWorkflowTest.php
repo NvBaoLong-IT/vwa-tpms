@@ -28,7 +28,7 @@ class AcademicWorkflowTest extends TestCase
     private function user(): User
     {
         $role = Role::create(['name' => 'Học vụ workflow', 'guard_name' => 'web']);
-        $role->syncPermissions(collect(['academic.view', 'academic.import', 'academic.process'])->map(fn ($p) => Permission::findOrCreate($p, 'web'))->all());
+        $role->syncPermissions(collect(['academic.view', 'academic.import', 'academic.process', 'reports.export'])->map(fn ($p) => Permission::findOrCreate($p, 'web'))->all());
         $user = User::factory()->create();
         $user->assignRole($role);
 

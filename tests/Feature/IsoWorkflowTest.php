@@ -89,6 +89,7 @@ class IsoWorkflowTest extends TestCase
         $this->assertDatabaseHas('iso_workflows', ['id' => $workflow->id, 'approved_by' => $approver->id]);
         $this->actingAs($approver)->post(route('iso.close', $workflow))->assertRedirect();
         $this->assertDatabaseHas('iso_workflows', ['id' => $workflow->id, 'status' => 'completed', 'closed_by' => $approver->id]);
+        $this->get(route('iso.files.download', [$workflow, $file]))->assertDownload('bien-ban.pdf');
     }
 
     public function test_major_revision_requires_more_than_twenty_percent_of_credits(): void
@@ -99,6 +100,41 @@ class IsoWorkflowTest extends TestCase
 
         $this->actingAs($user)->post(route('iso.store'), ['program_id' => $program->id, 'type' => 'major', 'changed_credits' => 24, 'title' => 'Không đủ lớn', 'start_date' => '2026-09-01'])->assertSessionHasErrors('changed_credits');
         $this->assertDatabaseCount('iso_workflows', 0);
+    }
+
+    public function test_completed_cancelled_and_closed_workflows_reject_all_mutations(): void
+    {
+        Storage::fake('local');
+        $manager = User::factory()->create();
+        $manager->assignRole('Lãnh đạo phòng');
+        $program = Program::create(['code' => 'ISO-LOCK', 'name_vi' => 'Chương trình', 'degree_level' => 'dai_hoc', 'total_credits' => 120]);
+        foreach ([['completed', now()], ['completed', null], ['cancelled', null], ['in_progress', now()]] as [$status, $closedAt]) {
+            $workflow = IsoWorkflow::create(['program_id' => $program->id, 'type' => 'minor', 'title' => 'Hồ sơ đã khóa', 'start_date' => '2026-01-01', 'expected_end_date' => '2026-12-31', 'status' => $status, 'closed_at' => $closedAt, 'approved_at' => now(), 'approved_by' => $manager->id]);
+            $step = $workflow->steps()->create(['step_number' => 1, 'step_name' => 'Thẩm định', 'deadline' => '2026-12-01', 'status' => 'completed', 'note' => 'Đã chốt']);
+            $before = $workflow->fresh()->getAttributes();
+            $stepBefore = $step->fresh()->getAttributes();
+
+            config(['app.debug' => true]);
+            $this->actingAs($manager)->patch(route('iso.steps.update', [$workflow, $step->id]), ['status' => 'not_started', 'note' => 'Sửa sau khi đóng'])->assertStatus(409)
+                ->assertSee('Thay đổi của bạn chưa được lưu')
+                ->assertSee('href="'.route('iso.show', $workflow).'"', false)
+                ->assertDontSee('Exception trace');
+            $this->patch(route('iso.steps.assign', [$workflow, $step->id]), ['assigned_to_user_id' => $manager->id])->assertStatus(409);
+            $this->post(route('iso.files.upload', $workflow), ['file' => UploadedFile::fake()->create('blocked.pdf', 10, 'application/pdf')])->assertStatus(409);
+            $this->post(route('iso.approve', $workflow))->assertStatus(409);
+            $this->post(route('iso.close', $workflow))->assertStatus(409);
+            $this->assertSame($before, $workflow->fresh()->getAttributes());
+            $this->assertSame($stepBefore, $step->fresh()->getAttributes());
+            $this->get(route('iso.show', $workflow))->assertOk()
+                ->assertDontSee('action="'.route('iso.steps.update', [$workflow, $step->id]).'"', false)
+                ->assertDontSee('action="'.route('iso.steps.assign', [$workflow, $step->id]).'"', false)
+                ->assertDontSee('action="'.route('iso.files.upload', $workflow).'"', false)
+                ->assertDontSee('action="'.route('iso.approve', $workflow).'"', false)
+                ->assertDontSee('action="'.route('iso.close', $workflow).'"', false);
+        }
+        $this->assertDatabaseCount('iso_histories', 0);
+        $this->assertDatabaseCount('iso_files', 0);
+        $this->assertSame([], Storage::disk('local')->allFiles('iso-files'));
     }
 
     public function test_deadline_notice_is_sent_once_after_four_working_days(): void

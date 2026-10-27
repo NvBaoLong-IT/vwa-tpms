@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Course;
 use App\Models\CoursePloMatrix;
 use App\Models\Program;
+use App\Models\ProgramExcelImport;
 use App\Models\User;
 use Database\Seeders\OfficeRolesSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -98,18 +99,25 @@ class ProgramVersionTest extends TestCase
         $viewer = $this->user('Xem');
         $manager = $this->user('Lãnh đạo phòng');
         $program = Program::create(['code' => 'PUBLISH-01', 'name_vi' => 'Công bố', 'degree_level' => 'dai_hoc', 'total_credits' => 3]);
+        $course = Course::create(['course_code' => 'PUBLISH-HP', 'name_vi' => 'Học phần công bố', 'credits' => 3]);
+        $program->courses()->attach($course, ['knowledge_block' => 'Đại cương', 'is_mandatory' => true]);
         $input = ['cohort_year' => 2024, 'decision_number' => '123/QĐ', 'decision_date' => '2024-08-01'];
 
         $this->actingAs($viewer)->post(route('programs.versions.store', $program), $input)->assertForbidden();
         $this->actingAs($specialist)->post(route('programs.versions.store', $program), $input)->assertRedirect();
         $first = $program->versions()->firstOrFail();
         $this->post(route('programs.versions.publish', [$program, $first]))->assertForbidden();
-        $this->actingAs($manager)->post(route('programs.versions.publish', [$program, $first]))->assertRedirect();
+        $this->post(route('programs.versions.submit', [$program, $first]), ['effective_from' => '2024-08-01'])->assertSessionHasNoErrors()->assertRedirect();
+        $this->actingAs($manager)->post(route('programs.versions.review', [$program, $first]), ['decision' => 'approve', 'review_note' => 'Đồng ý'])->assertRedirect();
+        $this->post(route('programs.versions.publish', [$program, $first]))->assertRedirect();
         $this->assertSame('published', $first->fresh()->status);
         $this->post(route('programs.versions.publish', [$program, $first]))->assertStatus(422);
         $this->post(route('programs.versions.store', $program), $input)->assertRedirect();
         $second = $program->versions()->orderByDesc('revision')->firstOrFail();
         $this->assertSame(2, $second->revision);
+        $this->post(route('programs.versions.submit', [$program, $second]), ['effective_from' => '2024-09-01'])->assertSessionHasNoErrors()->assertRedirect();
+        $secondReviewer = $this->user('Lãnh đạo phòng');
+        $this->actingAs($secondReviewer)->post(route('programs.versions.review', [$program, $second]), ['decision' => 'approve', 'review_note' => 'Đồng ý'])->assertRedirect();
         $this->post(route('programs.versions.publish', [$program, $second]))->assertRedirect();
         $this->assertSame('archived', $first->fresh()->status);
         $this->assertSame('published', $second->fresh()->status);
@@ -123,11 +131,15 @@ class ProgramVersionTest extends TestCase
     {
         $specialist = $this->user('Chuyên viên');
         $this->actingAs($specialist)->post(route('programs.import'), ['file' => $this->workbook('OLD101', 'Đại cương', 3, 'PLO1')])->assertRedirect();
+        $this->post(route('programs.import.confirm', ProgramExcelImport::latest('id')->firstOrFail()), ['confirm' => 1])->assertSessionHasNoErrors()->assertRedirect();
+        $this->approveAndApplyLatestExcel();
         $program = Program::where('code', 'IMPORT-01')->firstOrFail();
         $this->post(route('programs.versions.store', $program), ['cohort_year' => 2024, 'decision_number' => '123/QĐ', 'decision_date' => '2024-08-01'])->assertRedirect();
         $old = $program->versions()->firstOrFail();
 
         $this->post(route('programs.import'), ['file' => $this->workbook('NEW101', 'Chuyên ngành', 4, 'PLO2')])->assertRedirect();
+        $this->post(route('programs.import.confirm', ProgramExcelImport::latest('id')->firstOrFail()), ['confirm' => 1])->assertSessionHasNoErrors()->assertRedirect();
+        $this->approveAndApplyLatestExcel();
         $this->assertSame(['NEW101'], $program->fresh()->courses->pluck('course_code')->all());
         $this->assertSame(['PLO2'], $program->fresh()->plos->pluck('code')->all());
         $this->post(route('programs.versions.store', $program), ['cohort_year' => 2025, 'decision_number' => '456/QĐ', 'decision_date' => '2025-08-01'])->assertRedirect();
@@ -135,6 +147,16 @@ class ProgramVersionTest extends TestCase
         $this->assertSame(['OLD101'], collect($old->fresh()->snapshot['courses'])->pluck('course_code')->all());
         $this->assertSame(['NEW101'], collect($new->snapshot['courses'])->pluck('course_code')->all());
         $this->assertSame(['Chuyên ngành'], $new->snapshot['required_blocks']);
+    }
+
+    private function approveAndApplyLatestExcel(): void
+    {
+        $owner = auth()->user();
+        $manager = User::factory()->create();
+        $manager->assignRole('Lãnh đạo phòng');
+        $draft = ProgramExcelImport::latest('id')->firstOrFail();
+        $this->actingAs($manager)->post(route('programs.import.review', $draft), ['decision' => 'approve', 'review_note' => 'Đồng ý bản nhập'])->assertSessionHasNoErrors()->assertRedirect();
+        $this->actingAs($owner)->post(route('programs.import.apply', $draft), ['confirm' => 1])->assertSessionHasNoErrors()->assertRedirect();
     }
 
     private function workbook(string $courseCode, string $block, int $credits, string $ploCode): UploadedFile

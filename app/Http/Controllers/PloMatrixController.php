@@ -25,10 +25,10 @@ class PloMatrixController extends Controller
     public function update(Request $request, Program $program, CurriculumAuditService $audit): RedirectResponse
     {
         $data = $request->validate(['levels' => ['nullable', 'array'], 'levels.*' => ['array'], 'levels.*.*' => ['nullable', 'integer', 'between:1,3']]);
-        $courseIds = $program->courses()->pluck('courses.id')->map(fn ($id) => (int) $id)->all();
-        $ploIds = $program->plos()->pluck('id')->map(fn ($id) => (int) $id)->all();
-
-        DB::transaction(function () use ($data, $courseIds, $ploIds, $program, $audit): void {
+        DB::transaction(function () use ($data, $program, $audit): void {
+            $program = Program::whereKey($program->id)->lockForUpdate()->firstOrFail();
+            $courseIds = $program->courses()->pluck('courses.id')->map(fn ($id) => (int) $id)->all();
+            $ploIds = $program->plos()->pluck('id')->map(fn ($id) => (int) $id)->all();
             $before = [];
             $after = [];
             foreach ($data['levels'] ?? [] as $courseId => $values) {

@@ -12,7 +12,6 @@
             $stepLabels = ['not_started'=>'Chưa bắt đầu','in_progress'=>'Đang thực hiện','waiting_library'=>'Đợi Thư viện','waiting_approval'=>'Đợi phê duyệt','completed'=>'Hoàn thành'];
             $hasFilters = request()->filled('q') || request()->filled('program_id') || request()->filled('status') || request()->filled('type') || request()->boolean('overdue');
         @endphp
-        @if(session('success'))<div class="academic-success" role="status">{{ session('success') }}</div>@endif
         <section aria-labelledby="iso-summary-title">
             <div class="academic-section-heading"><h2 id="iso-summary-title">Tổng quan rà soát</h2><span>Toàn hệ thống</span></div>
             <dl class="academic-counts">

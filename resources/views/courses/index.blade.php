@@ -10,7 +10,6 @@
             $hasFilters = request()->filled('q') || request()->filled('program_id') || request()->filled('is_active') || request()->filled('credits') || request()->filled('coverage') || request()->filled('prerequisite');
             $hasAdvancedFilters = request()->filled('coverage') || request()->filled('prerequisite') || (request()->filled('sort') && request('sort') !== 'code') || (request()->filled('per_page') && (int) request('per_page') !== 20);
         @endphp
-        @if(session('success'))<div class="academic-success" role="status">{{ session('success') }}</div>@endif
         <section aria-labelledby="course-summary-title">
             <div class="academic-section-heading"><h2 id="course-summary-title">Tổng quan học phần</h2><span>Toàn hệ thống</span></div>
             <dl class="academic-counts">

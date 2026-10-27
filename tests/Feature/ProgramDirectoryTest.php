@@ -13,10 +13,13 @@ class ProgramDirectoryTest extends TestCase
 {
     use RefreshDatabase;
 
-    private function viewer(): User
+    private function viewer(bool $canExport = false): User
     {
         $user = User::factory()->create();
         $user->givePermissionTo(Permission::findOrCreate('programs.view', 'web'));
+        if ($canExport) {
+            $user->givePermissionTo(Permission::findOrCreate('reports.export', 'web'));
+        }
 
         return $user;
     }
@@ -61,7 +64,7 @@ class ProgramDirectoryTest extends TestCase
 
     public function test_sorting_pagination_and_export_link_keep_filters(): void
     {
-        $user = $this->viewer();
+        $user = $this->viewer(true);
         for ($index = 1; $index <= 16; $index++) {
             $this->program(sprintf('PAGE-%02d', $index));
         }
@@ -78,7 +81,7 @@ class ProgramDirectoryTest extends TestCase
 
     public function test_csv_exports_all_filtered_rows_and_neutralizes_spreadsheet_formulas(): void
     {
-        $user = $this->viewer();
+        $user = $this->viewer(true);
         $this->program('EXPORT-01', ['name_vi' => '=1+1']);
         for ($index = 2; $index <= 16; $index++) {
             $this->program(sprintf('EXPORT-%02d', $index));
@@ -104,7 +107,7 @@ class ProgramDirectoryTest extends TestCase
         $this->assertStringNotContainsString('EXCLUDED', $csv);
     }
 
-    public function test_viewer_can_export_but_does_not_receive_mutation_links(): void
+    public function test_viewer_cannot_export_and_does_not_receive_mutation_links(): void
     {
         $user = $this->viewer();
         $program = $this->program('READ-ONLY');
@@ -112,14 +115,15 @@ class ProgramDirectoryTest extends TestCase
             ->assertSee('href="'.route('programs.show', $program).'#program-courses"', false)
             ->assertDontSee('href="'.route('programs.create').'"', false)
             ->assertDontSee('href="'.route('programs.edit', $program).'"', false)
-            ->assertDontSee('href="'.route('programs.import.form').'"', false);
-        $this->get(route('programs.export.csv'))->assertOk();
+            ->assertDontSee('href="'.route('programs.import.form').'"', false)
+            ->assertDontSee('Xuất danh sách CSV');
+        $this->get(route('programs.export.csv'))->assertForbidden();
         $this->actingAs(User::factory()->create())->get(route('programs.export.csv'))->assertForbidden();
     }
 
     public function test_unsupported_sort_and_page_size_are_rejected(): void
     {
-        $user = $this->viewer();
+        $user = $this->viewer(true);
 
         $this->actingAs($user)->get(route('programs.index', ['sort' => 'name_vi desc', 'per_page' => 100000]))
             ->assertSessionHasErrors(['sort', 'per_page']);

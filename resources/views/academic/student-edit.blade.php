@@ -7,7 +7,16 @@
     </x-slot>
 
     <div class="student-page app-shell">
-        @if(session('success'))<p class="student-notice" role="status">{{ session('success') }}</p>@endif
+        @can('students.manage')
+        <section class="student-section student-edit-section student-section-first" aria-labelledby="student-master-title">
+            <header><h2 id="student-master-title">Thông tin hồ sơ</h2><p>Cập nhật thông tin nhận diện và phân loại sinh viên.</p></header>
+            <form method="POST" action="{{ route('academic.student.update', $student) }}" class="student-form">
+                @csrf @method('PUT')
+                @include('academic.partials.student-fields', ['student' => $student])
+                <div class="student-form-actions"><button type="submit" class="student-button student-button-primary">Lưu hồ sơ</button></div>
+            </form>
+        </section>
+        @endcan
         <section class="student-section student-edit-section student-section-first" aria-labelledby="student-assignment-title">
             <header><h2 id="student-assignment-title">Cố vấn và khoa phụ trách</h2><p>Phân công nơi tiếp nhận cảnh báo học vụ.</p></header>
             <form method="POST" action="{{ route('academic.assignment.update', $student) }}" class="student-form">

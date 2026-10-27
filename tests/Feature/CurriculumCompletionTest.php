@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Course;
 use App\Models\Program;
+use App\Models\ProgramExcelImport;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -72,6 +73,8 @@ class CurriculumCompletionTest extends TestCase
         $this->actingAs($officer)->get(route('programs.import.form'))->assertOk();
         $this->get(route('programs.import.template'))->assertOk();
         $this->actingAs($officer)->post(route('programs.import'), ['file' => $this->workbook('PLO1')])->assertSessionHasNoErrors()->assertRedirect();
+        $this->post(route('programs.import.confirm', ProgramExcelImport::latest('id')->firstOrFail()), ['confirm' => 1])->assertSessionHasNoErrors()->assertRedirect();
+        $this->approveAndApplyLatestExcel();
         $this->assertDatabaseHas('programs', ['code' => 'PX', 'elective_credits_required' => 3]);
         $this->assertDatabaseHas('program_course', ['knowledge_block' => 'Cơ sở ngành', 'is_mandatory' => 0]);
         $this->assertDatabaseHas('course_plo_matrix', ['contribution_level' => 2]);
@@ -79,6 +82,17 @@ class CurriculumCompletionTest extends TestCase
 
         $this->post(route('programs.import'), ['file' => $this->workbook('UNKNOWN', 'PY')])->assertSessionHasErrors('file');
         $this->assertDatabaseMissing('programs', ['code' => 'PY']);
+    }
+
+    private function approveAndApplyLatestExcel(): void
+    {
+        $owner = auth()->user();
+        $manager = User::factory()->create();
+        Role::findOrCreate('Lãnh đạo phòng', 'web')->givePermissionTo(['programs.view', 'programs.import']);
+        $manager->assignRole('Lãnh đạo phòng');
+        $draft = ProgramExcelImport::latest('id')->firstOrFail();
+        $this->actingAs($manager)->post(route('programs.import.review', $draft), ['decision' => 'approve', 'review_note' => 'Đồng ý bản nhập'])->assertSessionHasNoErrors()->assertRedirect();
+        $this->actingAs($owner)->post(route('programs.import.apply', $draft), ['confirm' => 1])->assertSessionHasNoErrors()->assertRedirect();
     }
 
     private function workbook(string $matrixPlo, string $programCode = 'PX'): UploadedFile

@@ -30,9 +30,6 @@
 
         <div class="profile-form-actions">
             <button type="submit" class="profile-button profile-button-primary">Cập nhật mật khẩu</button>
-            @if (session('status') === 'password-updated')
-                <p class="profile-save-status" role="status">Đã cập nhật mật khẩu.</p>
-            @endif
         </div>
     </form>
 </section>

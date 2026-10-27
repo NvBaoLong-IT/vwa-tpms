@@ -23,7 +23,7 @@ class DiplomaIssuanceService
         if (! $blank || $blank->type !== $data['diploma_type'] || $blank->status !== 'in_stock') {
             throw ValidationException::withMessages(['serial_number' => 'Phôi không có sẵn hoặc không đúng loại.']);
         }
-        if (DiplomaLedger::where('student_id', $student->id)->where('status', 'issued')->exists()
+        if (DiplomaLedger::withTrashed()->where('student_id', $student->id)->where('status', 'issued')->exists()
             || DiplomaRequest::where('student_id', $student->id)->where('status', 'pending')->exists()
             || DiplomaRequest::where('serial_number', $blank->serial_number)->where('status', 'pending')->exists()) {
             throw ValidationException::withMessages(['student_id' => 'Người học hoặc phôi đã có yêu cầu cấp đang hiệu lực.']);

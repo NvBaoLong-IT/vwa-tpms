@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="student-heading">
             <div><p class="student-eyebrow">Hồ sơ sinh viên</p><h1>{{ $student->full_name }}</h1><p class="student-heading-code">{{ $student->student_code }}</p></div>
-            <div class="student-actions">
+            <div class="student-actions">@can('students.manage')<a class="student-button student-button-secondary" href="{{ route('academic.credits', $student) }}">Công nhận tín chỉ</a>@if(auth()->user()->hasRole('Lãnh đạo phòng'))<a class="student-button student-button-secondary" href="{{ route('academic.recognitions.queue') }}">Hồ sơ công nhận chờ duyệt</a>@endif @endcan
                 <a class="student-button student-button-secondary" href="{{ route('academic.students') }}">Danh sách sinh viên</a>
                 @if(auth()->user()->can('academic.view') && auth()->user()->can('academic.process'))
                     <a class="student-button student-button-primary" href="{{ route('academic.student.edit', $student) }}">Chỉnh sửa hồ sơ</a>
@@ -12,7 +12,6 @@
     </x-slot>
 
     <div class="student-page app-shell">
-        @if(session('success'))<p class="student-notice" role="status">{{ session('success') }}</p>@endif
         <section class="student-section student-section-first" aria-labelledby="student-info-title">
             <div class="student-section-heading"><h2 id="student-info-title">Thông tin sinh viên</h2><span class="student-status student-status-{{ $student->status }}">{{ ['active'=>'Đang học','graduated'=>'Đã tốt nghiệp','withdrawn'=>'Thôi học'][$student->status] ?? $student->status }}</span></div>
             <dl class="student-facts">

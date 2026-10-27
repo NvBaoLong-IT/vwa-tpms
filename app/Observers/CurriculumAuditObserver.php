@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Models\Course;
 use App\Services\CurriculumAuditService;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,6 +30,18 @@ class CurriculumAuditObserver
         if ($after !== []) {
             $this->audit->recordModel($model, 'updated', $before, $after);
         }
+    }
+
+    public function deleting(Model $model): void
+    {
+        if ($model instanceof Course) {
+            $model->setRelation('auditPrograms', $model->programs()->get(['programs.id']));
+        }
+    }
+
+    public function restored(Model $model): void
+    {
+        $this->audit->recordModel($model, 'restored', null, $model->attributesToArray());
     }
 
     public function deleted(Model $model): void

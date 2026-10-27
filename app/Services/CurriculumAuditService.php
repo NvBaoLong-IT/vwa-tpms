@@ -10,15 +10,32 @@ use Illuminate\Database\Eloquent\Model;
 
 class CurriculumAuditService
 {
+    private int $modelAuditSuppression = 0;
+
+    public function withoutModelAudit(callable $callback): mixed
+    {
+        $this->modelAuditSuppression++;
+        try {
+            return $callback();
+        } finally {
+            $this->modelAuditSuppression--;
+        }
+    }
+
     public function recordModel(Model $model, string $action, ?array $before, ?array $after): void
     {
+        if ($this->modelAuditSuppression > 0) {
+            return;
+        }
         $type = match (true) {
             $model instanceof Program => 'program',
             $model instanceof Course => 'course',
             $model instanceof Plo => 'plo',
         };
-        if ($model instanceof Course && $action !== 'deleted') {
-            $programIds = $model->programs()->pluck('programs.id');
+        if ($model instanceof Course) {
+            $programIds = $action === 'deleted' && $model->relationLoaded('auditPrograms')
+                ? $model->getRelation('auditPrograms')->pluck('id')
+                : $model->programs()->pluck('programs.id');
             if ($programIds->isNotEmpty()) {
                 foreach ($programIds as $programId) {
                     $this->record($type, $model->id, $action, $before, $after, (int) $programId);

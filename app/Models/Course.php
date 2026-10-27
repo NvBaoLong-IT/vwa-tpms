@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Course extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'course_code', 'name_vi', 'name_en', 'credits', 'theory_hours',
-        'practice_hours', 'prerequisite_course_id', 'is_active',
+        'practice_hours', 'prerequisite_course_id', 'corequisite_course_id', 'is_active',
     ];
 
     protected function casts(): array
@@ -30,8 +31,13 @@ class Course extends Model
     public function programs(): BelongsToMany
     {
         return $this->belongsToMany(Program::class, 'program_course')
-            ->withPivot(['knowledge_block', 'is_mandatory', 'suggested_semester', 'sort_order'])
+            ->withPivot(['knowledge_block', 'is_mandatory', 'suggested_semester', 'sort_order', 'counts_toward_total'])
             ->withTimestamps();
+    }
+
+    public function corequisite(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'corequisite_course_id');
     }
 
     public function materials(): HasMany

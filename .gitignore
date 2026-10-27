@@ -6,6 +6,7 @@
 /database/database.testing.sqlite
 /storage/*.key
 /storage/pail
+/storage/framework/backup-drills/
 /vendor
 .env
 .env.backup

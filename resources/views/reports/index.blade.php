@@ -42,7 +42,7 @@
         <section aria-labelledby="report-preview-title">
             <div class="academic-section-heading report-title-row">
                 <div><h2 id="report-preview-title">{{ $reportLabels[$type] }}</h2><p class="report-scope-note">{{ $scopeNotes[$type] }}</p></div>
-                @canany(['reports.export','dashboard.view'])
+                @can('reports.export')
                     <details class="academic-export">
                         <summary>Xuất báo cáo</summary>
                         <div class="academic-export-options">
@@ -96,7 +96,7 @@
                                 <td class="p-3" data-label="Thời điểm">{{ $item->created_at->format('d/m/Y H:i') }}</td>
                                 <td class="p-3" data-label="Thao tác">
                                     <a class="report-action-link" href="{{ route('reports.index', ['type'=>$item->report_type] + ($item->filters ?? []) + ['academic_year'=>'']) }}">Xem số liệu hiện tại</a>
-                                    @canany(['reports.export','dashboard.view'])<a class="report-action-link" href="{{ route('reports.reload', $item) }}">{{ $item->file_path ? 'Tải bản lưu' : 'Xuất lại' }}</a>@endcanany
+                                    @can('reports.export')<a class="report-action-link" href="{{ route('reports.reload', $item) }}">{{ $item->file_path ? 'Tải bản lưu' : 'Xuất lại' }}</a>@endcan
                                 </td>
                             </tr>
                         @empty

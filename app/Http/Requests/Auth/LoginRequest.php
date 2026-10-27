@@ -52,7 +52,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => 'Email, tên tài khoản hoặc mật khẩu không đúng; hoặc tài khoản đã bị khóa.',
             ]);
         }
 
@@ -76,10 +76,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
-            ]),
+            'email' => 'Bạn đã thử đăng nhập quá nhiều lần. Vui lòng thử lại sau '.$seconds.' giây.',
         ]);
     }
 

@@ -14,7 +14,7 @@
             $percent = $total ? round($completed / $total * 100) : 0;
             $overdue = $workflow->steps->filter(fn ($step) => $step->status !== 'completed' && $step->deadline?->lt(today()))->count();
         @endphp
-        @if(session('success'))<div class="academic-success" role="status">{{ session('success') }}</div>@endif
+        @if(! $workflow->isEditable())<p class="iso-detail-note">Đợt rà soát đã hoàn tất hoặc đã hủy. Bạn có thể xem lịch sử và tải hồ sơ; các thao tác thay đổi đã được khóa.</p>@endif
         <section class="iso-detail-overview" aria-labelledby="iso-info-title">
             <div class="academic-section-heading"><h2 id="iso-info-title">Tổng quan đợt rà soát</h2><span class="academic-status iso-status-{{ $workflow->status }}">{{ $workflowLabels[$workflow->status] ?? $workflow->status }}</span></div>
             <dl class="student-facts">
@@ -49,7 +49,7 @@
                             <div><dt>Cập nhật gần nhất</dt><dd>{{ $step->updated_at->format('d/m/Y H:i') }}</dd></div>
                         </dl>
                         @if($step->note)<p class="iso-detail-note"><strong>Ghi chú:</strong> {{ $step->note }}</p>@endif
-                        @can('iso.update')
+                        @if($workflow->isEditable())@can('iso.update')
                             <details class="program-management">
                                 <summary>Cập nhật trạng thái và ghi chú</summary>
                                 <form method="POST" action="{{ route('iso.steps.update', [$workflow, $step->id]) }}" class="iso-step-form">
@@ -59,8 +59,8 @@
                                     <button class="academic-button academic-button-primary" type="submit">Lưu cập nhật</button>
                                 </form>
                             </details>
-                        @endcan
-                        @can('iso.assign')
+                        @endcan @endif
+                        @if($workflow->isEditable())@can('iso.assign')
                             <details class="program-management">
                                 <summary>Phân công người phụ trách</summary>
                                 <form method="POST" action="{{ route('iso.steps.assign', [$workflow, $step->id]) }}" class="iso-step-form">
@@ -69,7 +69,7 @@
                                     <button class="academic-button academic-button-secondary" type="submit">Lưu phân công</button>
                                 </form>
                             </details>
-                        @endcan
+                        @endcan @endif
                         <details class="program-management">
                             <summary>Lịch sử thay đổi ({{ $step->histories->count() }})</summary>
                             <ul class="iso-step-history">
@@ -91,7 +91,7 @@
             @forelse($workflow->files as $file)
                 <div class="iso-file-row"><div><strong>{{ $file->original_name }}</strong><small>{{ $file->uploader?->name ?: 'Người dùng đã xóa' }} · {{ $file->created_at->format('d/m/Y H:i') }}</small></div><a class="program-detail-link" href="{{ route('iso.files.download', [$workflow, $file]) }}">Tải xuống &darr;</a></div>
             @empty<p class="student-empty">Chưa có hồ sơ.</p>@endforelse
-            @can('iso.upload')
+            @if($workflow->isEditable())@can('iso.upload')
                 <details class="program-management"><summary>Bổ sung hồ sơ rà soát</summary><p>PDF, Word hoặc ảnh JPG/PNG; tối đa 20 MB mỗi tệp.</p>
                     <form method="POST" action="{{ route('iso.files.upload', $workflow) }}" enctype="multipart/form-data" class="iso-step-form">
                         @csrf
@@ -100,15 +100,15 @@
                         <button type="submit" class="academic-button academic-button-primary">Tải hồ sơ lên</button>
                     </form>
                 </details>
-            @endcan
+            @endcan @endif
         </section>
 
         <section id="iso-detail-approval" class="program-detail-section" aria-labelledby="iso-approval-title">
             <div class="academic-section-heading"><h2 id="iso-approval-title">Phê duyệt và hoàn tất</h2></div>
             <dl class="iso-step-facts"><div><dt>Ngày phê duyệt</dt><dd>{{ $workflow->approved_at?->format('d/m/Y H:i') ?? 'Chưa phê duyệt' }}</dd></div><div><dt>Ngày hoàn tất</dt><dd>{{ $workflow->closed_at?->format('d/m/Y H:i') ?? 'Chưa hoàn tất' }}</dd></div></dl>
             <div class="iso-approval-actions">
-                @can('iso.approve')<details class="program-management"><summary>Phê duyệt đợt rà soát</summary><p>Kiểm tra các bước và hồ sơ trước khi ghi nhận phê duyệt.</p><form method="POST" action="{{ route('iso.approve', $workflow) }}">@csrf<button type="submit" class="academic-button academic-button-primary">Xác nhận phê duyệt</button></form></details>@endcan
-                @can('iso.close')<details class="program-management"><summary>Hoàn tất đợt rà soát</summary><p>Cần có phê duyệt trước khi đóng đợt rà soát. Hãy đối chiếu tiến độ các bước và hồ sơ trước khi xác nhận.</p><form method="POST" action="{{ route('iso.close', $workflow) }}">@csrf<button type="submit" class="academic-button academic-button-secondary">Xác nhận hoàn tất</button></form></details>@endcan
+                @if($workflow->isEditable())@can('iso.approve')<details class="program-management"><summary>Phê duyệt đợt rà soát</summary><p>Kiểm tra các bước và hồ sơ trước khi ghi nhận phê duyệt.</p><form method="POST" action="{{ route('iso.approve', $workflow) }}">@csrf<button type="submit" class="academic-button academic-button-primary">Xác nhận phê duyệt</button></form></details>@endcan @endif
+                @if($workflow->isEditable())@can('iso.close')<details class="program-management"><summary>Hoàn tất đợt rà soát</summary><p>Cần có phê duyệt trước khi đóng đợt rà soát. Hãy đối chiếu tiến độ các bước và hồ sơ trước khi xác nhận.</p><form method="POST" action="{{ route('iso.close', $workflow) }}">@csrf<button type="submit" class="academic-button academic-button-secondary">Xác nhận hoàn tất</button></form></details>@endcan @endif
             </div>
         </section>
     </div>

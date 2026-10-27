@@ -63,7 +63,7 @@ class DiplomaWorkflowTest extends TestCase
         $this->assertDatabaseCount('diploma_ledgers', 1);
     }
 
-    public function test_ledger_has_no_delete_route_and_public_lookup_is_closed(): void
+    public function test_ledger_has_no_delete_route_and_internal_lookup_is_closed(): void
     {
         $user = $this->user();
         $student = Student::create(['student_code' => 'GRAD2', 'full_name' => 'Người tra cứu', 'degree_level' => 'dai_hoc', 'status' => 'graduated']);
@@ -72,7 +72,7 @@ class DiplomaWorkflowTest extends TestCase
         $this->actingAs($this->approver())->post(route('diplomas.requests.approve', DiplomaRequest::firstOrFail()))->assertRedirect();
         $ledger = DiplomaLedger::firstOrFail();
         $this->actingAs($user)->delete('/diplomas/'.$ledger->id)->assertStatus(405);
-        $this->get('/tra-cuu-van-bang')->assertNotFound();
+        $this->get('/tra-cuu-van-bang')->assertOk()->assertSee('Tra cứu văn bằng');
         $this->get('/diplomas/lookup?code='.$ledger->reg_number)->assertStatus(405);
         $this->actingAs($user)->get(route('diplomas.audit'))->assertOk()->assertSee('Đã cấp');
         $this->assertDatabaseHas('diploma_audit_logs', ['diploma_ledger_id' => $ledger->id, 'action' => 'issued']);

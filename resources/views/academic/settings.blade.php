@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-slot name="header"><h2 class="font-semibold text-xl">Ngưỡng GPA cảnh báo</h2></x-slot>
     <div class="py-8 max-w-3xl mx-auto px-4">
-        @if(session('success'))<p class="p-3 mb-4 bg-green-100 text-green-800">{{ session('success') }}</p>@endif
         <form method="POST" action="{{ route('academic.settings.update') }}">
             @csrf @method('PUT')
             <div class="border bg-white divide-y">

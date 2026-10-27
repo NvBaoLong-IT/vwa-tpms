@@ -11,8 +11,11 @@ class CurriculumAuditController extends Controller
 {
     public function index(Request $request): View
     {
-        $types = ['program', 'course', 'plo', 'program_course', 'plo_matrix', 'program_version'];
+        $types = ['program', 'course', 'plo', 'program_course', 'plo_matrix', 'program_version', 'program_excel_import', 'document_import'];
         $query = CurriculumAudit::with('actor')->latest();
+        if (! $request->user()->can('students.manage')) {
+            $query->whereNotIn('subject_type', ['student_course_result', 'credit_recognition', 'course_result_import']);
+        }
         if (in_array($request->input('type'), $types, true)) {
             $query->where('subject_type', $request->input('type'));
         }

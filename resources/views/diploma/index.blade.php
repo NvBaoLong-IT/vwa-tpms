@@ -7,7 +7,6 @@
             <a href="#diploma-ledgers"><span>Sổ gốc</span><strong>{{ number_format($ledgers->total()) }}</strong><small>Xem văn bằng đã ghi sổ &rarr;</small></a>
         </nav>
         <p class="diploma-scope">Số lượng trên toàn hệ thống. Mỗi danh sách có phân trang riêng.</p>
-        @if(session('success'))<p class="academic-success" role="status">{{ session('success') }}</p>@endif
         @if(session('import_errors'))<div class="diploma-import-errors" role="alert"><strong>Dòng dữ liệu lỗi:</strong>@foreach(session('import_errors') as $error)<p>{{ $error }}</p>@endforeach</div>@endif
         <x-input-error :messages="$errors->all()" />
 

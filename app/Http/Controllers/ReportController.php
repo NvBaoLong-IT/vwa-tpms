@@ -107,7 +107,7 @@ class ReportController extends Controller
 
     private function filters(Request $request): array
     {
-        $request->validate(['academic_year' => ['nullable', 'integer', 'between:2000,2100'], 'program_id' => ['nullable', 'integer', 'exists:programs,id'], 'degree_level' => ['nullable', 'in:dai_hoc,thac_si,tien_si']]);
+        $request->validate(['academic_year' => ['nullable', 'integer', 'between:2000,2100'], 'program_id' => ['nullable', 'integer', 'exists:programs,id,deleted_at,NULL'], 'degree_level' => ['nullable', 'in:dai_hoc,thac_si,tien_si']]);
 
         return array_filter(['academic_year' => $request->input('academic_year'), 'program_id' => $request->input('program_id'), 'degree_level' => $request->input('degree_level')], fn ($value) => $value !== null && $value !== '');
     }

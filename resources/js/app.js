@@ -1,10 +1,22 @@
 import './bootstrap';
+import { startWebSchedule } from './web-schedule';
+import { showFlashNotifications } from './flash-notifications';
 
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
 Alpine.start();
+
+const flashNotifications = document.getElementById('flash-notifications');
+if (flashNotifications) {
+    document.querySelector('.global-validation-summary')?.remove();
+    void showFlashNotifications(flashNotifications);
+}
+
+const scheduleUrl = document.querySelector('meta[name="web-schedule-url"]')?.content;
+const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+if (scheduleUrl && csrfToken) startWebSchedule({ url: scheduleUrl, csrfToken });
 
 document.addEventListener('submit', (event) => {
     const form = event.target;

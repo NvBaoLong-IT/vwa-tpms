@@ -10,8 +10,10 @@ use App\Models\Program;
 use App\Models\User;
 use App\Services\BusinessDayCalculator;
 use Carbon\Carbon;
+use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -23,7 +25,7 @@ class IsoWorkflowController extends Controller
     {
         $filters = $request->validate([
             'q' => ['nullable', 'string', 'max:120'],
-            'program_id' => ['nullable', 'integer', 'exists:programs,id'],
+            'program_id' => ['nullable', 'integer', 'exists:programs,id,deleted_at,NULL'],
             'status' => ['nullable', 'in:draft,in_progress,completed,cancelled'],
             'type' => ['nullable', 'in:new,major,minor'],
             'overdue' => ['nullable', 'boolean'],
@@ -82,7 +84,7 @@ class IsoWorkflowController extends Controller
 
     public function store(Request $request, BusinessDayCalculator $calendar): RedirectResponse
     {
-        $data = $request->validate(['program_id' => 'required|exists:programs,id', 'type' => 'required|in:new,major,minor', 'changed_credits' => 'required_unless:type,new|nullable|integer|min:0', 'title' => 'required|string|max:255', 'start_date' => 'required|date', 'note' => 'nullable|string']);
+        $data = $request->validate(['program_id' => 'required|exists:programs,id,deleted_at,NULL', 'type' => 'required|in:new,major,minor', 'changed_credits' => 'required_unless:type,new|nullable|integer|min:0', 'title' => 'required|string|max:255', 'start_date' => 'required|date', 'note' => 'nullable|string']);
         $program = Program::findOrFail($data['program_id']);
         if ($data['type'] !== 'new') {
             $isMajor = $program->total_credits < $data['changed_credits'] * 5;
@@ -111,38 +113,41 @@ class IsoWorkflowController extends Controller
 
     public function updateStep(Request $request, IsoWorkflow $iso, int $step): RedirectResponse
     {
-        $item = $iso->steps()->findOrFail($step);
-        $old = $item->only(['status', 'assigned_to_user_id', 'note']);
-        $data = $request->validate(['status' => 'required|in:not_started,in_progress,waiting_library,waiting_approval,completed', 'note' => 'nullable|string']);
-        $item->update($data);
-        if ($item->wasChanged('status') && $item->status !== 'completed') {
-            $item->update(['overdue_notified_at' => null]);
-        }
-        IsoHistory::create(['iso_step_id' => $item->id, 'user_id' => auth()->id(), 'action' => 'updated', 'old_values' => $old, 'new_values' => $item->only(['status', 'assigned_to_user_id', 'note'])]);
-        if ($iso->status === 'completed' && $iso->closed_at === null) {
-            $iso->update(['status' => 'in_progress']);
-        }
+        return $this->withEditableWorkflow($iso, function (IsoWorkflow $iso) use ($request, $step): RedirectResponse {
+            $item = $iso->steps()->findOrFail($step);
+            $old = $item->only(['status', 'assigned_to_user_id', 'note']);
+            $data = $request->validate(['status' => 'required|in:not_started,in_progress,waiting_library,waiting_approval,completed', 'note' => 'nullable|string']);
+            $item->update($data);
+            if ($item->wasChanged('status') && $item->status !== 'completed') {
+                $item->update(['overdue_notified_at' => null]);
+            }
+            IsoHistory::create(['iso_step_id' => $item->id, 'user_id' => auth()->id(), 'action' => 'updated', 'old_values' => $old, 'new_values' => $item->only(['status', 'assigned_to_user_id', 'note'])]);
 
-        return back()->with('success', 'Đã cập nhật bước rà soát.');
+            return back()->with('success', 'Đã cập nhật bước rà soát.');
+        });
     }
 
     public function upload(Request $request, IsoWorkflow $iso): RedirectResponse
     {
-        $data = $request->validate(['file' => 'required|file|max:20480|mimes:pdf,doc,docx,jpg,jpeg,png']);
-        $path = $data['file']->store('iso-files');
-        IsoFile::create(['iso_workflow_id' => $iso->id, 'uploaded_by' => auth()->id(), 'original_name' => $data['file']->getClientOriginalName(), 'path' => $path, 'file_type' => $data['file']->getMimeType()]);
+        return $this->withEditableWorkflow($iso, function (IsoWorkflow $iso) use ($request): RedirectResponse {
+            $data = $request->validate(['file' => 'required|file|max:20480|mimes:pdf,doc,docx,jpg,jpeg,png']);
+            $path = $data['file']->store('iso-files');
+            IsoFile::create(['iso_workflow_id' => $iso->id, 'uploaded_by' => auth()->id(), 'original_name' => $data['file']->getClientOriginalName(), 'path' => $path, 'file_type' => $data['file']->getMimeType()]);
 
-        return back()->with('success', 'Đã lưu hồ sơ rà soát.');
+            return back()->with('success', 'Đã lưu hồ sơ rà soát.');
+        });
     }
 
     public function assign(Request $request, IsoWorkflow $iso, int $step): RedirectResponse
     {
-        $item = $iso->steps()->findOrFail($step);
-        $old = $item->only(['assigned_to_user_id']);
-        $item->update($request->validate(['assigned_to_user_id' => ['nullable', 'exists:users,id']]));
-        IsoHistory::create(['iso_step_id' => $item->id, 'user_id' => auth()->id(), 'action' => 'assigned', 'old_values' => $old, 'new_values' => $item->only(['assigned_to_user_id'])]);
+        return $this->withEditableWorkflow($iso, function (IsoWorkflow $iso) use ($request, $step): RedirectResponse {
+            $item = $iso->steps()->findOrFail($step);
+            $old = $item->only(['assigned_to_user_id']);
+            $item->update($request->validate(['assigned_to_user_id' => ['nullable', 'exists:users,id']]));
+            IsoHistory::create(['iso_step_id' => $item->id, 'user_id' => auth()->id(), 'action' => 'assigned', 'old_values' => $old, 'new_values' => $item->only(['assigned_to_user_id'])]);
 
-        return back()->with('success', 'Đã giao người phụ trách.');
+            return back()->with('success', 'Đã giao người phụ trách.');
+        });
     }
 
     public function download(IsoWorkflow $iso, IsoFile $file): BinaryFileResponse
@@ -155,16 +160,30 @@ class IsoWorkflowController extends Controller
 
     public function approve(IsoWorkflow $iso): RedirectResponse
     {
-        $iso->update(['approved_by' => auth()->id(), 'approved_at' => now()]);
+        return $this->withEditableWorkflow($iso, function (IsoWorkflow $iso): RedirectResponse {
+            $iso->update(['approved_by' => auth()->id(), 'approved_at' => now()]);
 
-        return back()->with('success', 'Lãnh đạo đã phê duyệt đợt rà soát.');
+            return back()->with('success', 'Lãnh đạo đã phê duyệt đợt rà soát.');
+        });
     }
 
     public function close(IsoWorkflow $iso): RedirectResponse
     {
-        abort_unless($iso->approved_at !== null, 422, 'Workflow phải được phê duyệt trước khi đóng.');
-        $iso->update(['status' => 'completed', 'closed_by' => auth()->id(), 'closed_at' => now()]);
+        return $this->withEditableWorkflow($iso, function (IsoWorkflow $iso): RedirectResponse {
+            abort_unless($iso->approved_at !== null, 422, 'Workflow phải được phê duyệt trước khi đóng.');
+            $iso->update(['status' => 'completed', 'closed_by' => auth()->id(), 'closed_at' => now()]);
 
-        return back()->with('success', 'Đã hoàn tất đợt rà soát.');
+            return back()->with('success', 'Đã hoàn tất đợt rà soát.');
+        });
+    }
+
+    private function withEditableWorkflow(IsoWorkflow $iso, Closure $action): RedirectResponse
+    {
+        return DB::transaction(function () use ($iso, $action): RedirectResponse {
+            $workflow = IsoWorkflow::whereKey($iso->id)->lockForUpdate()->firstOrFail();
+            abort_unless($workflow->isEditable(), 409, 'Đợt rà soát đã hoàn tất hoặc đã hủy, không thể thay đổi hồ sơ.');
+
+            return $action($workflow);
+        });
     }
 }

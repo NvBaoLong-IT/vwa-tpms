@@ -1,0 +1,35 @@
+    private function comparisonData(DocumentImport $documentImport, CurriculumDraftImporter $importer): array
+    {
+        if (! in_array($documentImport->status, ['review', 'imported'], true)) {
+            return ['changes' => [], 'comparisonHash' => null, 'comparisonError' => null];
+        }
+        try {
+            $comparison = $importer->comparison($documentImport);
+
+            return ['changes' => app(\App\Services\CurriculumSnapshotDiffer::class)->compare($comparison['before'], $comparison['after']), 'comparisonHash' => $comparison['hash'], 'comparisonError' => null];
+        } catch (\Illuminate\Validation\ValidationException $exception) {
+            return ['changes' => [], 'comparisonHash' => null, 'comparisonError' => $exception->validator->errors()->first()];
+        }
+    }
+
+    private function applyReviewed(Request $request, DocumentImport $documentImport, CurriculumDraftImporter $importer, bool $newProgram): Program
+    {
+        $data = $request->validate(['confirm' => ['accepted'], 'comparison_hash' => ['required', 'string', 'size:64']]);
+
+        return \Illuminate\Support\Facades\DB::transaction(function () use ($request, $documentImport, $importer, $newProgram, $data): Program {
+            $documentImport = DocumentImport::whereKey($documentImport->id)->lockForUpdate()->firstOrFail();
+            abort_unless($documentImport->status === 'review', 422, 'Bản nháp không còn chờ xác nhận.');
+            if ($documentImport->program_id !== null) {
+                Program::whereKey($documentImport->program_id)->lockForUpdate()->firstOrFail();
+            }
+            if (! hash_equals($importer->comparisonHash($documentImport), $data['comparison_hash'])) {
+                throw \Illuminate\Validation\ValidationException::withMessages(['payload' => 'Dữ liệu đã thay đổi sau khi xem trước. Hãy xem lại bảng đối chiếu rồi xác nhận lại.']);
+            }
+            $before = $documentImport->program ? app(\App\Services\ProgramVersionService::class)->snapshot($documentImport->program) : null;
+            $program = $newProgram ? $importer->importNew($documentImport, $request->user()->id) : $importer->import($documentImport, $request->user()->id);
+            $documentImport->update(['status' => 'imported', 'comparison_before' => $before, 'comparison_after' => app(\App\Services\ProgramVersionService::class)->snapshot($program->fresh()), 'reviewed_by' => $request->user()->id, 'reviewed_at' => now(), 'imported_by' => $request->user()->id, 'imported_at' => now()]);
+
+            return $program;
+        });
+    }
+

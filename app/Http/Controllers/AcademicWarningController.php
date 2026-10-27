@@ -27,7 +27,7 @@ class AcademicWarningController extends Controller
     {
         $query = $this->filteredWarnings($request)->with(['student.program', 'student.advisor', 'progress']);
 
-        return view('academic.index', ['warnings' => $query->paginate(20)->withQueryString(), 'counts' => WarningLog::selectRaw('status,count(*) total')->groupBy('status')->pluck('total', 'status'), 'imports' => AcademicImport::latest()->limit(10)->get(), 'programs' => Program::where('is_active', true)->orderBy('name_vi')->get(), 'classes' => Student::whereNotNull('class_code')->distinct()->orderBy('class_code')->pluck('class_code'), 'faculties' => Student::whereNotNull('faculty_name')->distinct()->orderBy('faculty_name')->pluck('faculty_name'), 'semesters' => StudentProgress::query()->distinct()->orderByDesc('semester')->pluck('semester'), 'warningLabels' => config('academic.warning_labels')]);
+        return view('academic.index', ['warnings' => $query->paginate(20)->withQueryString(), 'counts' => WarningLog::selectRaw('status,count(*) total')->groupBy('status')->pluck('total', 'status'), 'imports' => AcademicImport::where('kind', 'academic_progress')->latest()->limit(10)->get(), 'programs' => Program::where('is_active', true)->orderBy('name_vi')->get(), 'classes' => Student::whereNotNull('class_code')->distinct()->orderBy('class_code')->pluck('class_code'), 'faculties' => Student::whereNotNull('faculty_name')->distinct()->orderBy('faculty_name')->pluck('faculty_name'), 'semesters' => StudentProgress::query()->distinct()->orderByDesc('semester')->pluck('semester'), 'warningLabels' => config('academic.warning_labels')]);
     }
 
     public function students(Request $request): View
@@ -60,7 +60,7 @@ class AcademicWarningController extends Controller
     {
         $student->load(['program', 'advisor']);
 
-        return view('academic.student-edit', ['student' => $student, 'advisors' => User::permission('academic.process')->orderBy('name')->get()]);
+        return view('academic.student-edit', ['student' => $student, 'advisors' => User::permission('academic.process')->orderBy('name')->get(), 'programs' => Program::where('is_active', true)->orderBy('name_vi')->get()]);
     }
 
     public function updateProgress(Request $request, Student $student): RedirectResponse
@@ -126,11 +126,14 @@ class AcademicWarningController extends Controller
 
     public function importReport(AcademicImport $import): View
     {
+        abort_if($import->kind === 'graduation', 404);
+
         return view('academic.import-report', compact('import'));
     }
 
     public function downloadImportErrors(AcademicImport $import): Response
     {
+        abort_if($import->kind === 'graduation', 404);
         $lines = ['Dong,NoiDung'];
         foreach ($import->errorRows() as $index => $error) {
             $lines[] = ($index + 1).','.str_replace(["\r", "\n", ','], [' ', ' ', ';'], $error);
@@ -162,7 +165,7 @@ class AcademicWarningController extends Controller
     {
         $data = $request->validate(['file' => ['required', 'file', 'mimes:xlsx,xls,csv,txt', 'max:51200']]);
         $path = $data['file']->store('academic-imports');
-        $batch = AcademicImport::create(['user_id' => auth()->id(), 'original_name' => $data['file']->getClientOriginalName(), 'status' => 'queued']);
+        $batch = AcademicImport::create(['user_id' => auth()->id(), 'original_name' => $data['file']->getClientOriginalName(), 'kind' => 'academic_progress', 'status' => 'queued']);
         ImportAcademicProgressJob::dispatch($path, auth()->id(), $batch->id);
 
         return redirect()->route('academic.index')->with('success', config('queue.default') === 'sync' ? 'Đã xử lý tệp và quét cảnh báo.' : 'Tệp đang chờ xử lý.');

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AcademicImport extends Model
 {
-    protected $fillable = ['user_id', 'original_name', 'status', 'rows_imported', 'error_count', 'errors', 'failure_message', 'started_at', 'completed_at'];
+    protected $fillable = ['user_id', 'original_name', 'kind', 'status', 'rows_imported', 'error_count', 'errors', 'failure_message', 'started_at', 'completed_at'];
 
     protected function casts(): array
     {

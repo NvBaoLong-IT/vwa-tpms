@@ -21,6 +21,6 @@ class DiplomaAuditLog extends Model
 
     public function ledger(): BelongsTo
     {
-        return $this->belongsTo(DiplomaLedger::class, 'diploma_ledger_id');
+        return $this->belongsTo(DiplomaLedger::class, 'diploma_ledger_id')->withTrashed();
     }
 }

@@ -7,13 +7,15 @@ use App\Models\IsoWorkflow;
 use App\Models\Program;
 use App\Models\Student;
 use App\Models\WarningLog;
+use App\Services\CurriculumWorklist;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    public function __invoke(Request $request): View
+    public function __invoke(Request $request, CurriculumWorklist $worklist): View
     {
+        $request->validate(['program_id' => ['nullable', 'integer', 'exists:programs,id'], 'degree_level' => ['nullable', 'in:dai_hoc,thac_si,tien_si'], 'year' => ['nullable', 'integer', 'between:1900,2100']]);
         $students = Student::query()
             ->when($request->filled('program_id'), fn ($query) => $query->where('program_id', $request->input('program_id')))
             ->when($request->filled('degree_level'), fn ($query) => $query->where('degree_level', $request->input('degree_level')))
@@ -35,6 +37,7 @@ class DashboardController extends Controller
 
         return view('dashboard', [
             'programs' => $programs,
+            'curriculumWork' => $worklist->forUser($request),
             'stats' => [
                 'students' => (clone $students)->count(),
                 'warnings_open' => WarningLog::where('status', 'open')->whereIn('student_id', (clone $students)->select('id'))->count(),

@@ -1,7 +1,6 @@
 <x-app-layout>
     <x-slot name="header"><h2 class="font-semibold text-xl">Chuẩn đầu ra - {{ $program->name_vi }}</h2></x-slot>
     <div class="py-8 max-w-4xl mx-auto px-4 space-y-5">
-        @if(session('success'))<div class="alert alert-success" role="status">{{ session('success') }}</div>@endif
         <x-input-error :messages="$errors->all()" />
         @can('programs.update')
             <form method="POST" action="{{ route('programs.plos.store', $program) }}" class="flex flex-wrap gap-3 items-end border-b pb-5">

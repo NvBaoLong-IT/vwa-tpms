@@ -4,36 +4,58 @@ use App\Http\Controllers\AcademicNotificationController;
 use App\Http\Controllers\AcademicWarningController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseMaterialController;
+use App\Http\Controllers\CourseResultImportController;
+use App\Http\Controllers\CreditRecognitionExportController;
 use App\Http\Controllers\CurriculumAuditController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DeletedRecordController;
 use App\Http\Controllers\DiplomaController;
 use App\Http\Controllers\FirstPasswordController;
 use App\Http\Controllers\IsoWorkflowController;
 use App\Http\Controllers\LoginLogController;
+use App\Http\Controllers\OperationsStatusController;
 use App\Http\Controllers\PloController;
 use App\Http\Controllers\PloMatrixController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramDocumentImportController;
+use App\Http\Controllers\ProgramElectiveGroupController;
 use App\Http\Controllers\ProgramImportController;
+use App\Http\Controllers\ProgramSubstitutionController;
 use App\Http\Controllers\ProgramVersionController;
+use App\Http\Controllers\PublicDiplomaLookupController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentCreditController;
 use App\Http\Controllers\UserAdminController;
+use App\Http\Controllers\WebScheduleTickController;
+use App\Http\Middleware\SerializeCurriculumWrites;
 use Illuminate\Support\Facades\Route;
+
+Route::get('tra-cuu-van-bang', PublicDiplomaLookupController::class)
+    ->middleware('throttle:5,1')->name('diplomas.public-lookup');
+
+Route::middleware(['auth', 'role:Lãnh đạo phòng'])->group(function () {
+    Route::get('operations/status', OperationsStatusController::class)->name('operations.status');
+    Route::get('records/deleted', [DeletedRecordController::class, 'index'])->name('records.deleted');
+    Route::post('records/deleted/{type}/{record}/restore', [DeletedRecordController::class, 'restore'])
+        ->whereNumber('record')->name('records.restore');
+});
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/dashboard', DashboardController::class)->middleware(['auth', 'permission:dashboard.view'])->name('dashboard');
+Route::post('/schedule/tick', WebScheduleTickController::class)->middleware(['auth', 'permission:dashboard.view', 'throttle:2,1'])->name('schedule.tick');
 Route::middleware('auth')->group(function () {
     Route::get('first-password', [FirstPasswordController::class, 'edit'])->name('password.first.edit');
     Route::put('first-password', [FirstPasswordController::class, 'update'])->name('password.first.update');
 });
 Route::middleware(['auth', 'permission:reports.view|dashboard.view'])->group(function () {
     Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
-    Route::get('reports/{type}/{format}', [ReportController::class, 'export'])->middleware('permission:reports.export|dashboard.view')->name('reports.export');
-    Route::get('reports/history/{history}/reload', [ReportController::class, 'reload'])->middleware('permission:reports.export|dashboard.view')->name('reports.reload');
+    Route::get('reports/{type}/{format}', [ReportController::class, 'export'])->middleware('permission:reports.export')->name('reports.export');
+    Route::get('reports/history/{history}/reload', [ReportController::class, 'reload'])->middleware('permission:reports.export')->name('reports.reload');
 });
 Route::middleware(['auth', 'permission:users.manage'])->group(function () {
     Route::get('users', [UserAdminController::class, 'index'])->name('users.index');
@@ -45,19 +67,28 @@ Route::middleware(['auth', 'permission:programs.view'])->get('/modules/curriculu
     return response()->json(['module' => 'curriculum', 'status' => 'authorized']);
 })->name('modules.curriculum');
 
-Route::middleware(['auth', 'permission:programs.view'])->group(function () {
+Route::middleware(['auth', 'permission:programs.view', SerializeCurriculumWrites::class])->group(function () {
+    Route::get('programs/document-imports', [ProgramDocumentImportController::class, 'index'])->middleware('permission:programs.import')->name('programs.document-imports.index');
+    Route::post('programs/document-imports/{documentImport}/submit', [ProgramDocumentImportController::class, 'submit'])->middleware('permission:programs.import')->name('programs.document-imports.submit');
+    Route::put('programs/document-imports/{documentImport}/draft', [ProgramDocumentImportController::class, 'editDraft'])->middleware('permission:programs.import')->name('programs.document-imports.draft');
+    Route::post('programs/document-imports/{documentImport}/review', [ProgramDocumentImportController::class, 'review'])->middleware('role:Lãnh đạo phòng')->name('programs.document-imports.review');
     Route::get('programs/document-imports/create', [ProgramDocumentImportController::class, 'createNew'])->middleware('permission:programs.import')->name('programs.document-imports.new');
     Route::post('programs/document-imports', [ProgramDocumentImportController::class, 'storeNew'])->middleware('permission:programs.import')->name('programs.document-imports.new.store');
     Route::get('programs/document-imports/{documentImport}/download', [ProgramDocumentImportController::class, 'downloadNew'])->middleware('permission:programs.view')->name('programs.document-imports.new.download');
     Route::get('programs/document-imports/{documentImport}', [ProgramDocumentImportController::class, 'showNew'])->middleware('permission:programs.view')->name('programs.document-imports.new.show');
     Route::post('programs/document-imports/{documentImport}/import', [ProgramDocumentImportController::class, 'importNew'])->middleware('permission:programs.create')->name('programs.document-imports.new.import');
     Route::get('programs', [ProgramController::class, 'index'])->middleware('permission:programs.view')->name('programs.index');
-    Route::get('programs/export.csv', [ProgramController::class, 'exportCsv'])->name('programs.export.csv');
+    Route::get('programs/export.csv', [ProgramController::class, 'exportCsv'])->middleware('permission:reports.export')->name('programs.export.csv');
     Route::get('programs/audit', [CurriculumAuditController::class, 'index'])->middleware('permission:programs.view')->name('programs.audit');
     Route::get('programs/create', [ProgramController::class, 'create'])->middleware('permission:programs.create')->name('programs.create');
     Route::get('programs/import', [ProgramImportController::class, 'create'])->middleware('permission:programs.import')->name('programs.import.form');
+    Route::get('programs/imports', [ProgramImportController::class, 'index'])->middleware('permission:programs.import')->name('programs.imports.index');
     Route::get('programs/import/template', [ProgramImportController::class, 'template'])->middleware('permission:programs.import')->name('programs.import.template');
     Route::post('programs/import', [ProgramImportController::class, 'store'])->middleware('permission:programs.import')->name('programs.import');
+    Route::get('programs/import/{excelImport}', [ProgramImportController::class, 'preview'])->middleware('permission:programs.import')->name('programs.import.preview');
+    Route::post('programs/import/{excelImport}/confirm', [ProgramImportController::class, 'confirm'])->middleware('permission:programs.import')->name('programs.import.confirm');
+    Route::post('programs/import/{excelImport}/review', [ProgramImportController::class, 'review'])->middleware('role:Lãnh đạo phòng')->name('programs.import.review');
+    Route::post('programs/import/{excelImport}/apply', [ProgramImportController::class, 'apply'])->middleware('permission:programs.import')->name('programs.import.apply');
     Route::get('programs/{program}/document-imports/create', [ProgramDocumentImportController::class, 'create'])->middleware('permission:programs.import')->name('programs.document-imports.create');
     Route::post('programs/{program}/document-imports', [ProgramDocumentImportController::class, 'store'])->middleware('permission:programs.import')->name('programs.document-imports.store');
     Route::get('programs/{program}/document-imports/{documentImport}/download', [ProgramDocumentImportController::class, 'download'])->middleware('permission:programs.view')->name('programs.document-imports.download');
@@ -67,6 +98,12 @@ Route::middleware(['auth', 'permission:programs.view'])->group(function () {
     Route::get('programs/{program}/edit', [ProgramController::class, 'edit'])->middleware('permission:programs.update')->name('programs.edit');
     Route::get('programs/{program}', [ProgramController::class, 'show'])->middleware('permission:programs.view')->name('programs.show');
     Route::post('programs/{program}/versions', [ProgramVersionController::class, 'store'])->middleware('permission:programs.update')->name('programs.versions.store');
+    Route::post('programs/{program}/substitutions', [ProgramSubstitutionController::class, 'store'])->middleware('permission:programs.update')->name('programs.substitutions.store');
+    Route::post('programs/{program}/elective-groups', [ProgramElectiveGroupController::class, 'store'])->middleware('permission:programs.update')->name('programs.elective-groups.store');
+    Route::delete('programs/{program}/elective-groups/{group}', [ProgramElectiveGroupController::class, 'destroy'])->middleware('permission:programs.update')->name('programs.elective-groups.destroy');
+    Route::delete('programs/{program}/substitutions/{rule}', [ProgramSubstitutionController::class, 'destroy'])->middleware('permission:programs.update')->name('programs.substitutions.destroy');
+    Route::post('programs/{program}/versions/{version}/submit', [ProgramVersionController::class, 'submit'])->middleware('permission:programs.update')->name('programs.versions.submit');
+    Route::post('programs/{program}/versions/{version}/review', [ProgramVersionController::class, 'review'])->middleware('role:Lãnh đạo phòng')->name('programs.versions.review');
     Route::get('programs/{program}/versions/{version}', [ProgramVersionController::class, 'show'])->middleware('permission:programs.view')->name('programs.versions.show');
     Route::get('programs/{program}/versions/{version}/export.docx', [ProgramVersionController::class, 'exportWord'])->middleware('permission:programs.view')->name('programs.versions.word');
     Route::post('programs/{program}/versions/{version}/publish', [ProgramVersionController::class, 'publish'])->middleware('role:Lãnh đạo phòng')->name('programs.versions.publish');
@@ -108,6 +145,28 @@ Route::middleware(['auth', 'permission:academic.view'])->get('/modules/academic'
     return response()->json(['module' => 'academic', 'status' => 'authorized']);
 })->name('modules.academic');
 
+Route::middleware(['auth', 'permission:students.manage'])->group(function () {
+    Route::get('academic/students/{student}/recognitions/{recognition}/export/{format}', CreditRecognitionExportController::class)->middleware('permission:reports.export')->name('academic.recognitions.export');
+    Route::get('academic/students/{student}/course-results-import', [CourseResultImportController::class, 'create'])->middleware('permission:academic.process')->name('academic.course-results.import');
+    Route::get('academic/students/{student}/course-results-import/template', [CourseResultImportController::class, 'template'])->middleware('permission:academic.process')->name('academic.course-results.import.template');
+    Route::post('academic/students/{student}/course-results-import', [CourseResultImportController::class, 'store'])->middleware('permission:academic.process')->name('academic.course-results.import.store');
+    Route::get('academic/students/{student}/course-results-import/{resultImport}', [CourseResultImportController::class, 'preview'])->middleware('permission:academic.process')->name('academic.course-results.import.preview');
+    Route::post('academic/students/{student}/course-results-import/{resultImport}/confirm', [CourseResultImportController::class, 'confirm'])->middleware('permission:academic.process')->name('academic.course-results.import.confirm');
+    Route::get('academic/recognitions', [StudentCreditController::class, 'queue'])->middleware('role:Lãnh đạo phòng')->name('academic.recognitions.queue');
+    Route::get('academic/students/{student}/credits', [StudentCreditController::class, 'index'])->name('academic.credits');
+    Route::post('academic/students/{student}/course-results', [StudentCreditController::class, 'result'])->middleware('permission:academic.process')->name('academic.course-results.store');
+    Route::post('academic/students/{student}/course-results/{result}/void', [StudentCreditController::class, 'voidResult'])->middleware('permission:academic.process')->name('academic.course-results.void');
+    Route::post('academic/students/{student}/recognitions', [StudentCreditController::class, 'submit'])->middleware('permission:academic.process')->name('academic.recognitions.store');
+    Route::post('academic/students/{student}/recognitions/{recognition}/review', [StudentCreditController::class, 'review'])->middleware('role:Lãnh đạo phòng')->name('academic.recognitions.review');
+    Route::post('academic/students/{student}/recognitions/{recognition}/revoke', [StudentCreditController::class, 'revoke'])->middleware('role:Lãnh đạo phòng')->name('academic.recognitions.revoke');
+    Route::get('academic/students/create', [StudentController::class, 'create'])->name('academic.student.create');
+    Route::post('academic/students', [StudentController::class, 'store'])->name('academic.student.store');
+    Route::put('academic/students/{student}', [StudentController::class, 'update'])->name('academic.student.update');
+    Route::get('academic/students-import', [StudentController::class, 'importForm'])->name('academic.students.import.form');
+    Route::post('academic/students-import', [StudentController::class, 'import'])->name('academic.students.import');
+    Route::get('academic/students-import/template', [StudentController::class, 'template'])->name('academic.students.import.template');
+});
+
 Route::middleware(['auth', 'permission:students.view|academic.view'])->group(function () {
     Route::get('academic/students', [AcademicWarningController::class, 'students'])->name('academic.students');
     Route::get('academic/students/{student}', [AcademicWarningController::class, 'student'])->name('academic.student');
@@ -118,7 +177,7 @@ Route::middleware(['auth', 'permission:academic.view'])->group(function () {
     Route::post('academic/notifications/read-all', [AcademicNotificationController::class, 'readAll'])->name('academic.notifications.read-all');
     Route::post('academic/notifications/{notification}/read', [AcademicNotificationController::class, 'read'])->name('academic.notifications.read');
     Route::get('academic', [AcademicWarningController::class, 'index'])->name('academic.index');
-    Route::get('academic/students/{student}/edit', [AcademicWarningController::class, 'editStudent'])->middleware('permission:academic.process')->name('academic.student.edit');
+    Route::get('academic/students/{student}/edit', [AcademicWarningController::class, 'editStudent'])->middleware('permission:students.manage|academic.process')->name('academic.student.edit');
     Route::put('academic/students/{student}/assignment', [AcademicWarningController::class, 'updateAssignment'])->middleware('permission:academic.process')->name('academic.assignment.update');
     Route::put('academic/students/{student}/progress', [AcademicWarningController::class, 'updateProgress'])->middleware('permission:academic.process')->name('academic.progress.update');
     Route::put('academic/students/{student}/milestones', [AcademicWarningController::class, 'updateMilestones'])->middleware('permission:academic.process')->name('academic.milestones.update');
@@ -130,9 +189,9 @@ Route::middleware(['auth', 'permission:academic.view'])->group(function () {
     Route::get('academic/settings', [AcademicWarningController::class, 'settings'])->middleware('role:Lãnh đạo phòng')->name('academic.settings');
     Route::put('academic/settings', [AcademicWarningController::class, 'updateSettings'])->middleware('role:Lãnh đạo phòng')->name('academic.settings.update');
     Route::patch('academic/warnings/{warning}', [AcademicWarningController::class, 'update'])->middleware('permission:academic.process')->name('academic.warnings.update');
-    Route::get('academic/export.xlsx', [AcademicWarningController::class, 'exportExcel'])->name('academic.export.excel');
-    Route::get('academic/export.pdf', [AcademicWarningController::class, 'exportPdf'])->name('academic.export.pdf');
-    Route::get('academic/export.doc', [AcademicWarningController::class, 'exportWord'])->name('academic.export.word');
+    Route::get('academic/export.xlsx', [AcademicWarningController::class, 'exportExcel'])->middleware('permission:reports.export')->name('academic.export.excel');
+    Route::get('academic/export.pdf', [AcademicWarningController::class, 'exportPdf'])->middleware('permission:reports.export')->name('academic.export.pdf');
+    Route::get('academic/export.doc', [AcademicWarningController::class, 'exportWord'])->middleware('permission:reports.export')->name('academic.export.word');
 });
 
 Route::middleware(['auth', 'permission:diploma.view'])->get('/modules/diploma', function () {

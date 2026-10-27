@@ -123,6 +123,7 @@
             </div>
         </section>
 
+        @if($curriculumWork)@include('academic.curriculum-worklist')@endif
         <section class="dashboard-section" aria-labelledby="dashboard-work-title">
             <div class="dashboard-section-heading">
                 <h2 id="dashboard-work-title">Việc cần theo dõi</h2>

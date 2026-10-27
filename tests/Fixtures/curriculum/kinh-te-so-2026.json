@@ -1,0 +1,4859 @@
+{
+  "source": {
+    "schema": "vwa.curriculum.source-draft.v1",
+    "status": "blocked_pending_source_confirmation",
+    "official_data_written": false,
+    "extraction_method": "Manual transcription from rendered source pages; no external AI upload",
+    "documents": [
+      {
+        "id": "600",
+        "path": "D:\\HPVN\\Chương trình chuẩn đầu ra\\Kinh tế số\\2026\\600QD-MucTieuChuanDauRaDAIHOCKinhTeSo-160626.pdf",
+        "pages": 12,
+        "sha256": "25bfc595be9de90e114e37eb96d2d3c6f58f42915d787b82b0843effbdc3652f",
+        "decision_number": "600/QĐ-HVPNVN",
+        "decision_date": "2026-06-16"
+      },
+      {
+        "id": "604",
+        "path": "D:\\HPVN\\Chương trình chuẩn đầu ra\\Kinh tế số\\2026\\604QD-ChuongTrinhDAIHOCKinhTeSo-160626.pdf",
+        "pages": 22,
+        "sha256": "d4ac965c5113b5d5c48e9a8ed7f6acbda6ce9b0d552bc242f74ee476205cdc2a",
+        "decision_number": "604/QĐ-HVPNVN",
+        "decision_date": "2026-06-16"
+      },
+      {
+        "id": "608",
+        "path": "D:\\HPVN\\Chương trình chuẩn đầu ra\\Kinh tế số\\2026\\608QD-BanMoTaChuongTrinhDAIHOCKinhTeSo-160626.pdf",
+        "pages": 58,
+        "sha256": "9c4dd68991af32027f9a91c71c1bff1ddccd20b02571790b1212dd3024255ed6",
+        "decision_number": "608/QĐ-HVPNVN",
+        "decision_date": "2026-06-16"
+      }
+    ],
+    "program": {
+      "name_vi": "Kinh tế số",
+      "name_en": "Digital Economics",
+      "major_code": "7310109",
+      "official_program_code": null,
+      "proposed_draft_code": "KTS-2026-DRAFT",
+      "degree_level": "dai_hoc",
+      "delivery_mode": null,
+      "duration_years": 4,
+      "language": "Tiếng Việt",
+      "total_credits": 122,
+      "elective_credits_required": 17,
+      "decision_number": "604/QĐ-HVPNVN",
+      "decision_date": "2026-06-16",
+      "effective_from": "2026-06-16",
+      "cohort_year": 2026,
+      "effective_to": null,
+      "source": {
+        "document": "604",
+        "pdf_page": 2,
+        "section": "1; 3.1"
+      },
+      "effect_source": {
+        "document": "604",
+        "pdf_page": 1,
+        "section": "Điều 2"
+      }
+    },
+    "knowledge_blocks": [
+      "Đại cương",
+      "Cơ sở ngành",
+      "Chuyên môn sâu",
+      "Bổ trợ",
+      "Thực tập và khóa luận"
+    ],
+    "elective_groups": [
+      {
+        "code": "TC_DC",
+        "name": "Tự chọn đại cương",
+        "knowledge_block": "Đại cương",
+        "credits_required": 4,
+        "courses_required": 2,
+        "courses_offered": 4,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "1.5"
+        }
+      },
+      {
+        "code": "TC_CS",
+        "name": "Tự chọn chuyên sâu",
+        "knowledge_block": "Chuyên môn sâu",
+        "credits_required": 9,
+        "courses_required": 3,
+        "courses_offered": 8,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "2.3"
+        }
+      },
+      {
+        "code": "TC_BT",
+        "name": "Tự chọn bổ trợ",
+        "knowledge_block": "Bổ trợ",
+        "credits_required": 4,
+        "courses_required": 2,
+        "courses_offered": 6,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "2.4.2; tiếp trang 5"
+        }
+      }
+    ],
+    "courses": [
+      {
+        "row_id": "HP-01",
+        "course_code": "DHCT13",
+        "source_codes": [
+          "DHCT13"
+        ],
+        "name_vi": "Triết học Mác – Lênin",
+        "credits": 3,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 1,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 01"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-02",
+        "course_code": "DHCT14",
+        "source_codes": [
+          "DHCT14"
+        ],
+        "name_vi": "Kinh tế chính trị Mác – Lênin",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 3,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 02"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-03",
+        "course_code": "DHCT15",
+        "source_codes": [
+          "DHCT15"
+        ],
+        "name_vi": "Chủ nghĩa xã hội khoa học",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 4,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 03"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-04",
+        "course_code": "DHCT16",
+        "source_codes": [
+          "DHCT16"
+        ],
+        "name_vi": "Lịch sử Đảng cộng sản Việt Nam",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 5,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 04"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-05",
+        "course_code": "DHCT17",
+        "source_codes": [
+          "DHCT17"
+        ],
+        "name_vi": "Tư tưởng Hồ Chí Minh",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 5,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 05"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-06",
+        "course_code": "DHLD58",
+        "source_codes": [
+          "DHLD58"
+        ],
+        "name_vi": "Pháp luật đại cương",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 2,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 06"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-07",
+        "course_code": "DHTL57",
+        "source_codes": [
+          "DHTL57"
+        ],
+        "name_vi": "Tâm lý học kinh tế",
+        "credits": 3,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 1,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 07"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-08",
+        "course_code": "DHEN07",
+        "source_codes": [
+          "DHEN07"
+        ],
+        "name_vi": "Tiếng Anh 1",
+        "credits": 2,
+        "knowledge_block": "Ngoại ngữ cơ bản ngoài tổng",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": false,
+        "suggested_semester": 1,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 08"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-09",
+        "course_code": "DHEN08",
+        "source_codes": [
+          "DHEN08"
+        ],
+        "name_vi": "Tiếng Anh 2",
+        "credits": 3,
+        "knowledge_block": "Ngoại ngữ cơ bản ngoài tổng",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": false,
+        "suggested_semester": 2,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 09"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-10",
+        "course_code": "DHEN09",
+        "source_codes": [
+          "DHEN09"
+        ],
+        "name_vi": "Tiếng Anh 3",
+        "credits": 3,
+        "knowledge_block": "Ngoại ngữ cơ bản ngoài tổng",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": false,
+        "suggested_semester": 3,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 10"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-11",
+        "course_code": "DHEN10",
+        "source_codes": [
+          "DHEN10"
+        ],
+        "name_vi": "Tiếng Anh 4",
+        "credits": 2,
+        "knowledge_block": "Ngoại ngữ cơ bản ngoài tổng",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": false,
+        "suggested_semester": 4,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 11"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-12",
+        "course_code": "DHCS03",
+        "source_codes": [
+          "DHCS03"
+        ],
+        "name_vi": "Logic học đại cương",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 2,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 12"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-13",
+        "course_code": "DHCS01",
+        "source_codes": [
+          "DHCS01"
+        ],
+        "name_vi": "Năng lực số cơ bản",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 1,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 13"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-14",
+        "course_code": "DHCS02",
+        "source_codes": [
+          "DHCS02"
+        ],
+        "name_vi": "Năng lực số nâng cao",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 2,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 14"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-15",
+        "course_code": "DHIT48",
+        "source_codes": [
+          "DHIT48"
+        ],
+        "name_vi": "Lý thuyết xác suất và thống kê toán",
+        "credits": 3,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 1,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 15"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-16",
+        "course_code": null,
+        "source_codes": [
+          "DHGQ03",
+          "DHGQ04",
+          "DHGQ07"
+        ],
+        "name_vi": "Giáo dục thể chất",
+        "credits": 3,
+        "knowledge_block": "Giáo dục thể chất ngoài tổng",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": false,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 16"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-17",
+        "course_code": "DHGQ09",
+        "source_codes": [
+          "DHGQ09"
+        ],
+        "name_vi": "Giáo dục quốc phòng - an ninh",
+        "credits": 8,
+        "knowledge_block": "Giáo dục quốc phòng ngoài tổng",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": false,
+        "suggested_semester": 1,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 17"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-18a",
+        "course_code": "DHTH49",
+        "source_codes": [
+          "DHTH49"
+        ],
+        "name_vi": "Kỹ năng làm việc nhóm",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": false,
+        "elective_group_code": "TC_DC",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 18a"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-18b",
+        "course_code": "DHTL59",
+        "source_codes": [
+          "DHTL59"
+        ],
+        "name_vi": "Kỹ năng thuyết trình",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": false,
+        "elective_group_code": "TC_DC",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 18b"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-19a",
+        "course_code": "DHPR20",
+        "source_codes": [
+          "DHPR20"
+        ],
+        "name_vi": "Kỹ năng giải quyết vấn đề và ra quyết định",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": false,
+        "elective_group_code": "TC_DC",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 19a"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-19b",
+        "course_code": "DHTH44",
+        "source_codes": [
+          "DHTH44"
+        ],
+        "name_vi": "Kỹ năng hành chính văn phòng",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": false,
+        "elective_group_code": "TC_DC",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 19b"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-20",
+        "course_code": "DHKT02",
+        "source_codes": [
+          "DHKT02"
+        ],
+        "name_vi": "Kinh tế vi mô",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 1,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 20"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-21",
+        "course_code": "DHKT03",
+        "source_codes": [
+          "DHKT03"
+        ],
+        "name_vi": "Kinh tế vĩ mô",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 2,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 21"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-22",
+        "course_code": "DHKT04",
+        "source_codes": [
+          "DHKT04"
+        ],
+        "name_vi": "Kinh tế lượng",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 3,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 3,
+          "section": "Khung chương trình; TT 22"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-23",
+        "course_code": "DHIT54",
+        "source_codes": [
+          "DHIT54"
+        ],
+        "name_vi": "Cơ sở của khoa học dữ liệu",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 4,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 23"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-24",
+        "course_code": "DHKT39",
+        "source_codes": [
+          "DHKT39"
+        ],
+        "name_vi": "Kinh tế đầu tư I",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 6,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 24"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-25",
+        "course_code": "DHTC01",
+        "source_codes": [
+          "DHTC01"
+        ],
+        "name_vi": "Nguyên lý kế toán",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 2,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 25"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-26",
+        "course_code": "DHKT36",
+        "source_codes": [
+          "DHKT36"
+        ],
+        "name_vi": "Kinh tế phát triển",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 3,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 26"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-27",
+        "course_code": "DHTC03",
+        "source_codes": [
+          "DHTC03"
+        ],
+        "name_vi": "Lý thuyết tài chính tiền tệ",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 4,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 27"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-28",
+        "course_code": "DHKT83",
+        "source_codes": [
+          "DHKT83"
+        ],
+        "name_vi": "Kinh doanh và đầu tư bất động sản",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 5,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 28"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-29",
+        "course_code": "DHTH61",
+        "source_codes": [
+          "DHTH61"
+        ],
+        "name_vi": "Khởi nghiệp kinh doanh",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 3,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 29"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-30",
+        "course_code": "DHKT33",
+        "source_codes": [
+          "DHKT33"
+        ],
+        "name_vi": "Giới trong Kinh tế và Quản trị",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 7,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 30"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 12,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-31",
+        "course_code": "DHNT26",
+        "source_codes": [
+          "DHNT26"
+        ],
+        "name_vi": "Tiếng Anh chuyên ngành 1",
+        "credits": 2,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 5,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 31"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-32",
+        "course_code": "DHNT27",
+        "source_codes": [
+          "DHNT27"
+        ],
+        "name_vi": "Tiếng Anh chuyên ngành 2",
+        "credits": 2,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 6,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 32"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-33",
+        "course_code": "DHKT89",
+        "source_codes": [
+          "DHKT89"
+        ],
+        "name_vi": "Nhập môn kinh tế số",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 4,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 33"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-34",
+        "course_code": "DHKT39",
+        "source_codes": [
+          "DHKT39"
+        ],
+        "name_vi": "Kinh tế quốc tế I",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 6,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 34"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-35",
+        "course_code": "DHKT88",
+        "source_codes": [
+          "DHKT88"
+        ],
+        "name_vi": "Dữ liệu lớn trong Kinh tế và kinh doanh",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 6,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 35"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-36",
+        "course_code": "DHTC34",
+        "source_codes": [
+          "DHTC34"
+        ],
+        "name_vi": "Công nghệ tài chính",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 5,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 36"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-37",
+        "course_code": "DHTC35",
+        "source_codes": [
+          "DHTC35"
+        ],
+        "name_vi": "Kiến tập ngành kinh tế số",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 4,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 37"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-38",
+        "course_code": "DHKT92",
+        "source_codes": [
+          "DHKT92"
+        ],
+        "name_vi": "Blockchain trong kinh tế và kinh doanh",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 6,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 38"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-39",
+        "course_code": "DHCS22",
+        "source_codes": [
+          "DHCS22"
+        ],
+        "name_vi": "Trí tuệ nhân tạo",
+        "credits": 2,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 5,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 39"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-40a",
+        "course_code": "DHKT116",
+        "source_codes": [
+          "DHKT116"
+        ],
+        "name_vi": "Kinh tế học dữ liệu",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 40a"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-40b",
+        "course_code": "DHPR43",
+        "source_codes": [
+          "DHPR43"
+        ],
+        "name_vi": "Kinh doanh số và thương mại điện tử",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 40b"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-40c",
+        "course_code": "DHIT55",
+        "source_codes": [
+          "DHIT55"
+        ],
+        "name_vi": "Hệ quản trị cơ sở dữ liệu",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 40c"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-40d",
+        "course_code": "DHPR33",
+        "source_codes": [
+          "DHPR33"
+        ],
+        "name_vi": "Marketing kỹ thuật số",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 40d"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-41a",
+        "course_code": "DHTC18",
+        "source_codes": [
+          "DHTC18"
+        ],
+        "name_vi": "Tài chính doanh nghiệp",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 41a"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-41b",
+        "course_code": "DHKT93",
+        "source_codes": [
+          "DHKT93"
+        ],
+        "name_vi": "Phân tích kinh tế vi mô",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 41b"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-42a",
+        "course_code": "DHTC06",
+        "source_codes": [
+          "DHTC06"
+        ],
+        "name_vi": "Quản trị dự án đầu tư",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 42a"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-42b",
+        "course_code": "DHKT97",
+        "source_codes": [
+          "DHKT97"
+        ],
+        "name_vi": "Phân tích kinh tế vĩ mô",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 42b"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-43",
+        "course_code": "DHKT51",
+        "source_codes": [
+          "DHKT51"
+        ],
+        "name_vi": "Thống kê kinh tế",
+        "credits": 3,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 7,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 43"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 12,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-44",
+        "course_code": "DHKT94",
+        "source_codes": [
+          "DHKT94"
+        ],
+        "name_vi": "Chuyển đổi số",
+        "credits": 3,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 7,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 44"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 12,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-45",
+        "course_code": "DHTC19",
+        "source_codes": [
+          "DHTC19"
+        ],
+        "name_vi": "Phân tích đầu tư",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 6,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 45"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 11,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-46",
+        "course_code": "DHPR47",
+        "source_codes": [
+          "DHPR47"
+        ],
+        "name_vi": "Phương pháp nghiên cứu khoa học trong kinh tế và quản trị kinh doanh",
+        "credits": 3,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 3,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 46"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 10,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-47a",
+        "course_code": "DHKT30",
+        "source_codes": [
+          "DHKT30"
+        ],
+        "name_vi": "Hệ thống thông tin quản lý",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": false,
+        "elective_group_code": "TC_BT",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 47a"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-47b",
+        "course_code": "DHKT55",
+        "source_codes": [
+          "DHKT55"
+        ],
+        "name_vi": "Phân tích chính sách kinh tế và xã hội",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": false,
+        "elective_group_code": "TC_BT",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 4,
+          "section": "Khung chương trình; TT 47b"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-47c",
+        "course_code": "DHKT54",
+        "source_codes": [
+          "DHKT54"
+        ],
+        "name_vi": "Kinh tế lượng nâng cao",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": false,
+        "elective_group_code": "TC_BT",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 5,
+          "section": "Khung chương trình; TT 47c"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-48a",
+        "course_code": "DHTC22",
+        "source_codes": [
+          "DHTC22"
+        ],
+        "name_vi": "Quản trị rủi ro",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": false,
+        "elective_group_code": "TC_BT",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 5,
+          "section": "Khung chương trình; TT 48a"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-48b",
+        "course_code": "DHLD14",
+        "source_codes": [
+          "DHLD14"
+        ],
+        "name_vi": "Pháp luật kinh tế",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": false,
+        "elective_group_code": "TC_BT",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 5,
+          "section": "Khung chương trình; TT 48b"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-48c",
+        "course_code": "DHNC09",
+        "source_codes": [
+          "DHNC09"
+        ],
+        "name_vi": "Thực hiện đề tài khoa học sinh viên",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": false,
+        "elective_group_code": "TC_BT",
+        "counts_toward_total": true,
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 5,
+          "section": "Khung chương trình; TT 48c"
+        },
+        "schedule_source": null
+      },
+      {
+        "row_id": "HP-49",
+        "course_code": "DHKT95",
+        "source_codes": [
+          "DHKT95"
+        ],
+        "name_vi": "Thực tập tốt nghiệp",
+        "credits": 6,
+        "knowledge_block": "Thực tập và khóa luận",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 8,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 5,
+          "section": "Khung chương trình; TT 49"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 12,
+          "section": "Kế hoạch dạy học"
+        }
+      },
+      {
+        "row_id": "HP-50",
+        "course_code": "DHKT96",
+        "source_codes": [
+          "DHKT96"
+        ],
+        "name_vi": "Khóa luận tốt nghiệp (viết hoặc bảo vệ khóa luận) hoặc học 3 học phần thay thế - chọn từ khối kiến thức bổ trợ 2.4.2",
+        "credits": 6,
+        "knowledge_block": "Thực tập và khóa luận",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "counts_toward_total": true,
+        "suggested_semester": 8,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null,
+        "source": {
+          "document": "604",
+          "pdf_page": 5,
+          "section": "Khung chương trình; TT 50"
+        },
+        "schedule_source": {
+          "document": "608",
+          "pdf_page": 12,
+          "section": "Kế hoạch dạy học"
+        }
+      }
+    ],
+    "plos": [
+      {
+        "code": "PLO1",
+        "description_vi": "Vận dụng được kiến thức nền tảng về Chủ nghĩa Mác - Lênin, tư tưởng Hồ Chí Minh, đường lối của Đảng Cộng sản Việt Nam, pháp luật, khoa học chính trị và khoa học xã hội trong học tập, nghề nghiệp và thực hiện trách nhiệm công dân.",
+        "source": {
+          "document": "608",
+          "pdf_page": 4,
+          "section": "PLO1"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO2",
+        "description_vi": "Vận dụng được kiến thức nền tảng về kinh tế học, quản trị và các mô hình kinh tế để phân tích, đánh giá các hiện tượng kinh tế, chính sách kinh tế và hoạt động của doanh nghiệp, tổ chức trong nền kinh tế số.",
+        "source": {
+          "document": "608",
+          "pdf_page": 4,
+          "section": "PLO2"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO3",
+        "description_vi": "Phân tích được nguyên lý, mô hình và xu hướng phát triển của kinh tế số; vận dụng kiến thức về công nghệ số, chuyển đổi số, trí tuệ nhân tạo và các nền tảng số trong hoạt động quản trị, sản xuất, kinh doanh và cung cấp dịch vụ.",
+        "source": {
+          "document": "608",
+          "pdf_page": 4,
+          "section": "PLO3"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO4",
+        "description_vi": "Vận dụng được kiến thức về khoa học dữ liệu, thống kê, kinh tế lượng, phân tích dữ liệu lớn (Big Data), blockchain và các công nghệ phân tích dữ liệu để xử lý, phân tích và hỗ trợ ra quyết định trong các hoạt động kinh tế và kinh doanh.",
+        "source": {
+          "document": "608",
+          "pdf_page": 4,
+          "section": "PLO4"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO5",
+        "description_vi": "Phân tích và đánh giá được các mô hình, chiến lược và giải pháp phát triển kinh tế số ở cấp doanh nghiệp, ngành, địa phương và quốc gia; đề xuất được các giải pháp ứng dụng công nghệ số nhằm nâng cao hiệu quả hoạt động, năng lực cạnh tranh và phát triển bền vững.",
+        "source": {
+          "document": "608",
+          "pdf_page": 4,
+          "section": "PLO5"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO6",
+        "description_vi": "Vận dụng thành thạo các phương pháp, công cụ và mô hình phân tích kinh tế để đánh giá thị trường, chính sách, hoạt động sản xuất, kinh doanh và các vấn đề trong nền kinh tế số; đề xuất giải pháp nâng cao hiệu quả hoạt động của doanh nghiệp và tổ chức.",
+        "source": {
+          "document": "608",
+          "pdf_page": 4,
+          "section": "PLO6"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO7",
+        "description_vi": "Sử dụng hiệu quả các phần mềm thống kê, công cụ phân tích dữ liệu, kỹ thuật phân tích định lượng và các nền tảng công nghệ số để thu thập, xử lý, trực quan hóa và phân tích dữ liệu, hỗ trợ ra quyết định trong lĩnh vực kinh tế và kinh doanh.",
+        "source": {
+          "document": "608",
+          "pdf_page": 4,
+          "section": "PLO7"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO8",
+        "description_vi": "Thể hiện năng lực tư duy phản biện, kỹ năng khởi nghiệp, đổi mới sáng tạo, thực hành nghiên cứu khoa học và giải quyết vấn đề; có kỹ năng giao tiếp, thuyết trình, làm việc nhóm, quản lý thời gian, tổ chức công việc và ra quyết định trong môi trường làm việc số và hội nhập quốc tế.",
+        "source": {
+          "document": "608",
+          "pdf_page": 4,
+          "section": "PLO8"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO9",
+        "description_vi": "Thiết kế, triển khai và đánh giá các giải pháp ứng dụng công nghệ số, phân tích dữ liệu và chuyển đổi số nhằm nâng cao hiệu quả quản trị, hoạt động kinh doanh và năng lực cạnh tranh của doanh nghiệp, tổ chức.",
+        "source": {
+          "document": "608",
+          "pdf_page": 4,
+          "section": "PLO9"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO10",
+        "description_vi": "Thể hiện năng lực tự chủ trong học tập, nghiên cứu và công việc; chủ động cập nhật kiến thức, công nghệ mới và thích ứng với sự thay đổi của môi trường kinh tế số.",
+        "source": {
+          "document": "608",
+          "pdf_page": 4,
+          "section": "PLO10"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO11",
+        "description_vi": "Thực hiện công việc với tinh thần trách nhiệm, tuân thủ quy định của pháp luật, chuẩn mực đạo đức nghề nghiệp và các nguyên tắc về bảo mật, an toàn thông tin trong môi trường số.",
+        "source": {
+          "document": "608",
+          "pdf_page": 5,
+          "section": "PLO11"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO12",
+        "description_vi": "Có khả năng tổ chức, phối hợp, phân công, giám sát và đánh giá kết quả thực hiện công việc trong nhóm; chủ động phối hợp với các bên liên quan để hoàn thành mục tiêu chung.",
+        "source": {
+          "document": "608",
+          "pdf_page": 5,
+          "section": "PLO12"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO13",
+        "description_vi": "Có năng lực tự định hướng, tự đánh giá và phát triển nghề nghiệp; duy trì tinh thần học tập suốt đời, đổi mới sáng tạo và nâng cao năng lực chuyên môn nhằm đáp ứng yêu cầu của chuyển đổi số và hội nhập quốc tế.",
+        "source": {
+          "document": "608",
+          "pdf_page": 5,
+          "section": "PLO13"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO14",
+        "description_vi": "Sử dụng được tiếng Anh ở trình độ Bậc 3 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam: Có thể hiểu được các ý chính của một đoạn văn hay bài phát biểu chuẩn mực, rõ ràng về các chủ đề quen thuộc trong công việc, trường học, giải trí, v.v...; Có thể viết các đoạn văn ngắn đơn giản về các chủ đề quen thuộc hoặc chủ đề trong lĩnh vực chuyên môn; có thể mô tả được những kinh nghiệm, sự kiện, giấc mơ, hy vọng, hoài bão và có thể trình bày ngắn gọn các lý do, giải thích ý kiến và kế hoạch của mình; Có thể đọc, hiểu các tài liệu chuyên ngành hoặc các lĩnh vực quan tâm được diễn đạt rõ ràng, mạch lạc.",
+        "source": {
+          "document": "608",
+          "pdf_page": 5,
+          "section": "PLO14"
+        },
+        "continuation_source": null
+      },
+      {
+        "code": "PLO15",
+        "description_vi": "Đạt được các năng lực số áp dụng đối với sinh viên không theo học các ngành thuộc lĩnh vực khoa học máy tính và công nghệ thông tin; được Học viện xây dựng và phê duyệt trong đề cương chi tiết Học phần năng lực số trên cơ sở tham khảo các quy định, hướng dẫn của Bộ Giáo dục và Đào tạo (Thông tư số 02/2025/TT-BGDĐT ngày 24/1/2025 quy định Khung năng lực số cho người học)",
+        "source": {
+          "document": "608",
+          "pdf_page": 5,
+          "section": "PLO15"
+        },
+        "continuation_source": {
+          "document": "608",
+          "pdf_page": 6,
+          "section": "Tiếp PLO15"
+        }
+      }
+    ],
+    "matrix_source_rows": [
+      {
+        "row_id": "MT-01",
+        "course_code": "DHCT13",
+        "name_vi": "Triết học Mác – Lênin",
+        "levels": {
+          "PLO1": 3,
+          "PLO10": 2,
+          "PLO11": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-02",
+        "course_code": "DHCT14",
+        "name_vi": "Kinh tế chính trị Mác – Lênin",
+        "levels": {
+          "PLO1": 3,
+          "PLO10": 2,
+          "PLO11": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-03",
+        "course_code": "DHCT15",
+        "name_vi": "Chủ nghĩa xã hội khoa học",
+        "levels": {
+          "PLO1": 2,
+          "PLO10": 2,
+          "PLO11": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-04",
+        "course_code": "DHCT16",
+        "name_vi": "Lịch sử Đảng Cộng sản Việt Nam",
+        "levels": {
+          "PLO1": 2,
+          "PLO10": 2,
+          "PLO11": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-05",
+        "course_code": "DHCT17",
+        "name_vi": "Tư tưởng Hồ Chí Minh",
+        "levels": {
+          "PLO1": 2,
+          "PLO10": 2,
+          "PLO11": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-06",
+        "course_code": "DHLD58",
+        "name_vi": "Pháp luật đại cương",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO10": 3,
+          "PLO11": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-07",
+        "course_code": "DHTL57",
+        "name_vi": "Tâm lý học kinh tế",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-08",
+        "course_code": "DHEN07",
+        "name_vi": "Tiếng Anh 1",
+        "levels": {
+          "PLO14": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-09",
+        "course_code": "DHEN08",
+        "name_vi": "Tiếng Anh 2",
+        "levels": {
+          "PLO14": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-10",
+        "course_code": "DHEN09",
+        "name_vi": "Tiếng Anh 3",
+        "levels": {
+          "PLO14": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-11",
+        "course_code": "DHEN10",
+        "name_vi": "Tiếng Anh 4",
+        "levels": {
+          "PLO14": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-12",
+        "course_code": "DHCS03",
+        "name_vi": "Logic học đại cương",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-13",
+        "course_code": "DHCS01",
+        "name_vi": "Năng lực số cơ bản",
+        "levels": {
+          "PLO14": 2,
+          "PLO15": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-14",
+        "course_code": "DHCS02",
+        "name_vi": "Năng lực số nâng cao",
+        "levels": {
+          "PLO14": 2,
+          "PLO15": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 14,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-15",
+        "course_code": "DHNT12",
+        "name_vi": "Lý thuyết xác suất và thống kê toán",
+        "levels": {
+          "PLO10": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-16",
+        "course_code": "DHGQ03 / DHGQ04 / DHGQ07",
+        "name_vi": "Giáo dục thể chất",
+        "levels": {},
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-17",
+        "course_code": "DHGQ09",
+        "name_vi": "Giáo dục quốc phòng - an ninh",
+        "levels": {},
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-18",
+        "course_code": "DHTH49",
+        "name_vi": "Kỹ năng làm việc nhóm",
+        "levels": {
+          "PLO8": 3,
+          "PLO10": 2,
+          "PLO11": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-19",
+        "course_code": "DHTL59",
+        "name_vi": "Kỹ năng thuyết trình",
+        "levels": {
+          "PLO8": 2,
+          "PLO10": 2,
+          "PLO11": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-20",
+        "course_code": "DHPR20",
+        "name_vi": "Kỹ năng giải quyết vấn đề và ra quyết định",
+        "levels": {
+          "PLO8": 2,
+          "PLO10": 2,
+          "PLO11": 2,
+          "PLO12": 2,
+          "PLO13": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-21",
+        "course_code": "DHTH44",
+        "name_vi": "Kỹ năng hành chính văn phòng",
+        "levels": {
+          "PLO8": 2,
+          "PLO12": 2,
+          "PLO13": 2,
+          "PLO15": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-22",
+        "course_code": "DHKT02",
+        "name_vi": "Kinh tế vi mô",
+        "levels": {
+          "PLO1": 2,
+          "PLO2": 2,
+          "PLO3": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-23",
+        "course_code": "DHKT03",
+        "name_vi": "Kinh tế vĩ mô",
+        "levels": {
+          "PLO1": 2,
+          "PLO2": 2,
+          "PLO3": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-24",
+        "course_code": "DHKT04",
+        "name_vi": "Kinh tế lượng",
+        "levels": {
+          "PLO11": 2,
+          "PLO15": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-25",
+        "course_code": "DHIT54",
+        "name_vi": "Cơ sở của khoa học dữ liệu",
+        "levels": {
+          "PLO4": 2,
+          "PLO6": 2,
+          "PLO15": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-26",
+        "course_code": "DHKT39",
+        "name_vi": "Kinh tế đầu tư I",
+        "levels": {
+          "PLO4": 2,
+          "PLO6": 2,
+          "PLO7": 2,
+          "PLO8": 2,
+          "PLO15": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-27",
+        "course_code": "DHTC01",
+        "name_vi": "Nguyên lý kế toán",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-28",
+        "course_code": "DHKT36",
+        "name_vi": "Kinh tế phát triển",
+        "levels": {
+          "PLO2": 3,
+          "PLO3": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 15,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-29",
+        "course_code": "DHTC03",
+        "name_vi": "Lý thuyết tài chính tiền tệ",
+        "levels": {
+          "PLO2": 3,
+          "PLO3": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-30",
+        "course_code": "DHKT83",
+        "name_vi": "Kinh doanh và đầu tư bất động sản",
+        "levels": {
+          "PLO4": 2,
+          "PLO5": 2,
+          "PLO6": 2,
+          "PLO7": 2,
+          "PLO8": 2,
+          "PLO15": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-31",
+        "course_code": "DHTH61",
+        "name_vi": "Khởi nghiệp kinh doanh",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO11": 2,
+          "PLO12": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-32",
+        "course_code": "DHKT33",
+        "name_vi": "Giới trong Kinh tế và Quản trị",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-33",
+        "course_code": "DHNT26",
+        "name_vi": "Tiếng Anh chuyên ngành 1",
+        "levels": {
+          "PLO14": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-34",
+        "course_code": "DHNT27",
+        "name_vi": "Tiếng Anh chuyên ngành 2",
+        "levels": {
+          "PLO14": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-35",
+        "course_code": "DHKT89",
+        "name_vi": "Nhập môn kinh tế số",
+        "levels": {
+          "PLO2": 3,
+          "PLO3": 3,
+          "PLO4": 3,
+          "PLO5": 3,
+          "PLO6": 2,
+          "PLO7": 2,
+          "PLO9": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-36",
+        "course_code": "DHKT39",
+        "name_vi": "Kinh tế quốc tế I",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO8": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-37",
+        "course_code": "DHKT88",
+        "name_vi": "Dữ liệu lớn trong kinh tế và kinh doanh",
+        "levels": {
+          "PLO4": 2,
+          "PLO5": 2,
+          "PLO6": 2,
+          "PLO7": 2,
+          "PLO8": 2,
+          "PLO15": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-38",
+        "course_code": "DHKT97",
+        "name_vi": "Phân tích kinh tế vĩ mô",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO8": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-39",
+        "course_code": "DHTC34",
+        "name_vi": "Công nghệ tài chính",
+        "levels": {
+          "PLO2": 3,
+          "PLO3": 3,
+          "PLO4": 3,
+          "PLO5": 3,
+          "PLO6": 2,
+          "PLO7": 2,
+          "PLO8": 2,
+          "PLO9": 2,
+          "PLO15": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-40",
+        "course_code": "DHTC35",
+        "name_vi": "Kiến tập ngành kinh tế số",
+        "levels": {
+          "PLO1": 2,
+          "PLO2": 3,
+          "PLO3": 3,
+          "PLO9": 2,
+          "PLO10": 2,
+          "PLO11": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-41",
+        "course_code": "DHKT92",
+        "name_vi": "Blockchain trong kinh tế và kinh doanh",
+        "levels": {
+          "PLO2": 3,
+          "PLO3": 2,
+          "PLO4": 2,
+          "PLO5": 2,
+          "PLO6": 2,
+          "PLO7": 2,
+          "PLO8": 2,
+          "PLO15": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-42",
+        "course_code": "DHCS22",
+        "name_vi": "Trí tuệ nhân tạo",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO4": 2,
+          "PLO5": 2,
+          "PLO6": 2,
+          "PLO8": 2,
+          "PLO15": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-43",
+        "course_code": "DHKT116",
+        "name_vi": "Kinh tế học dữ liệu",
+        "levels": {
+          "PLO2": 3,
+          "PLO3": 2,
+          "PLO4": 2,
+          "PLO5": 2,
+          "PLO6": 2,
+          "PLO7": 2,
+          "PLO8": 2,
+          "PLO15": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 16,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-44",
+        "course_code": "DHPR43",
+        "name_vi": "Kinh doanh số và thương mại điện tử",
+        "levels": {
+          "PLO3": 3,
+          "PLO7": 2,
+          "PLO11": 2,
+          "PLO12": 2,
+          "PLO14": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-45",
+        "course_code": "DHIT55",
+        "name_vi": "Hệ quản trị cơ sở dữ liệu",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO4": 2,
+          "PLO5": 2,
+          "PLO6": 2,
+          "PLO8": 2,
+          "PLO15": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-46",
+        "course_code": "DHPR33",
+        "name_vi": "Marketing kỹ thuật số",
+        "levels": {
+          "PLO3": 3,
+          "PLO7": 2,
+          "PLO11": 2,
+          "PLO12": 2,
+          "PLO14": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-47",
+        "course_code": "DHTC18",
+        "name_vi": "Tài chính doanh nghiệp",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO9": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-48",
+        "course_code": "DHKT93",
+        "name_vi": "Phân tích kinh tế vi mô",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO9": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-49",
+        "course_code": "DHTC06",
+        "name_vi": "Quản trị dự án đầu tư",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO9": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-50",
+        "course_code": "DHKT93",
+        "name_vi": "Phân tích kinh tế vi mô",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO9": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-51",
+        "course_code": "DHKT51",
+        "name_vi": "Thống kê kinh tế",
+        "levels": {
+          "PLO2": 3,
+          "PLO3": 2,
+          "PLO7": 2,
+          "PLO9": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-52",
+        "course_code": "DHKT94",
+        "name_vi": "Chuyển đổi số",
+        "levels": {
+          "PLO2": 3,
+          "PLO3": 3,
+          "PLO4": 3,
+          "PLO5": 2,
+          "PLO6": 2,
+          "PLO7": 2,
+          "PLO8": 2,
+          "PLO15": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-53",
+        "course_code": "DHTC19",
+        "name_vi": "Phân tích đầu tư",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO15": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-54",
+        "course_code": "DHNC01",
+        "name_vi": "Phương pháp nghiên cứu khoa học",
+        "levels": {
+          "PLO8": 2,
+          "PLO9": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-55",
+        "course_code": "DHKT30",
+        "name_vi": "Hệ thống thông tin quản lý",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO4": 2,
+          "PLO5": 2,
+          "PLO6": 2,
+          "PLO7": 2,
+          "PLO15": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-56",
+        "course_code": "DHKT55",
+        "name_vi": "Phân tích chính sách kinh tế xã hội",
+        "levels": {
+          "PLO1": 2,
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO15": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-57",
+        "course_code": "DHKT54",
+        "name_vi": "Kinh tế lượng nâng cao",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO15": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-58",
+        "course_code": "DHTC22",
+        "name_vi": "Quản trị rủi ro",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 17,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-59",
+        "course_code": "DHLD14",
+        "name_vi": "Pháp luật kinh tế",
+        "levels": {
+          "PLO1": 3,
+          "PLO2": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 18,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-60",
+        "course_code": "DHNC09",
+        "name_vi": "Đề tài nghiên cứu khoa học cấp Học viện",
+        "levels": {
+          "PLO2": 2,
+          "PLO3": 2,
+          "PLO8": 2,
+          "PLO15": 3
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 18,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-61",
+        "course_code": "DHKT95",
+        "name_vi": "Thực tập tốt nghiệp",
+        "levels": {
+          "PLO1": 3,
+          "PLO2": 3,
+          "PLO3": 2,
+          "PLO4": 2,
+          "PLO9": 2,
+          "PLO10": 2,
+          "PLO11": 2,
+          "PLO15": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 18,
+          "section": "Ma trận học phần–PLO"
+        }
+      },
+      {
+        "row_id": "MT-62",
+        "course_code": "DHKT96",
+        "name_vi": "Khóa luận tốt nghiệp",
+        "levels": {
+          "PLO1": 3,
+          "PLO2": 3,
+          "PLO3": 2,
+          "PLO4": 2,
+          "PLO9": 2,
+          "PLO10": 2,
+          "PLO11": 2,
+          "PLO15": 2
+        },
+        "source": {
+          "document": "608",
+          "pdf_page": 18,
+          "section": "Ma trận học phần–PLO"
+        }
+      }
+    ],
+    "reconciliation": {
+      "declared_credits": 122,
+      "mandatory_counted_credits": 105,
+      "elective_required": 17,
+      "elective_offered": 44,
+      "effective_credits": 122,
+      "outside_total_credits": 21,
+      "all_rows_mandatory_plus_elective_required": 143,
+      "course_rows": 61,
+      "counted_course_rows": 55,
+      "plo_count": 15,
+      "matrix_source_rows": 62,
+      "matrix_source_cells": 224,
+      "groups": [
+        {
+          "code": "TC_DC",
+          "required": 4,
+          "offered": 8,
+          "course_count": 4
+        },
+        {
+          "code": "TC_CS",
+          "required": 9,
+          "offered": 24,
+          "course_count": 8
+        },
+        {
+          "code": "TC_BT",
+          "required": 4,
+          "offered": 12,
+          "course_count": 6
+        }
+      ],
+      "ambiguous_course_codes": {
+        "DHKT39": [
+          "HP-24",
+          "HP-34"
+        ]
+      },
+      "matrix_codes_not_in_catalog": [
+        "DHNC01",
+        "DHNT12"
+      ]
+    },
+    "issues": [
+      {
+        "id": "KTS-01",
+        "severity": "blocker",
+        "title": "Một mã DHKT39 ứng với hai học phần khác nhau",
+        "detail": "Kinh tế đầu tư I (HP-24) và Kinh tế quốc tế I (HP-34) đều mang mã DHKT39. Không tự gộp, đổi mã hoặc bỏ một dòng.",
+        "sources": [
+          {
+            "document": "604",
+            "pdf_page": 4,
+            "section": "TT24 và TT34"
+          },
+          {
+            "document": "608",
+            "pdf_page": 8,
+            "section": "TT24"
+          },
+          {
+            "document": "608",
+            "pdf_page": 9,
+            "section": "TT34"
+          }
+        ],
+        "owner": "Đơn vị phụ trách CTĐT",
+        "resolution": null
+      },
+      {
+        "id": "KTS-02",
+        "severity": "blocker",
+        "title": "Mã xác suất thống kê khác giữa khung và ma trận",
+        "detail": "Khung CTĐT dùng DHIT48; ma trận dùng DHNT12 cho Lý thuyết xác suất và thống kê toán. Chưa tự nối hai mã.",
+        "sources": [
+          {
+            "document": "604",
+            "pdf_page": 3,
+            "section": "TT15"
+          },
+          {
+            "document": "608",
+            "pdf_page": 15,
+            "section": "TT15"
+          }
+        ],
+        "owner": "Đơn vị phụ trách CTĐT",
+        "resolution": null
+      },
+      {
+        "id": "KTS-03",
+        "severity": "blocker",
+        "title": "Mã phương pháp nghiên cứu khoa học không thống nhất",
+        "detail": "Khung dùng DHPR47 cho Phương pháp nghiên cứu khoa học trong kinh tế và quản trị kinh doanh; ma trận dùng DHNC01 và tên rút gọn. Cần xác nhận có cùng học phần không.",
+        "sources": [
+          {
+            "document": "604",
+            "pdf_page": 4,
+            "section": "TT46"
+          },
+          {
+            "document": "608",
+            "pdf_page": 17,
+            "section": "TT46"
+          }
+        ],
+        "owner": "Đơn vị phụ trách CTĐT",
+        "resolution": null
+      },
+      {
+        "id": "KTS-04",
+        "severity": "review",
+        "title": "Ma trận lặp dòng Phân tích kinh tế vi mô",
+        "detail": "DHKT93 xuất hiện hai lần với cùng mức đóng góp tại trang 17. DHKT97 đã có riêng ở trang 16; không đổi dòng trùng sang DHKT97.",
+        "sources": [
+          {
+            "document": "608",
+            "pdf_page": 17,
+            "section": "Hai dòng DHKT93"
+          },
+          {
+            "document": "608",
+            "pdf_page": 16,
+            "section": "DHKT97"
+          }
+        ],
+        "owner": "Đơn vị phụ trách CTĐT",
+        "resolution": null
+      },
+      {
+        "id": "KTS-05",
+        "severity": "blocker",
+        "title": "Phạm vi tổng tín chỉ cần được biểu diễn trong hệ thống",
+        "detail": "122 TC không gồm tiếng Anh cơ bản 10 TC, GDTC 3 TC, GDQP 8 TC. Bộ kiểm tra hiện tại cộng mọi học phần bắt buộc được gắn. Payload tính thử chỉ chứa học phần trong tổng; các học phần ngoài tổng được giữ đầy đủ trong source-draft.json, không coi payload tính thử là hồ sơ đầy đủ để ban hành.",
+        "sources": [
+          {
+            "document": "604",
+            "pdf_page": 2,
+            "section": "3.1"
+          }
+        ],
+        "owner": "Phòng Đào tạo / triển khai phần mềm",
+        "resolution": null
+      },
+      {
+        "id": "KTS-06",
+        "severity": "blocker",
+        "title": "Quy tắc học thay khóa luận và chống tính trùng",
+        "detail": "Khóa luận 6 TC hoặc học 3 học phần thay thế chọn từ khối 2.4.2. Cần xác nhận ba học phần này phải khác hai học phần bổ trợ đã tích lũy và điều kiện áp dụng; chưa tạo quy tắc thay thế giả.",
+        "sources": [
+          {
+            "document": "604",
+            "pdf_page": 5,
+            "section": "TT50"
+          }
+        ],
+        "owner": "Phòng Đào tạo",
+        "resolution": null
+      },
+      {
+        "id": "KTS-07",
+        "severity": "review",
+        "title": "Tên đề tài nghiên cứu khác giữa khung và ma trận",
+        "detail": "Cùng mã DHNC09: khung ghi Thực hiện đề tài khoa học sinh viên; ma trận ghi Đề tài nghiên cứu khoa học cấp Học viện. Giữ cả hai cách ghi để xác nhận.",
+        "sources": [
+          {
+            "document": "604",
+            "pdf_page": 5,
+            "section": "2.4.2"
+          },
+          {
+            "document": "608",
+            "pdf_page": 18,
+            "section": "DHNC09"
+          }
+        ],
+        "owner": "Đơn vị phụ trách CTĐT",
+        "resolution": null
+      },
+      {
+        "id": "KTS-08",
+        "severity": "review",
+        "title": "Mã CTĐT nội bộ và hình thức đào tạo chưa xác nhận",
+        "detail": "7310109 là mã ngành. KTS-2026-DRAFT chỉ là mã kỹ thuật đề xuất cho bản thử; không tự coi là mã CTĐT chính thức. Hình thức đào tạo để null.",
+        "sources": [
+          {
+            "document": "604",
+            "pdf_page": 2,
+            "section": "1"
+          }
+        ],
+        "owner": "Phòng Đào tạo",
+        "resolution": null
+      },
+      {
+        "id": "KTS-09",
+        "severity": "review",
+        "title": "Quan hệ tiên quyết và điều kiện ngoại ngữ cần rà soát riêng",
+        "detail": "Chưa ánh xạ điều kiện tiên quyết vào payload. Lịch học có TOEIC 370 hoặc tương đương cho tiếng Anh chuyên ngành; cấu trúc hiện tại chỉ có mã học phần tiên quyết, không biểu diễn điều kiện chứng chỉ này.",
+        "sources": [
+          {
+            "document": "608",
+            "pdf_page": 10,
+            "section": "Học kỳ 1–3"
+          },
+          {
+            "document": "608",
+            "pdf_page": 11,
+            "section": "Học kỳ 4–6"
+          },
+          {
+            "document": "608",
+            "pdf_page": 12,
+            "section": "Học kỳ 7–8"
+          }
+        ],
+        "owner": "Phòng Đào tạo",
+        "resolution": null
+      }
+    ],
+    "limitations": [
+      "Chưa được đơn vị chuyên môn duyệt bản chép.",
+      "Chưa nhập dữ liệu chính thức.",
+      "Chưa chuẩn hóa toàn văn mô tả học phần, đề cương, chứng chỉ và điều kiện tốt nghiệp.",
+      "Chưa có hồ sơ sinh viên/bảng điểm thật để thử công nhận tín chỉ."
+    ]
+  },
+  "candidate": {
+    "program": {
+      "name_vi": "Kinh tế số",
+      "name_en": "Digital Economics",
+      "degree_level": "dai_hoc",
+      "delivery_mode": null,
+      "total_credits": 122,
+      "elective_credits_required": 17,
+      "decision_number": "604/QĐ-HVPNVN",
+      "decision_date": "2026-06-16",
+      "code": "KTS-2026-DRAFT"
+    },
+    "knowledge_blocks": [
+      "Đại cương",
+      "Cơ sở ngành",
+      "Chuyên môn sâu",
+      "Bổ trợ",
+      "Thực tập và khóa luận"
+    ],
+    "elective_groups": [
+      {
+        "code": "TC_DC",
+        "name": "Tự chọn đại cương",
+        "knowledge_block": "Đại cương",
+        "credits_required": 4
+      },
+      {
+        "code": "TC_CS",
+        "name": "Tự chọn chuyên sâu",
+        "knowledge_block": "Chuyên môn sâu",
+        "credits_required": 9
+      },
+      {
+        "code": "TC_BT",
+        "name": "Tự chọn bổ trợ",
+        "knowledge_block": "Bổ trợ",
+        "credits_required": 4
+      }
+    ],
+    "courses": [
+      {
+        "course_code": "DHCT13",
+        "name_vi": "Triết học Mác – Lênin",
+        "credits": 3,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 1,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHCT14",
+        "name_vi": "Kinh tế chính trị Mác – Lênin",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 3,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHCT15",
+        "name_vi": "Chủ nghĩa xã hội khoa học",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 4,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHCT16",
+        "name_vi": "Lịch sử Đảng cộng sản Việt Nam",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 5,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHCT17",
+        "name_vi": "Tư tưởng Hồ Chí Minh",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 5,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHLD58",
+        "name_vi": "Pháp luật đại cương",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 2,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTL57",
+        "name_vi": "Tâm lý học kinh tế",
+        "credits": 3,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 1,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHCS03",
+        "name_vi": "Logic học đại cương",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 2,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHCS01",
+        "name_vi": "Năng lực số cơ bản",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 1,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHCS02",
+        "name_vi": "Năng lực số nâng cao",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 2,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHIT48",
+        "name_vi": "Lý thuyết xác suất và thống kê toán",
+        "credits": 3,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 1,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTH49",
+        "name_vi": "Kỹ năng làm việc nhóm",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": false,
+        "elective_group_code": "TC_DC",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTL59",
+        "name_vi": "Kỹ năng thuyết trình",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": false,
+        "elective_group_code": "TC_DC",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHPR20",
+        "name_vi": "Kỹ năng giải quyết vấn đề và ra quyết định",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": false,
+        "elective_group_code": "TC_DC",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTH44",
+        "name_vi": "Kỹ năng hành chính văn phòng",
+        "credits": 2,
+        "knowledge_block": "Đại cương",
+        "is_mandatory": false,
+        "elective_group_code": "TC_DC",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT02",
+        "name_vi": "Kinh tế vi mô",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 1,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT03",
+        "name_vi": "Kinh tế vĩ mô",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 2,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT04",
+        "name_vi": "Kinh tế lượng",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 3,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHIT54",
+        "name_vi": "Cơ sở của khoa học dữ liệu",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 4,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT39",
+        "name_vi": "Kinh tế đầu tư I",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 6,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTC01",
+        "name_vi": "Nguyên lý kế toán",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 2,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT36",
+        "name_vi": "Kinh tế phát triển",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 3,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTC03",
+        "name_vi": "Lý thuyết tài chính tiền tệ",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 4,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT83",
+        "name_vi": "Kinh doanh và đầu tư bất động sản",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 5,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTH61",
+        "name_vi": "Khởi nghiệp kinh doanh",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 3,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT33",
+        "name_vi": "Giới trong Kinh tế và Quản trị",
+        "credits": 3,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 7,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHNT26",
+        "name_vi": "Tiếng Anh chuyên ngành 1",
+        "credits": 2,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 5,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHNT27",
+        "name_vi": "Tiếng Anh chuyên ngành 2",
+        "credits": 2,
+        "knowledge_block": "Cơ sở ngành",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 6,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT89",
+        "name_vi": "Nhập môn kinh tế số",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 4,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT39",
+        "name_vi": "Kinh tế quốc tế I",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 6,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT88",
+        "name_vi": "Dữ liệu lớn trong Kinh tế và kinh doanh",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 6,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTC34",
+        "name_vi": "Công nghệ tài chính",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 5,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTC35",
+        "name_vi": "Kiến tập ngành kinh tế số",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 4,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT92",
+        "name_vi": "Blockchain trong kinh tế và kinh doanh",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 6,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHCS22",
+        "name_vi": "Trí tuệ nhân tạo",
+        "credits": 2,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 5,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT116",
+        "name_vi": "Kinh tế học dữ liệu",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHPR43",
+        "name_vi": "Kinh doanh số và thương mại điện tử",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHIT55",
+        "name_vi": "Hệ quản trị cơ sở dữ liệu",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHPR33",
+        "name_vi": "Marketing kỹ thuật số",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTC18",
+        "name_vi": "Tài chính doanh nghiệp",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT93",
+        "name_vi": "Phân tích kinh tế vi mô",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTC06",
+        "name_vi": "Quản trị dự án đầu tư",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT97",
+        "name_vi": "Phân tích kinh tế vĩ mô",
+        "credits": 3,
+        "knowledge_block": "Chuyên môn sâu",
+        "is_mandatory": false,
+        "elective_group_code": "TC_CS",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT51",
+        "name_vi": "Thống kê kinh tế",
+        "credits": 3,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 7,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT94",
+        "name_vi": "Chuyển đổi số",
+        "credits": 3,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 7,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTC19",
+        "name_vi": "Phân tích đầu tư",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 6,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHPR47",
+        "name_vi": "Phương pháp nghiên cứu khoa học trong kinh tế và quản trị kinh doanh",
+        "credits": 3,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 3,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT30",
+        "name_vi": "Hệ thống thông tin quản lý",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": false,
+        "elective_group_code": "TC_BT",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT55",
+        "name_vi": "Phân tích chính sách kinh tế và xã hội",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": false,
+        "elective_group_code": "TC_BT",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT54",
+        "name_vi": "Kinh tế lượng nâng cao",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": false,
+        "elective_group_code": "TC_BT",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHTC22",
+        "name_vi": "Quản trị rủi ro",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": false,
+        "elective_group_code": "TC_BT",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHLD14",
+        "name_vi": "Pháp luật kinh tế",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": false,
+        "elective_group_code": "TC_BT",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHNC09",
+        "name_vi": "Thực hiện đề tài khoa học sinh viên",
+        "credits": 2,
+        "knowledge_block": "Bổ trợ",
+        "is_mandatory": false,
+        "elective_group_code": "TC_BT",
+        "suggested_semester": null,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT95",
+        "name_vi": "Thực tập tốt nghiệp",
+        "credits": 6,
+        "knowledge_block": "Thực tập và khóa luận",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 8,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      },
+      {
+        "course_code": "DHKT96",
+        "name_vi": "Khóa luận tốt nghiệp (viết hoặc bảo vệ khóa luận) hoặc học 3 học phần thay thế - chọn từ khối kiến thức bổ trợ 2.4.2",
+        "credits": 6,
+        "knowledge_block": "Thực tập và khóa luận",
+        "is_mandatory": true,
+        "elective_group_code": null,
+        "suggested_semester": 8,
+        "prerequisite_course_code": null,
+        "corequisite_course_code": null
+      }
+    ],
+    "plos": [
+      {
+        "code": "PLO1",
+        "description_vi": "Vận dụng được kiến thức nền tảng về Chủ nghĩa Mác - Lênin, tư tưởng Hồ Chí Minh, đường lối của Đảng Cộng sản Việt Nam, pháp luật, khoa học chính trị và khoa học xã hội trong học tập, nghề nghiệp và thực hiện trách nhiệm công dân."
+      },
+      {
+        "code": "PLO2",
+        "description_vi": "Vận dụng được kiến thức nền tảng về kinh tế học, quản trị và các mô hình kinh tế để phân tích, đánh giá các hiện tượng kinh tế, chính sách kinh tế và hoạt động của doanh nghiệp, tổ chức trong nền kinh tế số."
+      },
+      {
+        "code": "PLO3",
+        "description_vi": "Phân tích được nguyên lý, mô hình và xu hướng phát triển của kinh tế số; vận dụng kiến thức về công nghệ số, chuyển đổi số, trí tuệ nhân tạo và các nền tảng số trong hoạt động quản trị, sản xuất, kinh doanh và cung cấp dịch vụ."
+      },
+      {
+        "code": "PLO4",
+        "description_vi": "Vận dụng được kiến thức về khoa học dữ liệu, thống kê, kinh tế lượng, phân tích dữ liệu lớn (Big Data), blockchain và các công nghệ phân tích dữ liệu để xử lý, phân tích và hỗ trợ ra quyết định trong các hoạt động kinh tế và kinh doanh."
+      },
+      {
+        "code": "PLO5",
+        "description_vi": "Phân tích và đánh giá được các mô hình, chiến lược và giải pháp phát triển kinh tế số ở cấp doanh nghiệp, ngành, địa phương và quốc gia; đề xuất được các giải pháp ứng dụng công nghệ số nhằm nâng cao hiệu quả hoạt động, năng lực cạnh tranh và phát triển bền vững."
+      },
+      {
+        "code": "PLO6",
+        "description_vi": "Vận dụng thành thạo các phương pháp, công cụ và mô hình phân tích kinh tế để đánh giá thị trường, chính sách, hoạt động sản xuất, kinh doanh và các vấn đề trong nền kinh tế số; đề xuất giải pháp nâng cao hiệu quả hoạt động của doanh nghiệp và tổ chức."
+      },
+      {
+        "code": "PLO7",
+        "description_vi": "Sử dụng hiệu quả các phần mềm thống kê, công cụ phân tích dữ liệu, kỹ thuật phân tích định lượng và các nền tảng công nghệ số để thu thập, xử lý, trực quan hóa và phân tích dữ liệu, hỗ trợ ra quyết định trong lĩnh vực kinh tế và kinh doanh."
+      },
+      {
+        "code": "PLO8",
+        "description_vi": "Thể hiện năng lực tư duy phản biện, kỹ năng khởi nghiệp, đổi mới sáng tạo, thực hành nghiên cứu khoa học và giải quyết vấn đề; có kỹ năng giao tiếp, thuyết trình, làm việc nhóm, quản lý thời gian, tổ chức công việc và ra quyết định trong môi trường làm việc số và hội nhập quốc tế."
+      },
+      {
+        "code": "PLO9",
+        "description_vi": "Thiết kế, triển khai và đánh giá các giải pháp ứng dụng công nghệ số, phân tích dữ liệu và chuyển đổi số nhằm nâng cao hiệu quả quản trị, hoạt động kinh doanh và năng lực cạnh tranh của doanh nghiệp, tổ chức."
+      },
+      {
+        "code": "PLO10",
+        "description_vi": "Thể hiện năng lực tự chủ trong học tập, nghiên cứu và công việc; chủ động cập nhật kiến thức, công nghệ mới và thích ứng với sự thay đổi của môi trường kinh tế số."
+      },
+      {
+        "code": "PLO11",
+        "description_vi": "Thực hiện công việc với tinh thần trách nhiệm, tuân thủ quy định của pháp luật, chuẩn mực đạo đức nghề nghiệp và các nguyên tắc về bảo mật, an toàn thông tin trong môi trường số."
+      },
+      {
+        "code": "PLO12",
+        "description_vi": "Có khả năng tổ chức, phối hợp, phân công, giám sát và đánh giá kết quả thực hiện công việc trong nhóm; chủ động phối hợp với các bên liên quan để hoàn thành mục tiêu chung."
+      },
+      {
+        "code": "PLO13",
+        "description_vi": "Có năng lực tự định hướng, tự đánh giá và phát triển nghề nghiệp; duy trì tinh thần học tập suốt đời, đổi mới sáng tạo và nâng cao năng lực chuyên môn nhằm đáp ứng yêu cầu của chuyển đổi số và hội nhập quốc tế."
+      },
+      {
+        "code": "PLO14",
+        "description_vi": "Sử dụng được tiếng Anh ở trình độ Bậc 3 theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam: Có thể hiểu được các ý chính của một đoạn văn hay bài phát biểu chuẩn mực, rõ ràng về các chủ đề quen thuộc trong công việc, trường học, giải trí, v.v...; Có thể viết các đoạn văn ngắn đơn giản về các chủ đề quen thuộc hoặc chủ đề trong lĩnh vực chuyên môn; có thể mô tả được những kinh nghiệm, sự kiện, giấc mơ, hy vọng, hoài bão và có thể trình bày ngắn gọn các lý do, giải thích ý kiến và kế hoạch của mình; Có thể đọc, hiểu các tài liệu chuyên ngành hoặc các lĩnh vực quan tâm được diễn đạt rõ ràng, mạch lạc."
+      },
+      {
+        "code": "PLO15",
+        "description_vi": "Đạt được các năng lực số áp dụng đối với sinh viên không theo học các ngành thuộc lĩnh vực khoa học máy tính và công nghệ thông tin; được Học viện xây dựng và phê duyệt trong đề cương chi tiết Học phần năng lực số trên cơ sở tham khảo các quy định, hướng dẫn của Bộ Giáo dục và Đào tạo (Thông tư số 02/2025/TT-BGDĐT ngày 24/1/2025 quy định Khung năng lực số cho người học)"
+      }
+    ],
+    "matrix": [
+      {
+        "course_code": "DHCT13",
+        "plo_code": "PLO1",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHCT13",
+        "plo_code": "PLO10",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCT13",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCT14",
+        "plo_code": "PLO1",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHCT14",
+        "plo_code": "PLO10",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCT14",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCT15",
+        "plo_code": "PLO1",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCT15",
+        "plo_code": "PLO10",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCT15",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCT16",
+        "plo_code": "PLO1",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCT16",
+        "plo_code": "PLO10",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCT16",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCT17",
+        "plo_code": "PLO1",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCT17",
+        "plo_code": "PLO10",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCT17",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHLD58",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHLD58",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHLD58",
+        "plo_code": "PLO10",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHLD58",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTL57",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTL57",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHEN07",
+        "plo_code": "PLO14",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHEN08",
+        "plo_code": "PLO14",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHEN09",
+        "plo_code": "PLO14",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHEN10",
+        "plo_code": "PLO14",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCS03",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCS03",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCS01",
+        "plo_code": "PLO14",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCS01",
+        "plo_code": "PLO15",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHCS02",
+        "plo_code": "PLO14",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCS02",
+        "plo_code": "PLO15",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHNT12",
+        "plo_code": "PLO10",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTH49",
+        "plo_code": "PLO8",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHTH49",
+        "plo_code": "PLO10",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTH49",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTL59",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTL59",
+        "plo_code": "PLO10",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTL59",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHPR20",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHPR20",
+        "plo_code": "PLO10",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHPR20",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHPR20",
+        "plo_code": "PLO12",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHPR20",
+        "plo_code": "PLO13",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTH44",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTH44",
+        "plo_code": "PLO12",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTH44",
+        "plo_code": "PLO13",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTH44",
+        "plo_code": "PLO15",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT02",
+        "plo_code": "PLO1",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT02",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT02",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT03",
+        "plo_code": "PLO1",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT03",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT03",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT04",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT04",
+        "plo_code": "PLO15",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHIT54",
+        "plo_code": "PLO4",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHIT54",
+        "plo_code": "PLO6",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHIT54",
+        "plo_code": "PLO15",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT39",
+        "plo_code": "PLO4",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT39",
+        "plo_code": "PLO6",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT39",
+        "plo_code": "PLO7",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT39",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT39",
+        "plo_code": "PLO15",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHTC01",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC01",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT36",
+        "plo_code": "PLO2",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT36",
+        "plo_code": "PLO3",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHTC03",
+        "plo_code": "PLO2",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHTC03",
+        "plo_code": "PLO3",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT83",
+        "plo_code": "PLO4",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT83",
+        "plo_code": "PLO5",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT83",
+        "plo_code": "PLO6",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT83",
+        "plo_code": "PLO7",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT83",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT83",
+        "plo_code": "PLO15",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTH61",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTH61",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTH61",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTH61",
+        "plo_code": "PLO12",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT33",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT33",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHNT26",
+        "plo_code": "PLO14",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHNT27",
+        "plo_code": "PLO14",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT89",
+        "plo_code": "PLO2",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT89",
+        "plo_code": "PLO3",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT89",
+        "plo_code": "PLO4",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT89",
+        "plo_code": "PLO5",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT89",
+        "plo_code": "PLO6",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT89",
+        "plo_code": "PLO7",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT89",
+        "plo_code": "PLO9",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT39",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT39",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT39",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT88",
+        "plo_code": "PLO4",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT88",
+        "plo_code": "PLO5",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT88",
+        "plo_code": "PLO6",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT88",
+        "plo_code": "PLO7",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT88",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT88",
+        "plo_code": "PLO15",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT97",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT97",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT97",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC34",
+        "plo_code": "PLO2",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHTC34",
+        "plo_code": "PLO3",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHTC34",
+        "plo_code": "PLO4",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHTC34",
+        "plo_code": "PLO5",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHTC34",
+        "plo_code": "PLO6",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC34",
+        "plo_code": "PLO7",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC34",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC34",
+        "plo_code": "PLO9",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC34",
+        "plo_code": "PLO15",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHTC35",
+        "plo_code": "PLO1",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC35",
+        "plo_code": "PLO2",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHTC35",
+        "plo_code": "PLO3",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHTC35",
+        "plo_code": "PLO9",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC35",
+        "plo_code": "PLO10",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC35",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT92",
+        "plo_code": "PLO2",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT92",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT92",
+        "plo_code": "PLO4",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT92",
+        "plo_code": "PLO5",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT92",
+        "plo_code": "PLO6",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT92",
+        "plo_code": "PLO7",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT92",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT92",
+        "plo_code": "PLO15",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHCS22",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCS22",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCS22",
+        "plo_code": "PLO4",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCS22",
+        "plo_code": "PLO5",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCS22",
+        "plo_code": "PLO6",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCS22",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHCS22",
+        "plo_code": "PLO15",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT116",
+        "plo_code": "PLO2",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT116",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT116",
+        "plo_code": "PLO4",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT116",
+        "plo_code": "PLO5",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT116",
+        "plo_code": "PLO6",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT116",
+        "plo_code": "PLO7",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT116",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT116",
+        "plo_code": "PLO15",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHPR43",
+        "plo_code": "PLO3",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHPR43",
+        "plo_code": "PLO7",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHPR43",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHPR43",
+        "plo_code": "PLO12",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHPR43",
+        "plo_code": "PLO14",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHIT55",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHIT55",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHIT55",
+        "plo_code": "PLO4",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHIT55",
+        "plo_code": "PLO5",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHIT55",
+        "plo_code": "PLO6",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHIT55",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHIT55",
+        "plo_code": "PLO15",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHPR33",
+        "plo_code": "PLO3",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHPR33",
+        "plo_code": "PLO7",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHPR33",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHPR33",
+        "plo_code": "PLO12",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHPR33",
+        "plo_code": "PLO14",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC18",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC18",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC18",
+        "plo_code": "PLO9",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT93",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT93",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT93",
+        "plo_code": "PLO9",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC06",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC06",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC06",
+        "plo_code": "PLO9",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT93",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT93",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT93",
+        "plo_code": "PLO9",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT51",
+        "plo_code": "PLO2",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT51",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT51",
+        "plo_code": "PLO7",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT51",
+        "plo_code": "PLO9",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT94",
+        "plo_code": "PLO2",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT94",
+        "plo_code": "PLO3",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT94",
+        "plo_code": "PLO4",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT94",
+        "plo_code": "PLO5",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT94",
+        "plo_code": "PLO6",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT94",
+        "plo_code": "PLO7",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT94",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT94",
+        "plo_code": "PLO15",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC19",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC19",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC19",
+        "plo_code": "PLO15",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHNC01",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHNC01",
+        "plo_code": "PLO9",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT30",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT30",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT30",
+        "plo_code": "PLO4",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT30",
+        "plo_code": "PLO5",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT30",
+        "plo_code": "PLO6",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT30",
+        "plo_code": "PLO7",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT30",
+        "plo_code": "PLO15",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT55",
+        "plo_code": "PLO1",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT55",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT55",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT55",
+        "plo_code": "PLO15",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT54",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT54",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT54",
+        "plo_code": "PLO15",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC22",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHTC22",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHLD14",
+        "plo_code": "PLO1",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHLD14",
+        "plo_code": "PLO2",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHNC09",
+        "plo_code": "PLO2",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHNC09",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHNC09",
+        "plo_code": "PLO8",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHNC09",
+        "plo_code": "PLO15",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT95",
+        "plo_code": "PLO1",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT95",
+        "plo_code": "PLO2",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT95",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT95",
+        "plo_code": "PLO4",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT95",
+        "plo_code": "PLO9",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT95",
+        "plo_code": "PLO10",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT95",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT95",
+        "plo_code": "PLO15",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT96",
+        "plo_code": "PLO1",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT96",
+        "plo_code": "PLO2",
+        "contribution_level": 3
+      },
+      {
+        "course_code": "DHKT96",
+        "plo_code": "PLO3",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT96",
+        "plo_code": "PLO4",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT96",
+        "plo_code": "PLO9",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT96",
+        "plo_code": "PLO10",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT96",
+        "plo_code": "PLO11",
+        "contribution_level": 2
+      },
+      {
+        "course_code": "DHKT96",
+        "plo_code": "PLO15",
+        "contribution_level": 2
+      }
+    ],
+    "warnings": [
+      {
+        "severity": "high",
+        "message": "KTS-01: Một mã DHKT39 ứng với hai học phần khác nhau. Kinh tế đầu tư I (HP-24) và Kinh tế quốc tế I (HP-34) đều mang mã DHKT39. Không tự gộp, đổi mã hoặc bỏ một dòng.",
+        "source": "QĐ604 PDF trang 4; QĐ608 PDF trang 8; QĐ608 PDF trang 9"
+      },
+      {
+        "severity": "high",
+        "message": "KTS-02: Mã xác suất thống kê khác giữa khung và ma trận. Khung CTĐT dùng DHIT48; ma trận dùng DHNT12 cho Lý thuyết xác suất và thống kê toán. Chưa tự nối hai mã.",
+        "source": "QĐ604 PDF trang 3; QĐ608 PDF trang 15"
+      },
+      {
+        "severity": "high",
+        "message": "KTS-03: Mã phương pháp nghiên cứu khoa học không thống nhất. Khung dùng DHPR47 cho Phương pháp nghiên cứu khoa học trong kinh tế và quản trị kinh doanh; ma trận dùng DHNC01 và tên rút gọn. Cần xác nhận có cùng học phần không.",
+        "source": "QĐ604 PDF trang 4; QĐ608 PDF trang 17"
+      },
+      {
+        "severity": "high",
+        "message": "KTS-04: Ma trận lặp dòng Phân tích kinh tế vi mô. DHKT93 xuất hiện hai lần với cùng mức đóng góp tại trang 17. DHKT97 đã có riêng ở trang 16; không đổi dòng trùng sang DHKT97.",
+        "source": "QĐ608 PDF trang 17; QĐ608 PDF trang 16"
+      },
+      {
+        "severity": "high",
+        "message": "KTS-05: Phạm vi tổng tín chỉ cần được biểu diễn trong hệ thống. 122 TC không gồm tiếng Anh cơ bản 10 TC, GDTC 3 TC, GDQP 8 TC. Bộ kiểm tra hiện tại cộng mọi học phần bắt buộc được gắn. Payload tính thử chỉ chứa học phần trong tổng; các học phần ngoài tổng được giữ đầy đủ trong source-draft.json, không coi payload tính thử là hồ sơ đầy đủ để ban hành.",
+        "source": "QĐ604 PDF trang 2"
+      },
+      {
+        "severity": "high",
+        "message": "KTS-06: Quy tắc học thay khóa luận và chống tính trùng. Khóa luận 6 TC hoặc học 3 học phần thay thế chọn từ khối 2.4.2. Cần xác nhận ba học phần này phải khác hai học phần bổ trợ đã tích lũy và điều kiện áp dụng; chưa tạo quy tắc thay thế giả.",
+        "source": "QĐ604 PDF trang 5"
+      },
+      {
+        "severity": "high",
+        "message": "KTS-07: Tên đề tài nghiên cứu khác giữa khung và ma trận. Cùng mã DHNC09: khung ghi Thực hiện đề tài khoa học sinh viên; ma trận ghi Đề tài nghiên cứu khoa học cấp Học viện. Giữ cả hai cách ghi để xác nhận.",
+        "source": "QĐ604 PDF trang 5; QĐ608 PDF trang 18"
+      },
+      {
+        "severity": "high",
+        "message": "KTS-08: Mã CTĐT nội bộ và hình thức đào tạo chưa xác nhận. 7310109 là mã ngành. KTS-2026-DRAFT chỉ là mã kỹ thuật đề xuất cho bản thử; không tự coi là mã CTĐT chính thức. Hình thức đào tạo để null.",
+        "source": "QĐ604 PDF trang 2"
+      },
+      {
+        "severity": "high",
+        "message": "KTS-09: Quan hệ tiên quyết và điều kiện ngoại ngữ cần rà soát riêng. Chưa ánh xạ điều kiện tiên quyết vào payload. Lịch học có TOEIC 370 hoặc tương đương cho tiếng Anh chuyên ngành; cấu trúc hiện tại chỉ có mã học phần tiên quyết, không biểu diễn điều kiện chứng chỉ này.",
+        "source": "QĐ608 PDF trang 10; QĐ608 PDF trang 11; QĐ608 PDF trang 12"
+      }
+    ],
+    "source_notes": [
+      "BẢN THỬ BỊ CHẶN; KHÔNG DÙNG BAN HÀNH. Đọc source-draft.json và các vấn đề chưa xác nhận.",
+      "Mã KTS-2026-DRAFT là mã kỹ thuật đề xuất, không phải mã chính thức.",
+      "21 tín chỉ ngoài tổng giữ ở source-draft.json; không được coi payload này là hồ sơ CTĐT đầy đủ.",
+      "Ma trận giữ mã gốc và dòng trùng; không tự khớp theo tên."
+    ]
+  }
+}

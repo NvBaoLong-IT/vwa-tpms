@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['student_code', 'full_name', 'date_of_birth', 'class_code', 'program_id', 'advisor_user_id', 'faculty_name', 'enrollment_year', 'degree_level', 'email', 'status', 'expected_graduation_date', 'graduated_at', 'withdrawn_at', 'proposal_deadline', 'proposal_submitted_at', 'department_defense_deadline', 'department_defended_at', 'academy_defense_deadline', 'academy_defended_at', 'maximum_study_end_date'];
 
     protected function casts(): array
@@ -17,7 +20,7 @@ class Student extends Model
 
     public function program(): BelongsTo
     {
-        return $this->belongsTo(Program::class);
+        return $this->belongsTo(Program::class)->withTrashed();
     }
 
     public function advisor(): BelongsTo

@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\CurriculumAudit;
 use App\Models\Program;
 use App\Models\User;
+use App\Services\CurriculumEditGuard;
 use Database\Seeders\OfficeRolesSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -40,7 +41,7 @@ class CurriculumAuditTest extends TestCase
         $this->assertSame($specialist->id, $created->actor_id);
         $this->assertSame('Tên ban đầu', $created->new_values['name_vi']);
 
-        $this->put(route('programs.update', $program), [
+        $this->put(route('programs.update', $program), ['editing_hash' => app(CurriculumEditGuard::class)->programHash($program),
             'code' => 'AUD-01', 'name_vi' => 'Tên mới', 'degree_level' => 'dai_hoc',
             'total_credits' => 3, 'review_cycle_years' => 3,
         ])->assertRedirect();
@@ -50,12 +51,12 @@ class CurriculumAuditTest extends TestCase
 
         $this->post(route('courses.store'), ['course_code' => 'AUD101', 'name_vi' => 'Học phần', 'credits' => 3, 'theory_hours' => 45, 'practice_hours' => 0])->assertRedirect();
         $course = Course::where('course_code', 'AUD101')->firstOrFail();
-        $this->put(route('courses.update', $course), ['course_code' => 'AUD101', 'name_vi' => 'Học phần mới', 'credits' => 3, 'theory_hours' => 45, 'practice_hours' => 0])->assertRedirect();
+        $this->put(route('courses.update', $course), ['editing_hash' => app(CurriculumEditGuard::class)->courseHash($course), 'course_code' => 'AUD101', 'name_vi' => 'Học phần mới', 'credits' => 3, 'theory_hours' => 45, 'practice_hours' => 0])->assertRedirect();
         $courseAudit = CurriculumAudit::where('subject_type', 'course')->where('action', 'updated')->firstOrFail();
         $this->assertSame('Học phần', $courseAudit->old_values['name_vi']);
         $this->assertSame('Học phần mới', $courseAudit->new_values['name_vi']);
         $program->courses()->attach($course, ['knowledge_block' => 'Đại cương', 'is_mandatory' => true]);
-        $this->put(route('courses.update', $course), ['course_code' => 'AUD101', 'name_vi' => 'Học phần sửa lần hai', 'credits' => 3, 'theory_hours' => 45, 'practice_hours' => 0])->assertRedirect();
+        $this->put(route('courses.update', $course), ['editing_hash' => app(CurriculumEditGuard::class)->courseHash($course), 'course_code' => 'AUD101', 'name_vi' => 'Học phần sửa lần hai', 'credits' => 3, 'theory_hours' => 45, 'practice_hours' => 0])->assertRedirect();
         $this->assertDatabaseHas('curriculum_audits', ['subject_type' => 'course', 'subject_id' => $course->id, 'program_id' => $program->id, 'actor_id' => $specialist->id]);
 
         $this->post(route('programs.plos.store', $program), ['code' => 'PLO1', 'description_vi' => 'Mô tả cũ'])->assertRedirect();
@@ -77,13 +78,33 @@ class CurriculumAuditTest extends TestCase
         $this->put(route('programs.matrix.update', $program), ['levels' => [$course->id => [$plo->id => 2]]])->assertRedirect();
         $this->post(route('programs.versions.store', $program), ['cohort_year' => 2026, 'decision_number' => '604/QĐ', 'decision_date' => '2026-06-16'])->assertRedirect();
         $version = $program->versions()->firstOrFail();
-        $this->post(route('programs.versions.publish', [$program, $version]))->assertRedirect();
+        $this->post(route('programs.versions.submit', [$program, $version]), ['effective_from' => '2026-06-16'])->assertSessionHasNoErrors()->assertRedirect();
+        $reviewer = $this->user('Lãnh đạo phòng');
+        $this->actingAs($reviewer)->post(route('programs.versions.review', [$program, $version]), ['decision' => 'approve', 'review_note' => 'Đồng ý'])->assertRedirect();
+        $this->actingAs($manager)->post(route('programs.versions.publish', [$program, $version]))->assertRedirect();
 
         $this->assertDatabaseHas('curriculum_audits', ['subject_type' => 'program_course', 'action' => 'attached', 'actor_id' => $manager->id]);
         $this->assertDatabaseHas('curriculum_audits', ['subject_type' => 'plo_matrix', 'action' => 'updated', 'actor_id' => $manager->id]);
         $this->assertDatabaseHas('curriculum_audits', ['subject_type' => 'program_version', 'action' => 'created', 'actor_id' => $manager->id]);
         $this->assertDatabaseHas('curriculum_audits', ['subject_type' => 'program_version', 'action' => 'published', 'actor_id' => $manager->id]);
         $this->get(route('programs.audit', ['program_id' => $program->id]))->assertOk()->assertSee($manager->name)->assertSee('Công bố');
+    }
+
+    public function test_deleted_course_keeps_audit_associations_for_every_program(): void
+    {
+        $first = Program::create(['code' => 'DEL-A', 'name_vi' => 'A', 'degree_level' => 'dai_hoc', 'total_credits' => 3]);
+        $second = Program::create(['code' => 'DEL-B', 'name_vi' => 'B', 'degree_level' => 'dai_hoc', 'total_credits' => 3]);
+        $course = Course::create(['course_code' => 'DEL', 'name_vi' => 'Học phần xóa', 'credits' => 3]);
+        foreach ([$first, $second] as $program) {
+            $program->courses()->attach($course, ['knowledge_block' => 'Đại cương']);
+        }
+
+        $this->actingAs($this->user('Lãnh đạo phòng'))->delete(route('courses.destroy', $course))->assertRedirect();
+        $this->assertSoftDeleted($course);
+        foreach ([$first, $second] as $program) {
+            $this->assertDatabaseHas('curriculum_audits', ['subject_type' => 'course', 'subject_id' => $course->id, 'action' => 'deleted', 'program_id' => $program->id]);
+        }
+        $this->assertDatabaseCount('program_course', 2);
     }
 
     public function test_audit_is_read_only_for_viewer_and_survives_program_deletion(): void

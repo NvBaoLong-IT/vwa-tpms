@@ -24,7 +24,7 @@ class AcademicWarningTest extends TestCase
     {
         parent::setUp();
         $role = Role::create(['name' => 'Chuyên viên học vụ', 'guard_name' => 'web']);
-        $role->syncPermissions(collect(['academic.view', 'academic.import', 'academic.process'])->map(fn ($p) => Permission::findOrCreate($p, 'web'))->all());
+        $role->syncPermissions(collect(['academic.view', 'academic.import', 'academic.process', 'reports.export'])->map(fn ($p) => Permission::findOrCreate($p, 'web'))->all());
     }
 
     public function test_warning_scan_creates_gpa_and_progress_warnings(): void
@@ -110,7 +110,8 @@ class AcademicWarningTest extends TestCase
 
         $this->actingAs($user)->get(route('academic.index', $filters))
             ->assertSee('Sinh viên chỉ xem')
-            ->assertSee('href="'.e(route('academic.export.excel', $filters)).'"', false)
+            ->assertDontSee('Xuất danh sách')
+            ->assertDontSee('href="'.e(route('academic.export.excel', $filters)).'"', false)
             ->assertDontSee('action="'.route('academic.warnings.update', $warning).'"', false)
             ->assertDontSee('action="'.route('academic.scan').'"', false);
     }

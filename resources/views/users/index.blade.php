@@ -1,9 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="academic-heading"><div><p class="academic-eyebrow">Quản trị hệ thống</p><h1>Quản lý người dùng</h1><p>Theo dõi tài khoản, vai trò và trạng thái truy cập.</p></div><div class="academic-heading-links"><a href="{{ route('users.login-logs') }}">Lịch sử đăng nhập &rarr;</a></div></div>
+        <div class="academic-heading"><div><p class="academic-eyebrow">Quản trị hệ thống</p><h1>Quản lý người dùng</h1><p>Theo dõi tài khoản, vai trò và trạng thái truy cập.</p></div><div class="academic-heading-links"><a href="{{ route('users.login-logs') }}">Nhật ký hoạt động &rarr;</a></div></div>
     </x-slot>
     <div class="academic-page user-directory-page app-shell">
-        @if(session('success'))<div class="academic-success" role="status">{{ session('success') }}</div>@endif
         <section aria-labelledby="user-create-title">
             <details class="program-management" @if($errors->hasAny(['name','email'])) open @endif>
                 <summary id="user-create-title">Tạo tài khoản mới</summary>

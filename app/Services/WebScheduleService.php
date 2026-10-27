@@ -28,6 +28,23 @@ class WebScheduleService
         return $results;
     }
 
+    public function tickFromConsole(): array
+    {
+        $heartbeat = WebScheduledRun::updateOrCreate(['run_key' => 'scheduler-heartbeat'], [
+            'task' => 'heartbeat', 'period' => now()->toDateString(), 'origin' => 'console',
+            'status' => 'running', 'started_at' => now(), 'finished_at' => null, 'error' => null,
+        ]);
+        try {
+            $results = $this->tick();
+            $heartbeat->update(['status' => 'completed', 'finished_at' => now()]);
+
+            return $results;
+        } catch (\Throwable $exception) {
+            $heartbeat->update(['status' => 'failed', 'finished_at' => now(), 'error' => Str::limit($exception->getMessage(), 2000)]);
+            throw $exception;
+        }
+    }
+
     public function runNow(string $task, ?int $year, int $userId): WebScheduledRun
     {
         if (! array_key_exists($task, self::TASKS)) {

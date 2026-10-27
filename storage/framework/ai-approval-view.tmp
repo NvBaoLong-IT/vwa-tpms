@@ -1,0 +1,30 @@
+        <section class="program-detail-overview space-y-3">
+            <h2>Phê duyệt bản nhập AI</h2>
+            <p><strong>{{ $documentImport->statusLabel() }}</strong> · Người gửi: {{ $documentImport->uploader?->name }}. Quy trình: kiểm tra → trình → lãnh đạo khác người trình duyệt → người trình nhập.</p>
+            @if($documentImport->approval_expires_at)<p>Hạn xử lý: {{ $documentImport->approval_expires_at->format('d/m/Y H:i') }}.</p>@endif
+            @if($documentImport->review_note)<p>Ý kiến của {{ $documentImport->reviewer?->name }}: {{ $documentImport->review_note }}</p>@endif
+            @if($comparisonStale)<p role="alert">Dữ liệu hoặc nội dung bản nhập đã thay đổi từ khi trình duyệt. Chưa thể duyệt/ghi; cần trả về hoặc tải tài liệu và trình duyệt lại.</p>@endif
+            @if(in_array($documentImport->status, ['review','returned'], true) && $comparisonHash && $documentImport->uploaded_by === auth()->id())
+                <form method="POST" action="{{ route('programs.document-imports.submit', $documentImport) }}" class="space-y-3">@csrf
+                    <input type="hidden" name="comparison_hash" value="{{ $comparisonHash }}">
+                    <label class="block"><input type="checkbox" name="confirm" value="1" required> Tôi đã kiểm tra bảng đối chiếu và trình lãnh đạo duyệt bản nhập này.</label>
+                    <button class="academic-button academic-button-primary">Trình duyệt bản nhập AI</button>
+                </form>
+            @endif
+            @if($documentImport->status === 'submitted' && auth()->user()->hasRole('Lãnh đạo phòng') && $documentImport->submitted_by !== auth()->id() && $documentImport->uploaded_by !== auth()->id())
+                <form method="POST" action="{{ route('programs.document-imports.review', $documentImport) }}" class="space-y-3">@csrf
+                    <label class="block">Ý kiến xét duyệt bản nhập AI<textarea name="review_note" required maxlength="4000" class="block w-full rounded border-gray-300"></textarea></label>
+                    @if(! $comparisonStale && $documentImport->approval_expires_at?->isFuture())<button name="decision" value="approve" class="academic-button academic-button-primary">Duyệt bản nhập AI</button>@endif
+                    <button name="decision" value="return" class="academic-button academic-button-secondary">Trả về bản nhập AI</button>
+                </form>
+            @endif
+            @if($documentImport->status === 'approved' && ! $comparisonStale && $documentImport->approval_expires_at?->isFuture() && $documentImport->submitted_by === auth()->id())
+                <form method="POST" action="{{ $program ? route('programs.document-imports.import', [$program, $documentImport]) : route('programs.document-imports.new.import', $documentImport) }}" class="space-y-3">@csrf
+                    <input type="hidden" name="comparison_hash" value="{{ $documentImport->approved_hash }}">
+                    <label class="block"><input type="checkbox" name="confirm" value="1" required> Tôi xác nhận ghi đúng bản nhập AI đã được lãnh đạo duyệt.</label>
+                    <button class="academic-button academic-button-primary">Nhập bản AI đã được duyệt</button>
+                </form>
+            @endif
+            @if(in_array($documentImport->status, ['submitted','approved'], true) && ($documentImport->submitted_by === auth()->id() || $documentImport->uploaded_by === auth()->id()))<p>Người trình không được tự xét duyệt. Việc duyệt bản nhập chưa thay thế duyệt phiên bản CTĐT trước công bố.</p>@endif
+            <a class="academic-button academic-button-secondary" href="{{ route('programs.document-imports.index') }}">Theo dõi bản nhập AI</a>
+        </section>

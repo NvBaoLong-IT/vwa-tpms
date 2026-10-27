@@ -18,7 +18,7 @@ class OfficeRolesSeeder extends Seeder
             'programs.view', 'programs.create', 'programs.update', 'programs.delete', 'programs.import',
             'courses.view', 'courses.create', 'courses.update', 'courses.delete', 'courses.assign',
             'iso.view', 'iso.create', 'iso.update', 'iso.assign', 'iso.approve', 'iso.close', 'iso.upload',
-            'students.view', 'academic.view', 'academic.import', 'academic.process',
+            'students.view', 'students.manage', 'academic.view', 'academic.import', 'academic.process',
             'diploma.view', 'diploma.issue', 'diploma.update', 'diploma.approve',
             'users.view', 'users.manage',
         ];
@@ -34,7 +34,7 @@ class OfficeRolesSeeder extends Seeder
                     'dashboard.view', 'reports.view', 'reports.export',
                     'programs.view', 'programs.create', 'programs.update', 'programs.import',
                     'courses.view', 'courses.create', 'courses.update', 'courses.assign',
-                    'students.view', 'academic.view', 'academic.import', 'academic.process',
+                    'students.view', 'students.manage', 'academic.view', 'academic.import', 'academic.process',
                 ],
                 'Xem' => [
                     'dashboard.view', 'reports.view', 'programs.view', 'courses.view',
